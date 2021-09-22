@@ -18,7 +18,7 @@ import java.util.Random;
  *
  * @author kealenpillay
  */
-public class VirtualPetGame
+public class Model
 {
     /**
      * Presents the player with instructions of how the game and game mechanics work.
