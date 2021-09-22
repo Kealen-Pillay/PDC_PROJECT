@@ -99,4 +99,44 @@ public class View extends JPanel
         g2.drawRoundRect(30, 380, 548, 180, 10, 10);
         g2.drawRoundRect(628, 378, 195, 185, 10, 10);
     }
+
+    /**
+     * @return the feedButton
+     */
+    public JButton getFeedButton() 
+    {
+        return feedButton;
+    }
+
+    /**
+     * @return the raceButton
+     */
+    public JButton getRaceButton() 
+    {
+        return raceButton;
+    }
+
+    /**
+     * @return the petPowerButton
+     */
+    public JButton getPetPowerButton() 
+    {
+        return petPowerButton;
+    }
+
+    /**
+     * @return the endGameButton
+     */
+    public JButton getEndGameButton() 
+    {
+        return endGameButton;
+    }
+
+    /**
+     * @return the instructionsButton
+     */
+    public JButton getInstructionsButton() 
+    {
+        return instructionsButton;
+    }
 }
