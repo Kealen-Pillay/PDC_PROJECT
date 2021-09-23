@@ -74,7 +74,7 @@ public class WaterDragon extends Pet
     @Override
     public String description()
     {
-        return "Water Dragon - The water dragon is cheerful and loyal! This dragon loves to swim.";
+        return "Water Dragon - The water dragon is cheerful and loyal! This dragon loves to SWIM.";
     }
     
     /**
