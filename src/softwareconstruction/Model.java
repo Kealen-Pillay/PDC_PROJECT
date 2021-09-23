@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -19,6 +17,9 @@ import java.util.StringTokenizer;
  */
 public class Model 
 {
+    private Pet pet;
+    private Owner owner;
+    
     /**
      * Presents the player with instructions of how the game and game mechanics work.
      */
@@ -98,12 +99,9 @@ public class Model
     {
         try
         {
-            Scanner scan = new Scanner(System.in);
-            Random r = new Random();
             BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
             String line = null;
-            String answer = null;
-            int foodGained = 0;
+
             HashMap<String, Integer> questions = new HashMap<String, Integer> ();
             
             while((line = input.readLine()) != null)
@@ -114,76 +112,7 @@ public class Model
                     questions.put(st.nextToken(), Integer.parseInt(st.nextToken()));
                 }
             }
-            
-            System.out.println("\n---------------------------------------------------------------\n");
-            System.out.println("INSTRUCTIONS");
-            System.out.println("------------");
-            System.out.println("-  Earn food pellets by answering basic math questions correctly!");
-            System.out.println("\n---------------------------------------------------------------\n");
-            
-            
-            int num = r.nextInt(questions.size());
-            int counter = 0;
-            String question = null;
-            int correctAnswer = 0;
-            
-            while(true)
-            {
-                for(HashMap.Entry<String, Integer> o : questions.entrySet())
-                {
-                    if(counter == num)
-                    {
-                        num = r.nextInt(questions.size());
-                        counter = 0;
-                        question = o.getKey();
-                        correctAnswer = o.getValue();
-                        System.out.print("QUESTION (Type 'stop' to quit): " + question + " ");
-                        break;
-                    }
-                    else
-                    {
-                        counter++;
-                    }
-                }
-                
-                answer = scan.next();
-                while(true)
-                {
-                    try
-                    {
-                        if(answer.toLowerCase().equals("stop"))
-                        {
-                            break;
-                        }
-                        if(Integer.parseInt(answer) == correctAnswer)
-                        {
-                            owner.setFood(owner.getFood() + 1);
-                            foodGained++;
-                            System.out.println("CORRECT!\n");
-                            break;
-                        }
-                        else
-                        {
-                            System.out.println("INCORRECT!\n");
-                            break;
-                        }
-                        
-                    }
-                    catch(NumberFormatException e)
-                    {
-                        System.out.println("Invalid Input! Try Again. Enter integers only or type 'stop' to quit.");
-                        System.out.print("\nQUESTION (Type stop to quit): " + question + " ");
-                        answer = scan.next();
-                    }
-                }
-                
-                if(answer.toLowerCase().equals("stop"))
-                {
-                    break;
-                }
-            }
-            
-            System.out.println("\nFood Gained: " + foodGained);
+                 
             input.close();
         }
         catch(FileNotFoundException e)
