@@ -74,7 +74,7 @@ public class EarthDragon extends Pet
     @Override
     public String description()
     {
-        return "Earth Dragon - The earth dragon has a relaxed nature but is very energetic! This dragon loves to run.";
+        return "Earth Dragon - The earth dragon has a relaxed nature but is very energetic! This dragon loves to RUN.";
     }
     
     /**
