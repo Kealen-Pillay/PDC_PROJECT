@@ -11,3 +11,11 @@ nbproject/private/private.xml
 build/classes/softwareconstruction/VirtualPetGame.class
 build/classes/softwareconstruction/OldMain.class
 build/classes/softwareconstruction/Controller$1.class
+build/classes/softwareconstruction/WaterDragon.class
+build/classes/softwareconstruction/TerraDragon.class
+build/classes/softwareconstruction/Pet.class
+build/classes/softwareconstruction/LavaDragon.class
+build/classes/softwareconstruction/IceDragon.class
+build/classes/softwareconstruction/FireDragon.class
+build/classes/softwareconstruction/EarthDragon.class
+build/classes/softwareconstruction/Controller$2.class
