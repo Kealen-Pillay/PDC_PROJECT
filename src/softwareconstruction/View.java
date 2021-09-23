@@ -2,9 +2,11 @@ package softwareconstruction;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -14,31 +16,135 @@ import javax.swing.*;
 public class View extends JPanel
 {
     //----------------------------------- Instance Variables ----------------------------------------
+    private Model model;
+    
     private Image petImage;
     private Image mod;
     private JLabel petIconLabel;
-
+    
     private JButton feedButton;
     private JButton raceButton;
     private JButton petPowerButton;
     private JButton endGameButton;
     private JButton instructionsButton;
-
+    
     private PetPanel petPanel;
     private PlayerPanel playerPanel;
     private FoodPanel foodPanel;
+    
+    private JPanel startPanel;
+    private JLabel gameLabel;
+    private JTextField usernameBox;
+    private JButton startButton;
+    private JLabel errorLabel;
+    
+    private JPanel selectionPanel;
+    private JLabel selectionLabel;
+    private JRadioButton option1;
+    private JRadioButton option2;
+    private JRadioButton option3;
+    private JTextField petNameField;
+    private JLabel errorLabel2;
+    private JButton enterButton;
     //------------------------------------ Constructor ------------------------------------------------
     
-    public View()
+    public View(Model m)
     {
-        this.setLayout(null);     
+        this.setLayout(null);
+        model = m;
         
-        petPanel = new PetPanel();       
+        //----- Start Screen -----
+        startPanel = new JPanel();
+        gameLabel = new JLabel("VIRTUAL PET GAME");
+        usernameBox = new JTextField("Enter Your Username Here...");
+        startButton = new JButton("Start");
+        errorLabel = new JLabel("");
+        startPanel.setSize(853, 600);
+        startPanel.setLocation(0, 0);
+        startPanel.setLayout(null);
+        startPanel.setBackground(Color.gray);
+        
+        Font f = new Font("Arial", Font.BOLD, 60);
+        gameLabel.setFont(f);
+        gameLabel.setSize(600, 60);
+        gameLabel.setLocation(120, 100);
+        
+        usernameBox.setSize(250, 30);
+        usernameBox.setLocation(280, 300);
+        
+        startButton.setSize(80, 30);
+        startButton.setLocation(550, 300);
+        
+        errorLabel.setSize(350, 30);
+        errorLabel.setLocation(285, 350);
+        
+        startPanel.add(usernameBox);
+        startPanel.add(startButton);
+        startPanel.add(errorLabel);
+        startPanel.add(gameLabel);
+        
+        //----- Pet Selection Panel -----
+        selectionPanel = new JPanel();
+        selectionPanel.setLayout(null);
+        selectionPanel.setBackground(Color.gray);
+        selectionPanel.setSize(853, 600);
+        selectionPanel.setLocation(0, 0);
+        
+        selectionLabel = new JLabel("Choose A Pet");
+        Font f1 = new Font("Arial", Font.BOLD, 60);
+        selectionLabel.setFont(f1);
+        selectionLabel.setSize(600, 60);
+        selectionLabel.setLocation(230, 50);
+        
+        ArrayList<Pet> pets = model.petList();
+        
+        option1 = new JRadioButton();
+        option1.setText(pets.get(0).description());
+        option1.setSize(600, 50);
+        option1.setLocation(120, 150);
+        
+        option2 = new JRadioButton();
+        option2.setText(pets.get(1).description());
+        option2.setSize(700, 50);
+        option2.setLocation(120, 250);
+        
+        option3 = new JRadioButton();
+        option3.setText(pets.get(2).description());
+        option3.setSize(700, 50);
+        option3.setLocation(120, 350);
+        
+        petNameField = new JTextField("Enter Pet Name");
+        petNameField.setSize(250, 30);
+        petNameField.setLocation(250, 450);
+        
+        errorLabel2 = new JLabel("");
+        errorLabel2.setSize(250, 30);
+        errorLabel2.setLocation(255, 500);
+        
+        enterButton = new JButton("Confirm");
+        enterButton.setSize(100, 30);
+        enterButton.setLocation(510, 450);
+        
+        selectionPanel.add(selectionLabel);
+        selectionPanel.add(option1);
+        selectionPanel.add(option2);
+        selectionPanel.add(option3);
+        selectionPanel.add(petNameField);
+        selectionPanel.add(enterButton);
+        selectionPanel.add(errorLabel2);
+        
+        //----- Pet Panel ------
+        petPanel = new PetPanel();
         petPanel.setLocation(30, 40);
         
+        
+        //----- Player Panel -----
         playerPanel = new PlayerPanel();
+        
         playerPanel.setLocation(630, 40);
         
+        
+        //----- Food Panel -----
         foodPanel = new FoodPanel();
         foodPanel.setLocation(630, 380);
         
@@ -49,7 +155,7 @@ public class View extends JPanel
         petIconLabel.setIcon(petIcon);
         petIconLabel.setSize(300, 300);
         petIconLabel.setLocation(275, 40);
-              
+        
         feedButton = new JButton("Feed Pet");
         feedButton.setSize(260, 60);
         feedButton.setLocation(40, 390);
@@ -70,7 +176,7 @@ public class View extends JPanel
         instructionsButton.setSize(535, 30);
         instructionsButton.setLocation(35, 522);
         
-        this.add(petIconLabel);   
+        this.add(petIconLabel);
         this.add(petPanel);
         this.add(playerPanel);
         this.add(foodPanel);
@@ -84,7 +190,7 @@ public class View extends JPanel
     }
     
     //----------------------------------- Methods -----------------------------------------------
-   
+    
     @Override
     public void paintComponent(Graphics g)
     {
@@ -99,44 +205,135 @@ public class View extends JPanel
         g2.drawRoundRect(30, 380, 548, 180, 10, 10);
         g2.drawRoundRect(628, 378, 195, 185, 10, 10);
     }
-
+    
     /**
      * @return the feedButton
      */
-    public JButton getFeedButton() 
+    public JButton getFeedButton()
     {
         return feedButton;
     }
-
+    
     /**
      * @return the raceButton
      */
-    public JButton getRaceButton() 
+    public JButton getRaceButton()
     {
         return raceButton;
     }
-
+    
     /**
      * @return the petPowerButton
      */
-    public JButton getPetPowerButton() 
+    public JButton getPetPowerButton()
     {
         return petPowerButton;
     }
-
+    
     /**
      * @return the endGameButton
      */
-    public JButton getEndGameButton() 
+    public JButton getEndGameButton()
     {
         return endGameButton;
     }
-
+    
     /**
      * @return the instructionsButton
      */
-    public JButton getInstructionsButton() 
+    public JButton getInstructionsButton()
     {
         return instructionsButton;
+    }
+
+    /**
+     * @return the usernameBox
+     */
+    public JTextField getUsernameBox() {
+        return usernameBox;
+    }
+
+    /**
+     * @return the startButton
+     */
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    /**
+     * @return the errorLabel
+     */
+    public JLabel getErrorLabel() {
+        return errorLabel;
+    }
+
+    /**
+     * @return the startPanel
+     */
+    public JPanel getStartPanel() {
+        return startPanel;
+    }
+
+    /**
+     * @return the gameLabel
+     */
+    public JLabel getGameLabel() {
+        return gameLabel;
+    }
+
+    /**
+     * @return the selectionPanel
+     */
+    public JPanel getSelectionPanel() {
+        return selectionPanel;
+    }
+
+    /**
+     * @return the selectionLabel
+     */
+    public JLabel getSelectionLabel() {
+        return selectionLabel;
+    }
+
+    /**
+     * @return the option1
+     */
+    public JRadioButton getOption1() {
+        return option1;
+    }
+
+    /**
+     * @return the option2
+     */
+    public JRadioButton getOption2() {
+        return option2;
+    }
+
+    /**
+     * @return the option3
+     */
+    public JRadioButton getOption3() {
+        return option3;
+    }
+
+    /**
+     * @return the petNameField
+     */
+    public JTextField getPetNameField() {
+        return petNameField;
+    }
+
+    /**
+     * @return the errorLabel2
+     */
+    public JLabel getErrorLabel2() {
+        return errorLabel2;
+    }
+
+    /**
+     * @return the enterButton
+     */
+    public JButton getEnterButton() {
+        return enterButton;
     }
 }
