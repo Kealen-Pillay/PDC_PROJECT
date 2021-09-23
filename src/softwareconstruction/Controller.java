@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.*;
 
@@ -43,7 +44,8 @@ public class Controller extends JFrame implements ActionListener
         view.getInstructionsButton().addActionListener(this);
         //this.getContentPane().add(view, BorderLayout.CENTER);    
 
-        startScreen();
+        //startScreen();
+        choosePetScreen();
                  
     }
     
@@ -136,9 +138,75 @@ public class Controller extends JFrame implements ActionListener
         
     }
     
-    public void choosePetPanel()
+    public void choosePetScreen()
     {
-        System.out.println("Choose Pet");
+        JPanel selectionPanel = new JPanel();
+        selectionPanel.setLayout(null);
+        selectionPanel.setBackground(Color.gray);
+        selectionPanel.setSize(853, 600);
+        selectionPanel.setLocation(0, 0);
+        
+        JLabel selectionLabel = new JLabel("Choose A Pet");
+        Font f = new Font("Arial", Font.BOLD, 60);
+        selectionLabel.setFont(f);
+        selectionLabel.setSize(600, 60);
+        selectionLabel.setLocation(230, 50);
+        
+        ArrayList<Pet> pets = model.petList();
+        
+        JRadioButton option1 = new JRadioButton();
+        option1.setText(pets.get(0).description());
+        option1.setSize(600, 50);
+        option1.setLocation(120, 150);
+        
+        JRadioButton option2 = new JRadioButton();
+        option2.setText(pets.get(1).description());
+        option2.setSize(700, 50);
+        option2.setLocation(120, 250);
+        
+        JRadioButton option3 = new JRadioButton();
+        option3.setText(pets.get(2).description());
+        option3.setSize(700, 50);
+        option3.setLocation(120, 350);
+        
+        JTextField petNameField = new JTextField("Enter Pet Name");
+        petNameField.setSize(250, 30);
+        petNameField.setLocation(250, 450);
+          
+        JLabel errorLabel = new JLabel("");
+        errorLabel.setSize(250, 30);
+        errorLabel.setLocation(255, 500);
+        
+        JButton enterButton = new JButton("Confirm");
+        enterButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String petName = petNameField.getText();
+                char[] arr = petName.toCharArray();
+                
+                for(char c : arr)
+                {
+                    if(!Character.isLetter(c))
+                    {
+                        errorLabel.setText("Pet name must contain characters only!");
+                        break;
+                    }
+                }
+            }
+        });
+        enterButton.setSize(100, 30);
+        enterButton.setLocation(510, 450);
+        
+        selectionPanel.add(selectionLabel);
+        selectionPanel.add(option1);
+        selectionPanel.add(option2);
+        selectionPanel.add(option3);
+        selectionPanel.add(petNameField);
+        selectionPanel.add(enterButton);
+        selectionPanel.add(errorLabel);
+        this.getContentPane().add(selectionPanel);
     }
     
     public static void main(String[] args)
@@ -148,7 +216,6 @@ public class Controller extends JFrame implements ActionListener
         Dimension screenDimension = tk.getScreenSize();
         Dimension frameDimension = frame.getSize();
         frame.setLocation((screenDimension.width-frameDimension.width)/2, (screenDimension.height-frameDimension.height)/2);
-        frame.setVisible(true);
-        
+        frame.setVisible(true); 
     }
 }
