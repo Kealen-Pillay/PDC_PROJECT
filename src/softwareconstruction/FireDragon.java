@@ -74,7 +74,7 @@ public class FireDragon extends Pet
     @Override
     public String description()
     {
-        return "Fire Dragon - The fire dragon has a fiery temper and is very mischievous! This dragon loves to fly.";
+        return "Fire Dragon - The fire dragon has a fiery temper and is very mischievous! This dragon loves to FLY.";
     }
     
     /**
