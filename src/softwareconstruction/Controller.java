@@ -154,19 +154,18 @@ public class Controller extends JFrame implements ActionListener
         
         ArrayList<Pet> pets = model.petList();
         
-        
         JRadioButton option1 = new JRadioButton();
         option1.setText(pets.get(0).description());
         option1.setSize(600, 50);
         option1.setLocation(120, 150);
         
         JRadioButton option2 = new JRadioButton();
-        //option2.setText(pets.get(1).description());
+        option2.setText(pets.get(1).description());
         option2.setSize(700, 50);
         option2.setLocation(120, 250);
         
         JRadioButton option3 = new JRadioButton();
-        //option3.setText(pets.get(2).description());
+        option3.setText(pets.get(2).description());
         option3.setSize(700, 50);
         option3.setLocation(120, 350);
         
