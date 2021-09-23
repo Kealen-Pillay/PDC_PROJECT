@@ -53,11 +53,8 @@ public class Model
      */
     public ArrayList<Pet> petList()
     {
-        Scanner keyboard = new Scanner(System.in);
         ArrayList<Pet> pets = new ArrayList<Pet> ();
         String line = null;
-        int petChoice = 0;
-        String petName = null;
         
         try
         {
