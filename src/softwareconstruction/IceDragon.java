@@ -72,9 +72,9 @@ public class IceDragon extends WaterDragon
      * Provides the user with a description of the ice dragon pet.
      */
     @Override
-    public void description()
+    public String description()
     {
-        System.out.println("\nIce Dragon\n------------\nThe ice dragon is an ice cold killer! This dragon loves to freeze it's prey.\n");
+        return "\nIce Dragon\n------------\nThe ice dragon is an ice cold killer! This dragon loves to freeze it's prey.\n";
     }
     
     /**

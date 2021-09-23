@@ -200,7 +200,7 @@ public abstract class Pet implements PetBehaviour
     /**
      * Abstract method which is implemented by subclasses of Pet Class. Method which provides the user with a description of the pet.
      */
-    public abstract void description();    
+    public abstract String description();    
     
     /**
      * Method which uses the pet's unique power. The power varies depending on the type of pet.

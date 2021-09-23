@@ -72,9 +72,9 @@ public class EarthDragon extends Pet
      * Provides the user with a description of the earth dragon pet.
      */
     @Override
-    public void description()
+    public String description()
     {
-        System.out.println("Earth Dragon\n------------\nThe earth dragon has a relaxed nature but is very energetic! This dragon loves to run.\n");
+        return "Earth Dragon - The earth dragon has a relaxed nature but is very energetic! This dragon loves to run.";
     }
     
     /**

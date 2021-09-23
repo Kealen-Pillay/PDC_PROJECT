@@ -72,9 +72,9 @@ public class LavaDragon extends FireDragon
      * Provides the user with a description of the lava dragon pet.
      */
     @Override
-    public void description()
+    public String description()
     {
-        System.out.println("\nLava Dragon\n-----------\nThe lava dragon is erupting with power! This ferocious dragon loves resting in volcanoes.\n");
+        return "\nLava Dragon\n-----------\nThe lava dragon is erupting with power! This ferocious dragon loves resting in volcanoes.\n";
     }
     
     /**

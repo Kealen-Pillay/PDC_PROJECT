@@ -72,9 +72,9 @@ public class WaterDragon extends Pet
      * Provides the user with a description of the water dragon pet.
      */
     @Override
-    public void description()
+    public String description()
     {
-        System.out.println("Water Dragon\n------------\nThe water dragon is cheerful and loyal! This dragon loves to swim.\n");
+        return "Water Dragon - The water dragon is cheerful and loyal! This dragon loves to swim.";
     }
     
     /**

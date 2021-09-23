@@ -73,9 +73,9 @@ public class TerraDragon extends EarthDragon
      * Provides the user with a description of the terra dragon pet.
      */
     @Override
-    public void description()
+    public String description()
     {
-        System.out.println("\nTerra Dragon\n------------\nThe terra dragon is a tough beast of nature that has incredible speed! This dragon loves to hunt.\n");
+        return "\nTerra Dragon\n------------\nThe terra dragon is a tough beast of nature that has incredible speed! This dragon loves to hunt.\n";
     }
     
     /**

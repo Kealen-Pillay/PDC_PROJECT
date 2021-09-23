@@ -72,9 +72,9 @@ public class FireDragon extends Pet
      *  Provides the user with a description of the fire dragon pet.
      */
     @Override
-    public void description()
+    public String description()
     {
-        System.out.println("Fire Dragon\n-----------\nThe fire dragon has a fiery temper and is very mischievous! This dragon loves to fly.\n");
+        return "Fire Dragon - The fire dragon has a fiery temper and is very mischievous! This dragon loves to fly.";
     }
     
     /**
