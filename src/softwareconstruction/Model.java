@@ -51,7 +51,7 @@ public class Model
      * Start screen which allows the user to pick the type of pet they want and the name of the pet.
      * @return returns either a WaterDragon, EarthDragon or FireDragon pet object.
      */
-    public static Pet startScreen()
+    public ArrayList<Pet> petList()
     {
         Scanner keyboard = new Scanner(System.in);
         ArrayList<Pet> pets = new ArrayList<Pet> ();
@@ -78,65 +78,6 @@ public class Model
                     pets.add(p3);
                 }
                 
-                //  User selects pet.
-                System.out.println("---------------------------------------------------------------------");
-                System.out.println("                        CHOOSE A PET");
-                System.out.println("---------------------------------------------------------------------");
-                
-                for(Pet p : pets)
-                {
-                    p.description();
-                }
-                System.out.println("Select a pet (Enter 1, 2 or 3)");
-                
-                while(true)
-                {
-                    try
-                    {
-                        System.out.println("(1) Water Dragon   (2) Earth Dragon    (3) Fire Dragon");
-                        petChoice = keyboard.nextInt();
-                        if(petChoice > 0 && petChoice < 4)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            System.out.println("Invalid Input! Select a number between the given range.");
-                        }
-                    }
-                    catch(InputMismatchException e)
-                    {
-                        System.out.println("Invalid Input! Try Again. Please pick between the options provided.");
-                        keyboard.next();
-                    }
-                }
-                
-                while(true)
-                {
-                    System.out.println("\nEnter Pet Name (Characters Only): ");
-                    petName = keyboard.next();
-                    boolean acceptable = false;
-                    
-                    
-                    for(char c : petName.toCharArray())
-                    {
-                        if(Character.isLetter(c) || c == ' ')
-                        {
-                            acceptable = true;
-                        }
-                        else
-                        {
-                            System.out.println("Invalid Input! CHARACTERS ONLY. Try Again.");
-                            acceptable = false;
-                            break;
-                        }
-                    }
-                    if(acceptable)
-                    {
-                        pets.get(petChoice - 1).setPetName(petName);
-                        break;
-                    }
-                }
             }
             inputStream.close();
         }
@@ -149,7 +90,7 @@ public class Model
             System.out.println("IOException");
         }
         
-        return pets.get(petChoice -1);
+        return pets;
     }
     
     /**
