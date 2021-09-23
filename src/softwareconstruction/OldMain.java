@@ -1,5 +1,6 @@
 package softwareconstruction;
 
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,16 +9,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.InputMismatchException;
+import java.util.Random;
 
 /**
  *
  * @author kealenpillay
  */
-public class Model 
+public class OldMain
 {
     /**
      * Presents the player with instructions of how the game and game mechanics work.
@@ -396,5 +397,184 @@ public class Model
         }  
     }
     
-    
+    /**
+     * Main
+     */
+    public static void main(String[] args)
+    {
+        instructions();
+        
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        String endGame = "no";
+        
+        System.out.println("Enter your username: ");
+        String username = keyboard.next();
+        
+        while(exists(username))
+        {
+            System.out.println("USERNAME ALREADY EXISTS! Enter a new username: ");
+            username = keyboard.next();
+        }
+        
+        Owner player = new Owner(username, 0, 10, 0, false);
+        Pet pet = startScreen();
+        
+        usageStats(pet);
+        
+        while(!pet.isDead())
+        {
+            System.out.println("----------------------------------------------------------------------------------------------------");
+            System.out.println(pet);
+            System.out.println(player);
+            System.out.println("What would you like to do?");
+            System.out.println("(1) Feed Pet    (2) Race Pet    (3) Earn Food   (4) Evolve  (5) Use Pet Power   (6) End Game");
+            
+            while(true)
+            {
+                try
+                {
+                    option = keyboard.nextInt();
+                    
+                    if(option > 0 && option < 7)
+                    {
+                        if(option == 1)
+                        {
+                            player.feed(pet);
+                            pet.roar();
+                            break;
+                        }
+                        else if(option == 2)
+                        {
+                            pet.race(player);
+                            pet.roar();
+                            break;
+                        }
+                        else if(option == 3)
+                        {
+                            earnFood(player);
+                            break;
+                        }
+                        else if(option == 4)
+                        {
+                            if(!player.getMaxPet())
+                            {
+                                System.out.println("--------------------------------------------");
+                                System.out.println("EVOLUTION TABLE");
+                                System.out.println("--------------------------------------------");
+                                System.out.println("Water Dragon --> Ice Dragon");
+                                System.out.println("Earth Dragon --> Terra Dragon");
+                                System.out.println("Fire Dragon  --> Lava Dragon");
+                                System.out.println("\nTo evolve your pet you must have:");
+                                System.out.println("(1) $500");
+                                System.out.println("(2) A minimum of 5 races won");
+                                
+                                if(player.getMoney() >= 500 && player.getRacesWon() >= 5)
+                                {
+                                    System.out.println("Would you like to evolve " + pet.getPetName() + " (yes/no) - (This will deduct $500 from your money)");
+                                    
+                                    while(true)
+                                    {
+                                        String evolvePet = keyboard.next();
+                                        
+                                        if(evolvePet.toLowerCase().equals("yes"))
+                                        {
+                                            player.setMoney(player.getMoney() - 500);
+                                            if(pet instanceof WaterDragon)
+                                            {
+                                                pet = new IceDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 3, pet.getSpeed() + 3, pet.getFlight() + 3);
+                                                System.out.println("CONGRATULATION!!! " + pet.getPetName() + " has evolved into an Ice Dragon and has become more skilled.");
+                                            }
+                                            else if(pet instanceof EarthDragon)
+                                            {
+                                                pet = new TerraDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 3, pet.getSpeed() + 3, pet.getFlight() + 3);
+                                                System.out.println("CONGRATULATION!!! " + pet.getPetName() + " has evolved into a Terra Dragon and has become more skilled.");
+                                            }
+                                            else
+                                            {
+                                                pet = new LavaDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 3, pet.getSpeed() + 3, pet.getFlight() + 3);
+                                                System.out.println("CONGRATULATION!!! " + pet.getPetName() + " has evolved into a Lava Dragon and has become more skilled.");
+                                            }
+                                            pet.description();
+                                            player.setMaxPet(true);
+                                            break;
+                                        }
+                                        else if(evolvePet.toLowerCase().equals("no"))
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            System.out.println("Invalid Input! Try Again. Enter 'yes' or 'no' only.");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    System.out.println("YOU DO NOT MEET THE CONDITIONS TO EVOLVE YOUR PET.");
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Your pet is already in it's final evolution state.");
+                            }
+                            break;
+                        }
+                        else if(option == 5)
+                        {
+                            pet.power();
+                            pet.roar();
+                        }
+                        else
+                        {
+                            System.out.println("Are you sure you wish to end the game (yes / no)?\n(WARNING: This action cannot be undone and progress cannot be recovered)");
+                            while(true)
+                            {
+                                endGame = keyboard.next();
+                                if(endGame.toLowerCase().equals("yes"))
+                                {
+                                    System.out.println("Thank you for playing.");
+                                    break;
+                                }
+                                else if(endGame.toLowerCase().equals("no"))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    System.out.println("Invalid Input! Try Again. Enter 'yes' or 'no' only.");
+                                }
+                            }                          
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("Invalid Input! Enter a number within the given range.");
+                    }
+                }
+                catch(InputMismatchException e)
+                {
+                    System.out.println("Invalid Input! Try Again. Please select from the options provided.");
+                    keyboard.next();
+                }
+                break;
+            }
+            if(endGame.toLowerCase().equals("yes"))
+            {
+                break;
+            }
+        }
+        if(pet.isDead())
+        {
+            System.out.println("----------------------------------------------------------------------------------------------------");
+            System.out.println(pet.getPetName() + " HAS DIED..... GAME OVER!");
+            System.out.println("----------------------------------------------------------------------------------------------------");
+        }
+        Highscores hs = new Highscores(player.getName(), player.getRacesWon());
+        hs.writeScores();
+        hs.displayScores();
+        
+        System.out.print("\n");
+        reviews();
+    }
 }
