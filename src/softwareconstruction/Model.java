@@ -17,26 +17,33 @@ import java.util.StringTokenizer;
  */
 public class Model 
 {
+    //--------------------------- Instance Variables ----------------------------------------------
     private Pet pet;
     private Owner owner;
     
+    //---------------------------- Constructor -----------------------------------------------------
+    public Model()
+    {    
+    }
+    
+    //-------------------------- Methods ------------------------------------------------------------
     /**
      * Presents the player with instructions of how the game and game mechanics work.
      */
-    public static void instructions()
+    public String instructions()
     {
+        String text = "";
         try
         {
             BufferedReader instructions = new BufferedReader(new FileReader("Instructions.txt"));
-            String line = null;
+            String line = null;         
             
             while((line = instructions.readLine()) != null)
             {
-                System.out.println(line);
+                text += line + "\n\n";
             }
-            System.out.print("\n");
+            text += "";
             instructions.close();
-            
         }
         catch(FileNotFoundException e)
         {
@@ -46,6 +53,7 @@ public class Model
         {
             System.out.println("IO Exception.");
         }
+        return text;
     }
     
     /**
@@ -95,7 +103,7 @@ public class Model
      * Allows the user to earn food for their pet by answering basic math questions correctly. Math questions are randomly generated. Each correct question will increase the player's food amount by 1.
      * @param owner represents the owner of the pet.
      */
-    public static void earnFood(Owner owner)
+    public void earnFood(Owner owner)
     {
         try
         {
@@ -130,7 +138,7 @@ public class Model
      * @param username represents the username to check.
      * @return returns a Boolean value. True is returned if the username already exists, otherwise false is returned.
      */
-    public static boolean exists(String username)
+    public boolean exists(String username)
     {
         try
         {
@@ -166,7 +174,7 @@ public class Model
      * Reads from an external file which keeps track of how many times each type of pet has been selected. This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
      * @param p represents the current player's selected pet. This is used to check the type of pet in order to update usage statistics.
      */
-    public static void usageStats(Pet p)
+    public void usageStats(Pet p)
     {
         try
         {
@@ -223,7 +231,7 @@ public class Model
     /**
      * Allows the player to write a review after playing the game. All reviews are stored in an external text file.
      */
-    public static void reviews()
+    public void reviews()
     {
         try
         {
@@ -261,6 +269,35 @@ public class Model
         {
             System.out.println("File Not Found.");
         }  
+    }
+
+    /**
+     * @return the pet
+     */
+    public Pet getPet() {
+        return pet;
+    }
+
+    /**
+     * @return the owner
+     */
+    public Owner getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param pet the pet to set
+     */
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    /**
+     * @param owner the owner to set
+     */
+    public void setOwner(Owner owner) 
+    {
+        this.owner = owner;
     }
     
     
