@@ -38,11 +38,17 @@ public class View extends JPanel
     private JButton startButton;
     private JLabel errorLabel;
     
+    private JPanel instructionPanel;
+    private JLabel instructionTitleLabel;
+    private JTextArea instructionText;
+    private JButton continueButton;
+    
     private JPanel selectionPanel;
     private JLabel selectionLabel;
     private JRadioButton option1;
     private JRadioButton option2;
     private JRadioButton option3;
+    private ButtonGroup optionGroup;
     private JTextField petNameField;
     private JLabel errorLabel2;
     private JButton enterButton;
@@ -83,6 +89,32 @@ public class View extends JPanel
         startPanel.add(errorLabel);
         startPanel.add(gameLabel);
         
+        //----- Instruction Panel -----
+        instructionPanel = new JPanel();
+        instructionPanel.setLayout(null);
+        instructionPanel.setBackground(Color.gray);
+        
+        instructionTitleLabel = new JLabel("INSTRUCTIONS");
+        Font instructionTitleFont = new Font("Arial", Font.BOLD, 40);
+        instructionTitleLabel.setFont(instructionTitleFont);
+        instructionTitleLabel.setSize(600, 60);
+        instructionTitleLabel.setLocation(275, 5);
+        
+        instructionText = new JTextArea(model.instructions());
+        instructionText.setBackground(Color.gray);
+        instructionText.setEditable(false);
+        instructionText.setSize(800, 480);
+        instructionText.setLocation(40, 65);
+        
+        continueButton = new JButton("Continue");
+        continueButton.setSize(100, 30);
+        continueButton.setLocation(375, 530);
+
+        instructionPanel.add(instructionTitleLabel);
+        instructionPanel.add(continueButton);
+        instructionPanel.add(instructionText);
+        
+        
         //----- Pet Selection Panel -----
         selectionPanel = new JPanel();
         selectionPanel.setLayout(null);
@@ -101,24 +133,32 @@ public class View extends JPanel
         option1 = new JRadioButton();
         option1.setText(pets.get(0).description());
         option1.setSize(600, 50);
+        option1.setActionCommand("earth");
         option1.setLocation(120, 150);
         
         option2 = new JRadioButton();
         option2.setText(pets.get(1).description());
         option2.setSize(700, 50);
+        option2.setActionCommand("water");
         option2.setLocation(120, 250);
         
         option3 = new JRadioButton();
         option3.setText(pets.get(2).description());
         option3.setSize(700, 50);
+        option3.setActionCommand("fire");
         option3.setLocation(120, 350);
+        
+        optionGroup = new ButtonGroup();
+        optionGroup.add(option1);
+        optionGroup.add(option2);
+        optionGroup.add(option3);       
         
         petNameField = new JTextField("Enter Pet Name");
         petNameField.setSize(250, 30);
         petNameField.setLocation(250, 450);
         
         errorLabel2 = new JLabel("");
-        errorLabel2.setSize(250, 30);
+        errorLabel2.setSize(380, 30);
         errorLabel2.setLocation(255, 500);
         
         enterButton = new JButton("Confirm");
@@ -136,11 +176,9 @@ public class View extends JPanel
         //----- Pet Panel ------
         petPanel = new PetPanel();
         petPanel.setLocation(30, 40);
-        
-        
+               
         //----- Player Panel -----
-        playerPanel = new PlayerPanel();
-        
+        playerPanel = new PlayerPanel(); 
         playerPanel.setLocation(630, 40);
         
         
@@ -335,5 +373,61 @@ public class View extends JPanel
      */
     public JButton getEnterButton() {
         return enterButton;
+    }
+
+    /**
+     * @return the petPanel
+     */
+    public PetPanel getPetPanel() {
+        return petPanel;
+    }
+
+    /**
+     * @return the playerPanel
+     */
+    public PlayerPanel getPlayerPanel() {
+        return playerPanel;
+    }
+
+    /**
+     * @return the foodPanel
+     */
+    public FoodPanel getFoodPanel() {
+        return foodPanel;
+    }
+
+    /**
+     * @return the instructionPanel
+     */
+    public JPanel getInstructionPanel() {
+        return instructionPanel;
+    }
+
+    /**
+     * @return the instructionLabel
+     */
+    public JTextArea getInstructionText() {
+        return instructionText;
+    }
+
+    /**
+     * @return the instructionTitleLabel
+     */
+    public JLabel getInstructionTitleLabel() {
+        return instructionTitleLabel;
+    }
+
+    /**
+     * @return the continueButton
+     */
+    public JButton getContinueButton() {
+        return continueButton;
+    }
+
+    /**
+     * @return the optionGroup
+     */
+    public ButtonGroup getOptionGroup() {
+        return optionGroup;
     }
 }
