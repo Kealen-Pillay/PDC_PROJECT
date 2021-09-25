@@ -1,5 +1,3 @@
-Virtual Pet Game Instructions
------------------------------
 - Welcome to the virtual pet game! We hope you take care of your little buddy.
 - Once you have adopted your virtual pet, it will be your responsibility to take care of your new friend!
 - Your new pet will have various skills such as; swimming, speed and flight.
