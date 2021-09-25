@@ -1,6 +1,7 @@
 
 package softwareconstruction;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.*;
 
@@ -26,27 +27,29 @@ public class PetPanel extends JPanel
         this.setLayout(null);
         
         petPanelTitle = new JLabel("Pet Card");
+        Font titleFont = new Font("Arial", Font.BOLD, 15);
+        petPanelTitle.setFont(titleFont);
         petPanelTitle.setSize(80, 20);
-        petPanelTitle.setLocation(70, 10);
+        petPanelTitle.setLocation(10, 10);
         
         healthLabel = new JLabel("HP: ");
-        healthLabel.setSize(80, 20);
+        healthLabel.setSize(120, 20);
         healthLabel.setLocation(10, 45);
         
         energyLabel = new JLabel("Energy: ");
-        energyLabel.setSize(80, 20);
+        energyLabel.setSize(120, 20);
         energyLabel.setLocation(10, 100);
         
         swimmingLabel = new JLabel("Swimming: ");
-        swimmingLabel.setSize(80, 20);
+        swimmingLabel.setSize(120, 20);
         swimmingLabel.setLocation(10, 155);
         
         speedLabel = new JLabel("Speed: ");
-        speedLabel.setSize(80, 20);
+        speedLabel.setSize(120, 20);
         speedLabel.setLocation(10, 210);
         
         flightLabel = new JLabel("Flight: ");
-        flightLabel.setSize(80, 20);
+        flightLabel.setSize(120, 20);
         flightLabel.setLocation(10, 265);
         
         this.add(petPanelTitle);
