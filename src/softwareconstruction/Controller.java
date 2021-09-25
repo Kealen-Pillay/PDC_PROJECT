@@ -127,19 +127,22 @@ public class Controller extends JFrame implements ActionListener
                         model.setPet(pets.get(2));
                         model.getPet().setPetName(petName);
                     }
-                    view.getSelectionPanel().setVisible(false);
+                    view.getSelectionPanel().setVisible(false);                   
                     this.getContentPane().add(view);
+                    view.update();
                 }
                 
             }
         }
         else if(source == view.getFeedButton())
         {
-            System.out.println("Feed");
+            model.getOwner().feed(model.getPet());
+            view.update();
         }
         else if(source == view.getRaceButton())
         {
-            System.out.println("Race");
+            model.getPet().race(model.getOwner());
+            view.update();
         }
         else if(source == view.getPetPowerButton())
         {
