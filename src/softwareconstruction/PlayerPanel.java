@@ -1,6 +1,7 @@
 package softwareconstruction;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.*;
 /**
@@ -21,19 +22,21 @@ public class PlayerPanel extends JPanel
         this.setLayout(null);
         
         playerPanelTitle = new JLabel("Player Card");
-        playerPanelTitle.setSize(80, 20);
-        playerPanelTitle.setLocation(60, 10);
+        Font titleFont = new Font("Arial", Font.BOLD, 15);
+        playerPanelTitle.setFont(titleFont);
+        playerPanelTitle.setSize(100, 20);
+        playerPanelTitle.setLocation(10, 10);
         
         moneyLabel = new JLabel("Money: ");
-        moneyLabel.setSize(80, 20);
+        moneyLabel.setSize(120, 20);
         moneyLabel.setLocation(10, 45);
         
         foodLabel = new JLabel("Food: ");
-        foodLabel.setSize(80, 20);
+        foodLabel.setSize(120, 20);
         foodLabel.setLocation(10, 100);
         
         racesLabel = new JLabel("Races Won:");
-        racesLabel.setSize(80, 20);
+        racesLabel.setSize(120, 20);
         racesLabel.setLocation(10, 155);
         
         this.add(playerPanelTitle);
