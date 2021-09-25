@@ -175,10 +175,12 @@ public class View extends JPanel
         
         //----- Pet Panel ------
         petPanel = new PetPanel();
+
         petPanel.setLocation(30, 40);
                
         //----- Player Panel -----
         playerPanel = new PlayerPanel(); 
+    
         playerPanel.setLocation(630, 40);
         
         
@@ -242,6 +244,20 @@ public class View extends JPanel
         g2.drawRoundRect(30, 60, 650, 200, 10, 10);
         g2.drawRoundRect(30, 380, 548, 180, 10, 10);
         g2.drawRoundRect(628, 378, 195, 185, 10, 10);
+    }
+    
+    public void update()
+    {
+        petPanel.getPetPanelTitle().setText(model.getPet().getPetName());
+        petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+        petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 100");
+        petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
+        petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
+        petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
+        playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName());
+        playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
+        playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+        playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
     }
     
     /**
