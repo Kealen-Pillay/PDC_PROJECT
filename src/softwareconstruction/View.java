@@ -135,13 +135,13 @@ public class View extends JFrame
         option1 = new JRadioButton();
         option1.setText(pets.get(0).description());
         option1.setSize(600, 50);
-        option1.setActionCommand("earth");
+        option1.setActionCommand("water");
         option1.setLocation(120, 150);
         
         option2 = new JRadioButton();
         option2.setText(pets.get(1).description());
         option2.setSize(700, 50);
-        option2.setActionCommand("water");
+        option2.setActionCommand("earth");
         option2.setLocation(120, 250);
         
         option3 = new JRadioButton();
@@ -190,13 +190,8 @@ public class View extends JFrame
         foodPanel = new FoodPanel();
         foodPanel.setLocation(630, 380);
         
-        petImage = new ImageIcon("ice_dragon.png").getImage();
-        mod = petImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-        ImageIcon petIcon = new ImageIcon(mod);
-        petIconLabel = new JLabel();
-        petIconLabel.setIcon(petIcon);
-        petIconLabel.setSize(300, 300);
-        petIconLabel.setLocation(275, 40);
+        //petImage = new ImageIcon("ice_dragon.png").getImage();
+        
         
         feedButton = new JButton("Feed Pet");
         feedButton.setSize(260, 60);
@@ -220,7 +215,7 @@ public class View extends JFrame
         
         //----- Game Panel -----
         gamePanel = new GamePanel();
-        gamePanel.add(petIconLabel);
+        
         gamePanel.add(petPanel);
         gamePanel.add(playerPanel);
         gamePanel.add(foodPanel);
@@ -243,13 +238,13 @@ public class View extends JFrame
 
     public void update()
     {
-        petPanel.getPetPanelTitle().setText(model.getPet().getPetName());
+        petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
         petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
-        petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 100");
+        petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
         petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
         petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
         petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
-        playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName());
+        playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName() + " - Info");
         playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
         playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
         playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
@@ -447,5 +442,20 @@ public class View extends JFrame
      */
     public JPanel getGamePanel() {
         return gamePanel;
+    }
+
+    /**
+     * @param petImage the petImage to set
+     */
+    public void setPetImage(String image) 
+    {
+        this.petImage = new ImageIcon(image).getImage();
+        mod = petImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        ImageIcon petIcon = new ImageIcon(mod);
+        petIconLabel = new JLabel();
+        petIconLabel.setIcon(petIcon);
+        petIconLabel.setSize(300, 300);
+        petIconLabel.setLocation(275, 40);
+        gamePanel.add(petIconLabel);
     }
 }
