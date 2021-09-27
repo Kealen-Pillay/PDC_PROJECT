@@ -9,7 +9,6 @@ import java.awt.Toolkit;
  */
 public class VirtualPetGame 
 {
-    
     public VirtualPetGame()
     {
         Model model = new Model();
