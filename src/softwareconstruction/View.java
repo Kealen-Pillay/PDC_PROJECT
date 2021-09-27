@@ -1,22 +1,23 @@
 package softwareconstruction;
 
-import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  *
  * @author kealenpillay
  */
-public class View extends JPanel
+public class View extends JFrame
 {
     //----------------------------------- Instance Variables ----------------------------------------
     private Model model;
+    
+    private GamePanel gamePanel;
     
     private Image petImage;
     private Image mod;
@@ -54,9 +55,10 @@ public class View extends JPanel
     private JButton enterButton;
     //------------------------------------ Constructor ------------------------------------------------
     
-    public View(Model m)
+    public View(String title, Model m)
     {
-        this.setLayout(null);
+        super(title);
+        this.getContentPane().setLayout(new BorderLayout());
         model = m;
         
         //----- Start Screen -----
@@ -216,36 +218,29 @@ public class View extends JPanel
         instructionsButton.setSize(535, 30);
         instructionsButton.setLocation(35, 522);
         
-        this.add(petIconLabel);
-        this.add(petPanel);
-        this.add(playerPanel);
-        this.add(foodPanel);
-        this.add(feedButton);
-        this.add(raceButton);
-        this.add(petPowerButton);
-        this.add(endGameButton);
-        this.add(instructionsButton);
+        //----- Game Panel -----
+        gamePanel = new GamePanel();
+        gamePanel.add(petIconLabel);
+        gamePanel.add(petPanel);
+        gamePanel.add(playerPanel);
+        gamePanel.add(foodPanel);
+        gamePanel.add(feedButton);
+        gamePanel.add(raceButton);
+        gamePanel.add(petPowerButton);
+        gamePanel.add(endGameButton);
+        gamePanel.add(instructionsButton);
+               
+        this.getContentPane().add(this.getStartPanel(), BorderLayout.CENTER);
+        this.getContentPane().setBackground(Color.gray);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setSize(853, 600);
         this.setBackground(Color.GRAY);
         this.setVisible(true);
     }
     
     //----------------------------------- Methods -----------------------------------------------
-    
-    @Override
-    public void paintComponent(Graphics g)
-    {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.DARK_GRAY);
-        g2.setStroke(new BasicStroke(9));
-        g2.drawRoundRect(273, 37, 305, 305, 10, 10);
-        g2.drawRoundRect(28, 37, 195, 305, 10, 10);
-        g2.drawRoundRect(628, 38, 195, 305, 10, 10);
-        g2.drawRoundRect(30, 60, 650, 200, 10, 10);
-        g2.drawRoundRect(30, 380, 548, 180, 10, 10);
-        g2.drawRoundRect(628, 378, 195, 185, 10, 10);
-    }
-    
+
     public void update()
     {
         petPanel.getPetPanelTitle().setText(model.getPet().getPetName());
@@ -445,5 +440,12 @@ public class View extends JPanel
      */
     public ButtonGroup getOptionGroup() {
         return optionGroup;
+    }
+
+    /**
+     * @return the gamePanel
+     */
+    public JPanel getGamePanel() {
+        return gamePanel;
     }
 }

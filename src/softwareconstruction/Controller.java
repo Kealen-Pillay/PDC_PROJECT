@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  *
  * @author kealenpillay
  */
-public class Controller extends JFrame implements ActionListener
+public class Controller implements ActionListener
 {
     //----------------------------------------------- Instance Variables ------------------------------------------
     private Model model;
@@ -21,26 +21,19 @@ public class Controller extends JFrame implements ActionListener
     
     //----------------------------------------------- Constructor ------------------------------------------
     
-    public Controller(String title)
+    public Controller(Model m, View v)
     {
-        super(title);
-        this.getContentPane().setLayout(new BorderLayout());
-        model = new Model();
-        view = new View(model);
+        model = m;
+        view = v;
         view.getStartButton().addActionListener(this);
         view.getContinueButton().addActionListener(this);
         view.getEnterButton().addActionListener(this);
+  
         view.getFeedButton().addActionListener(this);
         view.getRaceButton().addActionListener(this);
         view.getPetPowerButton().addActionListener(this);
         view.getEndGameButton().addActionListener(this);
         view.getInstructionsButton().addActionListener(this);
-        
-        this.getContentPane().add(view.getStartPanel(), BorderLayout.CENTER);
-        this.getContentPane().setBackground(Color.gray);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setSize(853, 600);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
@@ -71,14 +64,14 @@ public class Controller extends JFrame implements ActionListener
                 {
                     model.setOwner(new Owner(username, 0, 10, 0, false));
                     view.getStartPanel().setVisible(false);
-                    this.getContentPane().add(view.getInstructionPanel());
+                    view.add(view.getInstructionPanel());
                 }
             }
         }
         else if(source == view.getContinueButton())
         {
             view.getInstructionPanel().setVisible(false);
-            this.getContentPane().add(view.getSelectionPanel());
+            view.add(view.getSelectionPanel());
         }
         else if(source == view.getEnterButton())
         {
@@ -128,7 +121,7 @@ public class Controller extends JFrame implements ActionListener
                         model.getPet().setPetName(petName);
                     }
                     view.getSelectionPanel().setVisible(false);                   
-                    this.getContentPane().add(view);
+                    view.add(view.getGamePanel());
                     view.update();
                 }
                 
@@ -152,15 +145,5 @@ public class Controller extends JFrame implements ActionListener
         {
             System.out.println("Instructions");
         }
-    }
-    
-    public static void main(String[] args)
-    {
-        JFrame frame = new Controller("Virtual Pet Game");
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenDimension = tk.getScreenSize();
-        Dimension frameDimension = frame.getSize();
-        frame.setLocation((screenDimension.width-frameDimension.width)/2, (screenDimension.height-frameDimension.height)/2);
-        frame.setVisible(true);
     }
 }
