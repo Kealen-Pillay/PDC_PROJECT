@@ -29,7 +29,7 @@ public class PetPanel extends JPanel
         petPanelTitle = new JLabel("Pet Card");
         Font titleFont = new Font("Arial", Font.BOLD, 15);
         petPanelTitle.setFont(titleFont);
-        petPanelTitle.setSize(80, 20);
+        petPanelTitle.setSize(120, 20);
         petPanelTitle.setLocation(10, 10);
         
         healthLabel = new JLabel("HP: ");
