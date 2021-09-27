@@ -105,22 +105,25 @@ public class Controller implements ActionListener
                 {
                     ArrayList<Pet> pets = model.petList();
                     String selectedPet = view.getOptionGroup().getSelection().getActionCommand();
-                    if(selectedPet.equals("earth"))
+                    if(selectedPet.equals("water"))
                     {
                         model.setPet(pets.get(0));
                         model.getPet().setPetName(petName);
+                        view.setPetImage("water_dragon.png");
                     }
-                    else if(selectedPet.equals("water"))
+                    else if(selectedPet.equals("earth"))
                     {
                         model.setPet(pets.get(1));
                         model.getPet().setPetName(petName);
+                        view.setPetImage("earth_dragon.png");
                     }
                     else
                     {
                         model.setPet(pets.get(2));
                         model.getPet().setPetName(petName);
+                        view.setPetImage("fire_dragon.png");
                     }
-                    view.getSelectionPanel().setVisible(false);                   
+                    view.getSelectionPanel().setVisible(false);                
                     view.add(view.getGamePanel());
                     view.update();
                 }
