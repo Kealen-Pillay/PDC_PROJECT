@@ -70,7 +70,7 @@ public class View extends JFrame
         startPanel.setSize(853, 600);
         startPanel.setLocation(0, 0);
         startPanel.setLayout(null);
-        startPanel.setBackground(Color.gray);
+        startPanel.setBackground(new Color(255, 134, 97));
         
         Font f = new Font("Arial", Font.BOLD, 60);
         gameLabel.setFont(f);
@@ -94,7 +94,7 @@ public class View extends JFrame
         //----- Instruction Panel -----
         instructionPanel = new JPanel();
         instructionPanel.setLayout(null);
-        instructionPanel.setBackground(Color.gray);
+        instructionPanel.setBackground(new Color(255, 134, 97));
         
         instructionTitleLabel = new JLabel("INSTRUCTIONS");
         Font instructionTitleFont = new Font("Arial", Font.BOLD, 40);
@@ -103,7 +103,7 @@ public class View extends JFrame
         instructionTitleLabel.setLocation(275, 5);
         
         instructionText = new JTextArea(model.instructions());
-        instructionText.setBackground(Color.gray);
+        instructionText.setBackground(new Color(255, 134, 97));
         instructionText.setEditable(false);
         instructionText.setSize(800, 480);
         instructionText.setLocation(40, 65);
@@ -120,7 +120,7 @@ public class View extends JFrame
         //----- Pet Selection Panel -----
         selectionPanel = new JPanel();
         selectionPanel.setLayout(null);
-        selectionPanel.setBackground(Color.gray);
+        selectionPanel.setBackground(new Color(255, 134, 97));
         selectionPanel.setSize(853, 600);
         selectionPanel.setLocation(0, 0);
         
@@ -189,10 +189,7 @@ public class View extends JFrame
         //----- Food Panel -----
         foodPanel = new FoodPanel();
         foodPanel.setLocation(630, 380);
-        
-        //petImage = new ImageIcon("ice_dragon.png").getImage();
-        
-        
+                
         feedButton = new JButton("Feed Pet");
         feedButton.setSize(260, 60);
         feedButton.setLocation(40, 390);
@@ -230,7 +227,7 @@ public class View extends JFrame
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(853, 600);
-        this.setBackground(Color.GRAY);
+        this.setBackground(new Color(255, 134, 97));
         this.setVisible(true);
     }
     
