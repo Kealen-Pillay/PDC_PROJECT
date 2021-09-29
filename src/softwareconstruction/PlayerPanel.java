@@ -24,7 +24,7 @@ public class PlayerPanel extends JPanel
         playerPanelTitle = new JLabel("Player Card");
         Font titleFont = new Font("Arial", Font.BOLD, 15);
         playerPanelTitle.setFont(titleFont);
-        playerPanelTitle.setSize(100, 20);
+        playerPanelTitle.setSize(180, 20);
         playerPanelTitle.setLocation(10, 10);
         
         moneyLabel = new JLabel("Money: ");
