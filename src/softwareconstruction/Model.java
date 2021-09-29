@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -15,7 +16,7 @@ import java.util.StringTokenizer;
  *
  * @author kealenpillay
  */
-public class Model 
+public class Model extends Observable
 {
     //--------------------------- Instance Variables ----------------------------------------------
     private Pet pet;
@@ -274,21 +275,24 @@ public class Model
     /**
      * @return the pet
      */
-    public Pet getPet() {
+    public Pet getPet()
+    {
         return pet;
     }
 
     /**
      * @return the owner
      */
-    public Owner getOwner() {
+    public Owner getOwner() 
+    {
         return owner;
     }
 
     /**
      * @param pet the pet to set
      */
-    public void setPet(Pet pet) {
+    public void setPet(Pet pet) 
+    {
         this.pet = pet;
     }
 
@@ -298,6 +302,12 @@ public class Model
     public void setOwner(Owner owner) 
     {
         this.owner = owner;
+    }
+    
+    public void modified()
+    {
+        setChanged();
+        notifyObservers(true);
     }
     
     

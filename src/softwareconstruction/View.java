@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -12,7 +14,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  *
  * @author kealenpillay
  */
-public class View extends JFrame
+public class View extends JFrame implements Observer
 {
     //----------------------------------- Instance Variables ----------------------------------------
     private Model model;
@@ -111,7 +113,7 @@ public class View extends JFrame
         continueButton = new JButton("Continue");
         continueButton.setSize(100, 30);
         continueButton.setLocation(375, 530);
-
+        
         instructionPanel.add(instructionTitleLabel);
         instructionPanel.add(continueButton);
         instructionPanel.add(instructionText);
@@ -153,7 +155,7 @@ public class View extends JFrame
         optionGroup = new ButtonGroup();
         optionGroup.add(option1);
         optionGroup.add(option2);
-        optionGroup.add(option3);       
+        optionGroup.add(option3);
         
         petNameField = new JTextField("Enter Pet Name");
         petNameField.setSize(250, 30);
@@ -177,19 +179,19 @@ public class View extends JFrame
         
         //----- Pet Panel ------
         petPanel = new PetPanel();
-
+        
         petPanel.setLocation(30, 40);
-               
+        
         //----- Player Panel -----
-        playerPanel = new PlayerPanel(); 
-    
+        playerPanel = new PlayerPanel();
+        
         playerPanel.setLocation(630, 40);
         
         
         //----- Food Panel -----
         foodPanel = new FoodPanel();
         foodPanel.setLocation(630, 380);
-                
+        
         feedButton = new JButton("Feed Pet");
         feedButton.setSize(260, 60);
         feedButton.setLocation(40, 390);
@@ -221,7 +223,7 @@ public class View extends JFrame
         gamePanel.add(petPowerButton);
         gamePanel.add(endGameButton);
         gamePanel.add(instructionsButton);
-               
+        
         this.getContentPane().add(this.getStartPanel(), BorderLayout.CENTER);
         this.getContentPane().setBackground(Color.gray);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -232,20 +234,38 @@ public class View extends JFrame
     }
     
     //----------------------------------- Methods -----------------------------------------------
-
-    public void update()
+    
+    @Override
+    public void update(Observable o, Object arg)
     {
-        petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
-        petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
-        petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
-        petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
-        petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
-        petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
-        playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName() + " - Info");
-        playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
-        playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
-        playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
+        if((Boolean) arg)
+        {
+            petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
+            petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+            petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
+            petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
+            petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
+            playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName() + " - Info");
+            playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
+            playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+            playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
+        }
     }
+    
+//    public void update()
+//    {
+//        petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
+//        petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+//        petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+//        petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
+//        petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
+//        petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
+//        playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName() + " - Info");
+//        playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
+//        playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+//        playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
+//    }
     
     /**
      * @return the feedButton
@@ -286,165 +306,165 @@ public class View extends JFrame
     {
         return instructionsButton;
     }
-
+    
     /**
      * @return the usernameBox
      */
     public JTextField getUsernameBox() {
         return usernameBox;
     }
-
+    
     /**
      * @return the startButton
      */
     public JButton getStartButton() {
         return startButton;
     }
-
+    
     /**
      * @return the errorLabel
      */
     public JLabel getErrorLabel() {
         return errorLabel;
     }
-
+    
     /**
      * @return the startPanel
      */
     public JPanel getStartPanel() {
         return startPanel;
     }
-
+    
     /**
      * @return the gameLabel
      */
     public JLabel getGameLabel() {
         return gameLabel;
     }
-
+    
     /**
      * @return the selectionPanel
      */
     public JPanel getSelectionPanel() {
         return selectionPanel;
     }
-
+    
     /**
      * @return the selectionLabel
      */
     public JLabel getSelectionLabel() {
         return selectionLabel;
     }
-
+    
     /**
      * @return the option1
      */
     public JRadioButton getOption1() {
         return option1;
     }
-
+    
     /**
      * @return the option2
      */
     public JRadioButton getOption2() {
         return option2;
     }
-
+    
     /**
      * @return the option3
      */
     public JRadioButton getOption3() {
         return option3;
     }
-
+    
     /**
      * @return the petNameField
      */
     public JTextField getPetNameField() {
         return petNameField;
     }
-
+    
     /**
      * @return the errorLabel2
      */
     public JLabel getErrorLabel2() {
         return errorLabel2;
     }
-
+    
     /**
      * @return the enterButton
      */
     public JButton getEnterButton() {
         return enterButton;
     }
-
+    
     /**
      * @return the petPanel
      */
     public PetPanel getPetPanel() {
         return petPanel;
     }
-
+    
     /**
      * @return the playerPanel
      */
     public PlayerPanel getPlayerPanel() {
         return playerPanel;
     }
-
+    
     /**
      * @return the foodPanel
      */
     public FoodPanel getFoodPanel() {
         return foodPanel;
     }
-
+    
     /**
      * @return the instructionPanel
      */
     public JPanel getInstructionPanel() {
         return instructionPanel;
     }
-
+    
     /**
      * @return the instructionLabel
      */
     public JTextArea getInstructionText() {
         return instructionText;
     }
-
+    
     /**
      * @return the instructionTitleLabel
      */
     public JLabel getInstructionTitleLabel() {
         return instructionTitleLabel;
     }
-
+    
     /**
      * @return the continueButton
      */
     public JButton getContinueButton() {
         return continueButton;
     }
-
+    
     /**
      * @return the optionGroup
      */
     public ButtonGroup getOptionGroup() {
         return optionGroup;
     }
-
+    
     /**
      * @return the gamePanel
      */
     public JPanel getGamePanel() {
         return gamePanel;
     }
-
+    
     /**
      * @param petImage the petImage to set
      */
-    public void setPetImage(String image) 
+    public void setPetImage(String image)
     {
         this.petImage = new ImageIcon(image).getImage();
         mod = petImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
@@ -455,4 +475,6 @@ public class View extends JFrame
         petIconLabel.setLocation(275, 40);
         gamePanel.add(petIconLabel);
     }
+    
+    
 }
