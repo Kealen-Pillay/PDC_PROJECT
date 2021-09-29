@@ -125,7 +125,8 @@ public class Controller implements ActionListener
                     }
                     view.getSelectionPanel().setVisible(false);                
                     view.add(view.getGamePanel());
-                    view.update();
+                    //view.update();
+                    model.modified();
                 }
                 
             }
@@ -133,12 +134,14 @@ public class Controller implements ActionListener
         else if(source == view.getFeedButton())
         {
             model.getOwner().feed(model.getPet());
-            view.update();
+            //view.update();
+            model.modified();
         }
         else if(source == view.getRaceButton())
         {
             model.getPet().race(model.getOwner());
-            view.update();
+            //view.update();
+            model.modified();
         }
         else if(source == view.getPetPowerButton())
         {
