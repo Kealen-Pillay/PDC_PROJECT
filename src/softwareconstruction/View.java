@@ -183,7 +183,7 @@ public class View extends JFrame implements Observer
         petPanel.setLocation(30, 40);
         
         //----- Player Panel -----
-        playerPanel = new PlayerPanel();     
+        playerPanel = new PlayerPanel();
         playerPanel.setLocation(630, 40);
         
         
@@ -206,7 +206,7 @@ public class View extends JFrame implements Observer
         evolveButton = new JButton("Evolve Pet");
         evolveButton.setSize(260, 40);
         evolveButton.setLocation(305, 450);
-              
+        
         instructionsButton = new JButton("Instructions");
         instructionsButton.setSize(260, 40);
         instructionsButton.setLocation(40, 505);
@@ -246,7 +246,7 @@ public class View extends JFrame implements Observer
         {
             petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
-            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");       
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
             petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
             petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
@@ -260,6 +260,7 @@ public class View extends JFrame implements Observer
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+            playerPanel.getEventLog().append(model.getPet().getPetName() + " ate 1 food pellet.\n");
             
         }
         else if((Integer) arg == 3)
@@ -273,9 +274,11 @@ public class View extends JFrame implements Observer
         {
             model.getOwner().setFood(model.getOwner().getFood() + 1);
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+            playerPanel.getEventLog().append("+1 food pellet earned.\n");
+            
         }
     }
-        
+    
     /**
      * @return the feedButton
      */
