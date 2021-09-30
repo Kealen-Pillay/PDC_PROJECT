@@ -28,12 +28,12 @@ public class Controller implements ActionListener
         view.getStartButton().addActionListener(this);
         view.getContinueButton().addActionListener(this);
         view.getEnterButton().addActionListener(this);
-  
         view.getFeedButton().addActionListener(this);
         view.getRaceButton().addActionListener(this);
         view.getPetPowerButton().addActionListener(this);
         view.getEndGameButton().addActionListener(this);
         view.getInstructionsButton().addActionListener(this);
+        view.getFoodPanel().getEnterButton().addActionListener(this);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
@@ -125,23 +125,19 @@ public class Controller implements ActionListener
                     }
                     view.getSelectionPanel().setVisible(false);                
                     view.add(view.getGamePanel());
-                    //view.update();
-                    model.modified();
+                    model.setup();
+                    
                 }
                 
             }
         }
         else if(source == view.getFeedButton())
         {
-            model.getOwner().feed(model.getPet());
-            //view.update();
-            model.modified();
+            model.feedPet();
         }
         else if(source == view.getRaceButton())
         {
-            model.getPet().race(model.getOwner());
-            //view.update();
-            model.modified();
+            model.racePet();
         }
         else if(source == view.getPetPowerButton())
         {
@@ -151,5 +147,21 @@ public class Controller implements ActionListener
         {
             System.out.println("Instructions");
         }
+        else if(source == view.getFoodPanel().getEnterButton())
+        {
+            int userAnswer = Integer.parseInt(view.getFoodPanel().getAnswerBox().getText());
+            if(userAnswer == view.getFoodPanel().getAnswer())
+            {
+                model.incrementFood();
+                view.getFoodPanel().newQuestion();
+                view.getFoodPanel().getAnswerBox().setText("");
+            }
+            else
+            {
+                view.getFoodPanel().newQuestion();
+                view.getFoodPanel().getAnswerBox().setText("");
+            }
+        }
+            
     }
 }
