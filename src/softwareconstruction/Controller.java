@@ -1,13 +1,9 @@
 package softwareconstruction;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -123,7 +119,7 @@ public class Controller implements ActionListener
                         model.getPet().setPetName(petName);
                         view.setPetImage("fire_dragon.png");
                     }
-                    view.getSelectionPanel().setVisible(false);                
+                    view.getSelectionPanel().setVisible(false);
                     view.add(view.getGamePanel());
                     model.setup();
                     
@@ -133,11 +129,25 @@ public class Controller implements ActionListener
         }
         else if(source == view.getFeedButton())
         {
-            model.feedPet();
+            if(model.getOwner().getFood() != 0)
+            {
+                model.feedPet();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "You have 0 food. You need to earn food pellets.\nThis can be done in the 'Earn Food Section'.", "No Food Remaining", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         else if(source == view.getRaceButton())
         {
-            model.racePet();
+            if(model.getPet().getEnergy() >= 3)
+            {
+                model.racePet();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Your pet has no energy left. See one of the options below.\n1) Feed your pet to increase it's energy.\n2) Some pet's have a pet power that can increase their energy. Try your pet power!", "Pet Has No Energy To Race", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         else if(source == view.getPetPowerButton())
         {
@@ -145,7 +155,8 @@ public class Controller implements ActionListener
         }
         else if(source == view.getInstructionsButton())
         {
-            System.out.println("Instructions");
+            String instructions = model.instructions();
+            JOptionPane.showMessageDialog(null, instructions, "Instructions", JOptionPane.INFORMATION_MESSAGE);
         }
         else if(source == view.getFoodPanel().getEnterButton())
         {
@@ -162,6 +173,6 @@ public class Controller implements ActionListener
                 view.getFoodPanel().getAnswerBox().setText("");
             }
         }
-            
+        
     }
 }
