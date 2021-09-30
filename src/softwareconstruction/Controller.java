@@ -129,9 +129,13 @@ public class Controller implements ActionListener
         }
         else if(source == view.getFeedButton())
         {
-            if(model.getOwner().getFood() != 0)
+            if(model.getOwner().getFood() != 0 && model.getPet().getHealth() != 100)
             {
                 model.feedPet();
+            }
+            else if(model.getPet().getHealth() == 100)
+            {
+                JOptionPane.showMessageDialog(null, "Your pet's health and energy is full.", "Pet Health & Energy Full", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
