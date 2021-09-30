@@ -45,6 +45,7 @@ public class View extends JFrame implements Observer
     private JLabel instructionTitleLabel;
     private JTextArea instructionText;
     private JButton continueButton;
+    private JButton evolveButton;
     
     private JPanel selectionPanel;
     private JLabel selectionLabel;
@@ -179,38 +180,40 @@ public class View extends JFrame implements Observer
         
         //----- Pet Panel ------
         petPanel = new PetPanel();
-        
         petPanel.setLocation(30, 40);
         
         //----- Player Panel -----
-        playerPanel = new PlayerPanel();
-        
+        playerPanel = new PlayerPanel();     
         playerPanel.setLocation(630, 40);
         
         
         //----- Food Panel -----
-        foodPanel = new FoodPanel();
+        foodPanel = new FoodPanel(model.earnFood());
         foodPanel.setLocation(630, 380);
         
         feedButton = new JButton("Feed Pet");
-        feedButton.setSize(260, 60);
-        feedButton.setLocation(40, 390);
+        feedButton.setSize(260, 40);
+        feedButton.setLocation(40, 395);
         
         raceButton = new JButton("Race Pet");
-        raceButton.setSize(260, 60);
-        raceButton.setLocation(305, 390);
+        raceButton.setSize(260, 40);
+        raceButton.setLocation(305, 395);
         
         petPowerButton = new JButton("Pet Power");
-        petPowerButton.setSize(260, 60);
-        petPowerButton.setLocation(40, 455);
+        petPowerButton.setSize(260, 40);
+        petPowerButton.setLocation(40, 450);
+        
+        evolveButton = new JButton("Evolve Pet");
+        evolveButton.setSize(260, 40);
+        evolveButton.setLocation(305, 450);
+              
+        instructionsButton = new JButton("Instructions");
+        instructionsButton.setSize(260, 40);
+        instructionsButton.setLocation(40, 505);
         
         endGameButton = new JButton("End Game");
-        endGameButton.setSize(260, 60);
-        endGameButton.setLocation(305, 455);
-        
-        instructionsButton = new JButton("Instructions");
-        instructionsButton.setSize(535, 30);
-        instructionsButton.setLocation(35, 522);
+        endGameButton.setSize(260, 40);
+        endGameButton.setLocation(305, 505);
         
         //----- Game Panel -----
         gamePanel = new GamePanel();
@@ -220,6 +223,7 @@ public class View extends JFrame implements Observer
         gamePanel.add(foodPanel);
         gamePanel.add(feedButton);
         gamePanel.add(raceButton);
+        gamePanel.add(evolveButton);
         gamePanel.add(petPowerButton);
         gamePanel.add(endGameButton);
         gamePanel.add(instructionsButton);
@@ -238,35 +242,40 @@ public class View extends JFrame implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
-        if((Boolean) arg)
+        if((Integer) arg == 1)
         {
             petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
-            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");       
             petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
             petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
             petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
             playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName() + " - Info");
-            playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+            playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
         }
+        else if((Integer) arg == 2)
+        {
+            petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+            playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+            
+        }
+        else if((Integer) arg == 3)
+        {
+            petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+            playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
+            playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
+        }
+        else if((Integer) arg == 4)
+        {
+            model.getOwner().setFood(model.getOwner().getFood() + 1);
+            playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
+        }
     }
-    
-//    public void update()
-//    {
-//        petPanel.getPetPanelTitle().setText(model.getPet().getPetName() + " -  Stats");
-//        petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
-//        petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
-//        petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
-//        petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
-//        petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
-//        playerPanel.getPlayerPanelTitle().setText(model.getOwner().getName() + " - Info");
-//        playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
-//        playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
-//        playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
-//    }
-    
+        
     /**
      * @return the feedButton
      */
