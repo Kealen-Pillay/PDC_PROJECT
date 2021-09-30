@@ -104,15 +104,14 @@ public class Model extends Observable
      * Allows the user to earn food for their pet by answering basic math questions correctly. Math questions are randomly generated. Each correct question will increase the player's food amount by 1.
      * @param owner represents the owner of the pet.
      */
-    public void earnFood(Owner owner)
+    public HashMap<String, Integer> earnFood()
     {
+        HashMap<String, Integer> questions = new HashMap<String, Integer> ();
         try
         {
             BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
             String line = null;
 
-            HashMap<String, Integer> questions = new HashMap<String, Integer> ();
-            
             while((line = input.readLine()) != null)
             {
                 StringTokenizer st = new StringTokenizer(line, ",");
@@ -122,7 +121,7 @@ public class Model extends Observable
                 }
             }
                  
-            input.close();
+            input.close();   
         }
         catch(FileNotFoundException e)
         {
@@ -132,6 +131,7 @@ public class Model extends Observable
         {
             System.out.println("IOException");
         }
+        return questions;
     };
     
     /**
@@ -304,11 +304,33 @@ public class Model extends Observable
         this.owner = owner;
     }
     
-    public void modified()
+    public void setup()
     {
         setChanged();
-        notifyObservers(true);
+        notifyObservers(1);
     }
+    
+    public void feedPet()
+    {
+        this.owner.feed(this.pet);
+        setChanged();
+        notifyObservers(2);
+    }
+    
+    public void racePet()
+    {
+        this.pet.race(this.owner);
+        setChanged();
+        notifyObservers(3);
+    }
+    
+    public void incrementFood()
+    {
+        setChanged();
+        notifyObservers(4);
+    }
+    
+
     
     
 }
