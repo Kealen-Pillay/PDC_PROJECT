@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.*;
+
 /**
  *
  * @author kealenpillay
@@ -15,6 +16,8 @@ public class PlayerPanel extends JPanel
     private JLabel moneyLabel;
     private JLabel foodLabel;
     private JLabel racesLabel;
+    private JTextArea eventLog;
+    private JScrollPane scrollpane;
     
     //----------------------------------- Constructor ----------------------------------------
     public PlayerPanel()
@@ -39,10 +42,20 @@ public class PlayerPanel extends JPanel
         racesLabel.setSize(120, 20);
         racesLabel.setLocation(10, 155);
         
+        eventLog = new JTextArea();
+        eventLog.setSize(170, 100);
+        
+        scrollpane = new JScrollPane(getEventLog());
+        scrollpane.setSize(170, 100);
+        scrollpane.setLocation(10, 185);
+        scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
         this.add(playerPanelTitle);
         this.add(moneyLabel);
         this.add(foodLabel);
         this.add(racesLabel);
+        this.add(scrollpane);
         this.setBackground(Color.white);
         this.setVisible(true);
         this.setSize(190, 300);
@@ -89,5 +102,21 @@ public class PlayerPanel extends JPanel
     public JLabel getRacesLabel() 
     {
         return racesLabel;
+    }
+
+    /**
+     * @return the eventLog
+     */
+    public JTextArea getEventLog() 
+    {
+        return eventLog;
+    }
+
+    /**
+     * @return the scroll pane
+     */
+    public JScrollPane getScrollpane() 
+    {
+        return scrollpane;
     }
 }
