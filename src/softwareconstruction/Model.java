@@ -24,7 +24,7 @@ public class Model extends Observable
     
     //---------------------------- Constructor -----------------------------------------------------
     public Model()
-    {    
+    {
     }
     
     //-------------------------- Methods ------------------------------------------------------------
@@ -37,7 +37,7 @@ public class Model extends Observable
         try
         {
             BufferedReader instructions = new BufferedReader(new FileReader("Instructions.txt"));
-            String line = null;         
+            String line = null;
             
             while((line = instructions.readLine()) != null)
             {
@@ -111,7 +111,7 @@ public class Model extends Observable
         {
             BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
             String line = null;
-
+            
             while((line = input.readLine()) != null)
             {
                 StringTokenizer st = new StringTokenizer(line, ",");
@@ -120,8 +120,8 @@ public class Model extends Observable
                     questions.put(st.nextToken(), Integer.parseInt(st.nextToken()));
                 }
             }
-                 
-            input.close();   
+            
+            input.close();
         }
         catch(FileNotFoundException e)
         {
@@ -269,9 +269,9 @@ public class Model extends Observable
         catch(FileNotFoundException e)
         {
             System.out.println("File Not Found.");
-        }  
+        }
     }
-
+    
     /**
      * @return the pet
      */
@@ -279,27 +279,27 @@ public class Model extends Observable
     {
         return pet;
     }
-
+    
     /**
      * @return the owner
      */
-    public Owner getOwner() 
+    public Owner getOwner()
     {
         return owner;
     }
-
+    
     /**
      * @param pet the pet to set
      */
-    public void setPet(Pet pet) 
+    public void setPet(Pet pet)
     {
         this.pet = pet;
     }
-
+    
     /**
      * @param owner the owner to set
      */
-    public void setOwner(Owner owner) 
+    public void setOwner(Owner owner)
     {
         this.owner = owner;
     }
@@ -330,7 +330,66 @@ public class Model extends Observable
         notifyObservers(4);
     }
     
-
+    public void usePower()
+    {
+        if(this.pet.getPowerCounter() != 3)
+        {
+            if(this.pet instanceof WaterDragon)
+            {
+                if(pet.getHealth() != 100 || pet.getEnergy() != 10)
+                {
+                    this.pet.setHealth(this.pet.getHealth() + 10);
+                    this.pet.setEnergy(this.pet.getEnergy() + 2);
+                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                }
+            }
+            else if(this.pet instanceof EarthDragon)
+            {
+                if(pet.getHealth() != 100)
+                {
+                    this.pet.setHealth(this.pet.getHealth() + 20);
+                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                }
+            }
+            else if(this.pet instanceof FireDragon)
+            {
+                if(pet.getEnergy() != 10)
+                {
+                    this.pet.setEnergy(this.pet.getEnergy() + 5);
+                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                }
+            }
+            else if(this.pet instanceof IceDragon)
+            {
+                if(pet.getHealth() != 100 || pet.getEnergy() != 10)
+                {
+                    this.pet.setHealth(this.pet.getHealth() + 30);
+                    this.pet.setEnergy(this.pet.getEnergy() + 4);
+                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                }
+            }
+            else if(this.pet instanceof TerraDragon)
+            {
+                if(pet.getHealth() != 100)
+                {
+                    this.pet.setHealth(this.pet.getHealth() + 50);
+                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                }
+            }
+            else
+            {
+                if(pet.getHealth() != 100 || pet.getEnergy() != 10)
+                {
+                    this.pet.setHealth(this.pet.getHealth() + 5);
+                    this.pet.setEnergy(this.pet.getEnergy() + 8);
+                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                }
+            }
+   
+        }
+        setChanged();
+        notifyObservers(5);
+    }
     
     
 }
