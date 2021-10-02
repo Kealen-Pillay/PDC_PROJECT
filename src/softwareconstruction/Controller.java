@@ -30,6 +30,7 @@ public class Controller implements ActionListener
         view.getEndGameButton().addActionListener(this);
         view.getInstructionsButton().addActionListener(this);
         view.getFoodPanel().getEnterButton().addActionListener(this);
+        view.getPowerPanel().getGoBackButton().addActionListener(this);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
@@ -155,7 +156,8 @@ public class Controller implements ActionListener
         }
         else if(source == view.getPetPowerButton())
         {
-            System.out.println("Pet Power");
+            view.getGamePanel().setVisible(false);
+            view.add(view.getPowerPanel());
         }
         else if(source == view.getInstructionsButton())
         {
@@ -176,6 +178,11 @@ public class Controller implements ActionListener
                 view.getFoodPanel().newQuestion();
                 view.getFoodPanel().getAnswerBox().setText("");
             }
+        }
+        else if(source == view.getPowerPanel().getGoBackButton())
+        {
+            view.getPowerPanel().setVisible(false);
+            view.getGamePanel().setVisible(true);
         }
         
     }
