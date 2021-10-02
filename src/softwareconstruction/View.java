@@ -282,6 +282,7 @@ public class View extends JFrame implements Observer
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
+            playerPanel.getEventLog().append(model.getResult() + "\n");
         }
         else if((Integer) arg == 4)
         {
@@ -296,7 +297,7 @@ public class View extends JFrame implements Observer
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             powerPanel.setPowerDescription(model.getPet());
-            playerPanel.getEventLog().append("Pet power used.\n");
+            playerPanel.getEventLog().append(model.getPet().getPowerCounter() + "/3 pet power used.\n");
         }
         else if((Integer) arg == 6)
         {
@@ -329,6 +330,8 @@ public class View extends JFrame implements Observer
             mod = newImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
             ImageIcon petIcon = new ImageIcon(mod);
             petIconLabel.setIcon(petIcon);
+            
+            powerPanel.getPowerDescription().setText(model.getPet().power());
         }
         else if((Integer) arg == 8)
         {
@@ -338,6 +341,14 @@ public class View extends JFrame implements Observer
         if(model.getOwner().getMaxPet())
         {
             evolveButton.setEnabled(false);
+        }
+        if(model.getPet().getPowerCounter() == 3)
+        {
+            petPowerButton.setEnabled(false);
+        }
+        else
+        {
+            petPowerButton.setEnabled(true);
         }
         
     }
