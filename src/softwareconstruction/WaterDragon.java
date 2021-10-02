@@ -81,54 +81,9 @@ public class WaterDragon extends Pet
      * Allows the water dragon pet to use it's special power. This will restore up to 10 health points and up to 2 energy points to the water dragon pet. This power has three uses.
      */
     @Override
-    public void power()
+    public String power()
     {
-        if(this.getPowerCounter() != 3)
-        {
-            Scanner keyboard = new Scanner(System.in);
-            String usePower = "";
-            System.out.println("-------------");            
-            System.out.println("Power: Deluge");
-            System.out.println("-------------");
-            System.out.println("Uses Remaining: " + (3 - this.getPowerCounter()));
-            System.out.println("Description: The water dragon showers itself with healing rapids that will instantly restore up to 10 health points and 2 energy points.");
-            System.out.println("Would you like to use this power (yes/no):");
-            
-            while(true)
-            {
-                usePower = keyboard.next();
-                
-                if(usePower.toLowerCase().equals("yes"))
-                {
-                    if(this.getEnergy() == 10 && this.getHealth() == 100)
-                    {
-                        System.out.println("Power cannot be used as " + this.getPetName() + "'s health and energy is full.");
-                        break;
-                    }
-                    else
-                    {
-                        this.setEnergy(this.getEnergy() + 2);
-                        this.setHealth(this.getHealth() + 10);
-                        this.setPowerCounter(this.getPowerCounter() + 1);
-                        System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-                        break;
-                    }
-                }
-                else if(usePower.toLowerCase().equals("no"))
-                {
-                    System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-                    break;
-                }
-                else
-                {
-                    System.out.println("Invalid Input! Try Again. Enter 'yes' or 'no' only.");
-                }
-            }
-        }
-        else
-        {
-            System.out.println("You have no more power.");
-            System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-        }
+        String powerDescription = "-------------\nPower: Deluge\n-------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe water dragon showers itself with healing rapids that will instantly restore up to 10 health points and 2 energy points.\nWould you like to use this power?";
+        return powerDescription; 
     }
 }

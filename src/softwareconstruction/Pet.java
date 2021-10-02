@@ -205,7 +205,7 @@ public abstract class Pet implements PetBehaviour
     /**
      * Method which uses the pet's unique power. The power varies depending on the type of pet.
      */
-    public abstract void power();
+    public abstract String power();
     
     /**
      * Checks if the pet is alive.

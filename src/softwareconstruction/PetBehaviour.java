@@ -20,6 +20,6 @@ public interface PetBehaviour
     /**
      * Method which uses the pet's unique power. The power varies depending on the type of pet.
      */
-    public void power();
+    public String power();
     
 }

@@ -81,51 +81,9 @@ public class FireDragon extends Pet
      * Allows the fire dragon pet to use it's special power. This will restore up to 5 energy points to the fire dragon pet. This power has three uses.
      */
     @Override
-    public void power()
+    public String power()
     {
-        if(this.getPowerCounter() != 3)
-        {
-            Scanner keyboard = new Scanner(System.in);
-            String usePower = "";
-            System.out.println("--------------");
-            System.out.println("Power: Inferno");
-            System.out.println("--------------");
-            System.out.println("Uses Remaining: " + (3 - this.getPowerCounter()));
-            System.out.println("Description: The fire dragon uses the power of the sun to instantly restore up to 5 energy points.");
-            System.out.println("Would you like to use this power (yes/no):");
-            while(true)
-            {
-                usePower = keyboard.next();
-                if(usePower.toLowerCase().equals("yes"))
-                {
-                    if(this.getEnergy() == 10)
-                    {
-                        System.out.println("Power cannot be used as energy is full.");
-                        break;
-                    }
-                    else
-                    {
-                        this.setEnergy(this.getEnergy() + 5);
-                        this.setPowerCounter(this.getPowerCounter() + 1);
-                        System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-                        break;
-                    }
-                }
-                else if(usePower.toLowerCase().equals("no"))
-                {
-                    System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-                    break;
-                }
-                else
-                {
-                    System.out.println("Invalid Input! Try Again. Enter 'yes' or 'no' only.");
-                }
-            }
-        }
-        else
-        {
-            System.out.println("You are out of power.");
-            System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-        }
+        String powerDescription = "--------------\nPower: Inferno\n--------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe fire dragon uses the power of the sun to instantly restore up to 5 energy points.Would you like to use this power?";
+        return powerDescription;
     }
 }

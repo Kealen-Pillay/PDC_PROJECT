@@ -81,52 +81,10 @@ public class LavaDragon extends FireDragon
      * Allows the lava dragon pet to use it's special power. This will restore up to 8 energy points and 5 health points to the lava dragon pet. This power has three uses.
      */
     @Override
-    public void power()
+    public String power()
     {
-        if(this.getPowerCounter() != 3)
-        {
-            Scanner keyboard = new Scanner(System.in);
-            String usePower = "";
-            System.out.println("------------------");
-            System.out.println("Power: Solar Power");
-            System.out.println("------------------");
-            System.out.println("Uses Remaining: " + (3 - this.getPowerCounter()));
-            System.out.println("Description: The lava dragon spreads its wings to absorb solar energy and is able to recharge up to 8 energy points and restore up to 5 health points.");
-            System.out.println("Would you like to use this power (yes/no):");
-            while(true)
-            {
-                usePower = keyboard.next();
-                if(usePower.toLowerCase().equals("yes"))
-                {
-                    if(this.getEnergy() == 10 && this.getHealth() == 100)
-                    {
-                        System.out.println("Power cannot be used as energy and health is full.");
-                        break;
-                    }
-                    else
-                    {
-                        this.setEnergy(this.getEnergy() + 8);
-                        this.setHealth(this.getHealth() + 5);
-                        this.setPowerCounter(this.getPowerCounter() + 1);
-                        System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-                        break;
-                    }
-                }
-                else if(usePower.toLowerCase().equals("no"))
-                {
-                    System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-                    break;
-                }
-                else
-                {
-                    System.out.println("Invalid Input! Try Again.");
-                }
-            }
-        }
-        else
-        {
-            System.out.println("You are out of power. Enter 'yes' or 'no' only.");
-            System.out.println("Power Used: " + this.getPowerCounter() + "/3");
-        }
+        String powerDescription = "------------------\nPower: Solar Power\n------------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe lava dragon spreads its wings to absorb solar energy and is able to recharge up to 8 energy points and restore up to 5 health points.\nWould you like to use this power?";
+        return powerDescription;
+            
     }
 }
