@@ -1,7 +1,5 @@
 package softwareconstruction;
 
-import java.util.Scanner;
-
 /**
  *
  * @author kealenpillay
