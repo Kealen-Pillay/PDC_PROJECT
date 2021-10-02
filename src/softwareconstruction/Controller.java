@@ -27,11 +27,14 @@ public class Controller implements ActionListener
         view.getFeedButton().addActionListener(this);
         view.getRaceButton().addActionListener(this);
         view.getPetPowerButton().addActionListener(this);
+        view.getEvolveButton().addActionListener(this);
         view.getEndGameButton().addActionListener(this);
         view.getInstructionsButton().addActionListener(this);
         view.getFoodPanel().getEnterButton().addActionListener(this);
         view.getPowerPanel().getGoBackButton().addActionListener(this);
         view.getPowerPanel().getYesButton().addActionListener(this);
+        view.getEvolvePanel().getEvolveButton().addActionListener(this);
+        view.getEvolvePanel().getGoBackButton().addActionListener(this);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
@@ -167,6 +170,22 @@ public class Controller implements ActionListener
                 view.getPowerPanel().setVisible(true);
             }
         }
+        else if(source  == view.getEvolveButton())
+        {
+            view.getGamePanel().setVisible(false);
+            view.getEvolvePanel().setVisible(true);
+        }
+        else if(source == view.getEvolvePanel().getGoBackButton())
+        {
+            view.getEvolvePanel().setVisible(false);
+            view.getGamePanel().setVisible(true);
+        }
+        else if(source == view.getEvolvePanel().getEvolveButton())
+        {          
+            model.evolvePet(); 
+            view.getEvolvePanel().setVisible(false);
+            view.getGamePanel().setVisible(true);
+        }
         else if(source == view.getInstructionsButton())
         {
             String instructions = model.instructions();
@@ -178,8 +197,6 @@ public class Controller implements ActionListener
             if(userAnswer == view.getFoodPanel().getAnswer())
             {
                 model.incrementFood();
-                view.getFoodPanel().newQuestion();
-                view.getFoodPanel().getAnswerBox().setText("");
             }
             else
             {
