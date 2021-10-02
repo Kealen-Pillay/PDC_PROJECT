@@ -8,9 +8,6 @@ import java.util.Scanner;
  */
 public class EarthDragon extends Pet
 {
-    //---------------------------------- Static Variable --------------------------------
-    private int powerCounter;
-    
     //------------------------------------ Constructor ----------------------------------
     
     /**
@@ -29,24 +26,6 @@ public class EarthDragon extends Pet
     }
     
     //------------------------------------- Methods --------------------------------------
-    
-    /**
-     * Returns the number of uses of the earth dragon's power.
-     * @return the number of uses of the earth dragon's power.
-     */
-    public int getPowerCounter()
-    {
-        return this.powerCounter;
-    }
-    
-    /**
-     * Sets the numbers of uses of the earth dragon's power.
-     * @param powerCounter represents the number of uses of the earth dragon's power.
-     */
-    public void setPowerCounter(int powerCounter)
-    {
-        this.powerCounter = powerCounter;
-    }
     
     /**
      * Causes the earth dragon to roar. The type of roar varies depending on the earth dragon's health, giving the owner and indication of the earth dragon's health.
@@ -83,7 +62,12 @@ public class EarthDragon extends Pet
     @Override
     public String power()
     {  
-        String powerDescription = "------------\nPower: Quake\n------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe earth dragon channels the power of the Earth to instantly restore up to 20 health points.\nWould you like to use this power?";
+        String powerDescription = 
+                  "------------------\n"
+                + "Power: Quake\n"
+                + "------------------\n\n"
+                + "> Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n> Description: Instantly restore up to 20 health points.";
         return powerDescription;
     }
 }

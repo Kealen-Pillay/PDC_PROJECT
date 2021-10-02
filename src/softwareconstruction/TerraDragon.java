@@ -9,9 +9,7 @@ import java.util.Scanner;
  */
 public class TerraDragon extends EarthDragon
 {
-    //---------------------------------- Static Variable --------------------------------
-    private int powerCounter;
-    
+ 
     //-------------------------------------- Constructor ----------------------------------------------------
     
     /**
@@ -30,25 +28,7 @@ public class TerraDragon extends EarthDragon
     }
     
     //------------------------------------ Methods ----------------------------------------------------------
-    
-    /**
-     * Returns the number of uses of the terra dragon's power.
-     * @return the number of uses of the terra dragon's power.
-     */
-    public int getPowerCounter()
-    {
-        return this.powerCounter;
-    }
-    
-    /**
-     * Sets the number of uses of the terra dragon's power.
-     * @param powerCounter represents the number of uses of the terra dragon's power.
-     */
-    public void setPowerCounter(int powerCounter)
-    {
-        this.powerCounter = powerCounter;
-    }
-          
+        
      /**
      * Causes the terra dragon to roar. The type of roar varies depending on the terra dragon's health, giving the owner and indication of the terra dragon's health.
      */
@@ -84,7 +64,12 @@ public class TerraDragon extends EarthDragon
     @Override
     public String power()
     {  
-        String powerDescription = "---------------------\nPower: Healing Nature\n---------------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe terra dragon summons the healing power of nature and will instantly restore up to 50 health points.\nWould you like to use this power?";
+        String powerDescription = 
+                "-----------------------------------\n"
+                + "Power: Healing Nature\n"
+                + "---------------------------------\n\n"
+                + "> Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n> Description: Instantly restore up to 50 health points.";
         return powerDescription;  
     }
 }

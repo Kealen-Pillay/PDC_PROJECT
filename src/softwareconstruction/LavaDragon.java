@@ -8,8 +8,6 @@ import java.util.Scanner;
  */
 public class LavaDragon extends FireDragon
 {
-    //------------------------------------ Static Variable -----------------------------------
-    private int powerCounter;
     
     //------------------------------------ Constructor ----------------------------------------
     
@@ -29,24 +27,6 @@ public class LavaDragon extends FireDragon
     }
     
     //------------------------------------ Methods ----------------------------------------
-    
-    /**
-     * Returns the number of uses of the Lava dragon's power.
-     * @return the number of uses of the lava dragon's power.
-     */
-    public int getPowerCounter()
-    {
-        return this.powerCounter;
-    }
-    
-    /**
-     * Sets the number of uses of the lava dragon's power.
-     * @param powerCounter represents the number of uses of the lava dragon's power.
-     */
-    public void setPowerCounter(int powerCounter)
-    {
-        this.powerCounter = powerCounter;
-    }
     
     /**
      * Causes the lava dragon to roar. The type of roar varies depending on the lava dragon's health, giving the owner and indication of the lava dragon's health.
@@ -83,7 +63,12 @@ public class LavaDragon extends FireDragon
     @Override
     public String power()
     {
-        String powerDescription = "------------------\nPower: Solar Power\n------------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe lava dragon spreads its wings to absorb solar energy and is able to recharge up to 8 energy points and restore up to 5 health points.\nWould you like to use this power?";
+        String powerDescription = 
+                "----------------------------------------\n"
+                + "Power: Solar Power\n"
+                + "--------------------------------------\n\n"
+                + "> Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n> Description: Recharge up to 8 energy points and restore up to 5 health points.";
         return powerDescription;
             
     }

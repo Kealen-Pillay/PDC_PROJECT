@@ -8,8 +8,6 @@ import java.util.Scanner;
  */
 public class IceDragon extends WaterDragon
 {
-    //---------------------------------- Static Variable ----------------------------------------
-    private int powerCounter;
     
     //---------------------------------------- Constructor ----------------------------------------------
     
@@ -29,24 +27,6 @@ public class IceDragon extends WaterDragon
     }
     
     //--------------------------------------- Methods ---------------------------------------------------
-    
-    /**
-     * Returns the number of uses of the ice dragon's power.
-     * @return the number of uses of the ice dragon's power.
-     */
-    public int getPowerCounter()
-    {
-        return this.powerCounter;
-    }
-    
-    /**
-     * Sets the number of uses of the ice dragon's power.
-     * @param powerCounter represents the number of uses of the ice dragon's power.
-     */
-    public void setPowerCounter(int powerCounter)
-    {
-        this.powerCounter = powerCounter;
-    }
     
      /**
      * Causes the ice dragon to roar. The type of roar varies depending on the ice dragon's health, giving the owner and indication of the ice dragon's health.
@@ -83,7 +63,12 @@ public class IceDragon extends WaterDragon
     @Override
     public String power()
     {
-        String powerDescription = "-----------------\nPower: Permafrost\n-----------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\n The ice dragon freezes itself over in order to heal up to 30 health points and restore up to 4 energy points.\nWould you like to use this power?";
+        String powerDescription = 
+                  "-------------------------------\n"
+                + "Power: Permafrost\n"
+                + "-------------------------------\n\n"
+                + "> Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n> Description: Heal up to 30 health points and restore up to 4 energy points.";
         return powerDescription;
     }
 }

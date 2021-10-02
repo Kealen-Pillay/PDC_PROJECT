@@ -8,9 +8,7 @@ import java.util.Scanner;
  */
 public class WaterDragon extends Pet
 {
-    //------------------------------------ Static Variable --------------------------------
-    private int powerCounter;
-    
+   
     //------------------------------------- Constructor ----------------------------------
     
     /**
@@ -29,24 +27,6 @@ public class WaterDragon extends Pet
     }
     
     //------------------------------------- Methods ----------------------------------
-    
-    /**
-     * Returns the number of uses of the water dragon's power.
-     * @return the number of uses of the water dragon's power.
-     */
-    public int getPowerCounter()
-    {
-        return this.powerCounter;
-    }
-    
-    /**
-     * Sets the number of uses of the water dragon's power.
-     * @param powerCounter represents the number of uses of the water dragon's power.
-     */
-    public void setPowerCounter(int powerCounter)
-    {
-        this.powerCounter = powerCounter;
-    }
     
     /**
      * Causes the water dragon to roar. The type of roar varies depending on the water dragon's health, giving the owner and indication of the water dragon's health.
@@ -83,7 +63,12 @@ public class WaterDragon extends Pet
     @Override
     public String power()
     {
-        String powerDescription = "-------------\nPower: Deluge\n-------------\nUses Remaining: " + (3 - this.getPowerCounter()) + "\nThe water dragon showers itself with healing rapids that will instantly restore up to 10 health points and 2 energy points.\nWould you like to use this power?";
+        String powerDescription =
+                  "        ------------------------\n"
+                + "        Power: Deluge\n"
+                + "        ------------------------\n"
+                + "        > Uses Remaining: " + (3 - this.getPowerCounter()) + "\n\n"
+                + "        > Description: Instantly restores up to 10 health points and 2 energy points.";
         return powerDescription; 
     }
 }
