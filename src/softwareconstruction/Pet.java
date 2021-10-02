@@ -16,6 +16,7 @@ public abstract class Pet implements PetBehaviour
     private int speed;
     private int flight;
     private boolean alive;
+    private int powerCounter;
     
     //---------------------------------- Constructor --------------------------------------
     
@@ -36,6 +37,7 @@ public abstract class Pet implements PetBehaviour
         this.setSwimming(swimming);
         this.setSpeed(speed);
         this.setFlight(flight);
+        this.setPowerCounter(0);
         this.setAlive(true);
     }
     
@@ -190,6 +192,22 @@ public abstract class Pet implements PetBehaviour
         this.alive = alive;
     }
     
+     /**
+     * @return the powerCounter
+     */
+    public int getPowerCounter() 
+    {
+        return powerCounter;
+    }
+
+    /**
+     * @param powerCounter the powerCounter to set
+     */
+    public void setPowerCounter(int powerCounter) 
+    {
+        this.powerCounter = powerCounter;
+    }
+    
     //----------------------------------------------- Methods --------------------------------------------------------
     
     /**
@@ -301,4 +319,6 @@ public abstract class Pet implements PetBehaviour
     {
         return "Pet Name:" + this.getPetName() + " | Health:" + this.getHealth() + " | Energy:" + this.getEnergy() + " | Swimming:" + this.getSwimming() + "/10  | Speed:" + this.getSpeed() + "/10  | Flight:" + this.getFlight() + "/10";
     }
+
+   
 }
