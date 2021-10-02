@@ -289,6 +289,7 @@ public class View extends JFrame implements Observer
         {
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+            powerPanel.setPowerDescription(model.getPet());
         }
     }
     
