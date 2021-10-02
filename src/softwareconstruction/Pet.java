@@ -192,18 +192,18 @@ public abstract class Pet implements PetBehaviour
         this.alive = alive;
     }
     
-     /**
+    /**
      * @return the powerCounter
      */
-    public int getPowerCounter() 
+    public int getPowerCounter()
     {
         return powerCounter;
     }
-
+    
     /**
      * @param powerCounter the powerCounter to set
      */
-    public void setPowerCounter(int powerCounter) 
+    public void setPowerCounter(int powerCounter)
     {
         this.powerCounter = powerCounter;
     }
@@ -218,7 +218,7 @@ public abstract class Pet implements PetBehaviour
     /**
      * Abstract method which is implemented by subclasses of Pet Class. Method which provides the user with a description of the pet.
      */
-    public abstract String description();    
+    public abstract String description();
     
     /**
      * Method which uses the pet's unique power. The power varies depending on the type of pet.
@@ -245,70 +245,67 @@ public abstract class Pet implements PetBehaviour
      * Enters the pet into a race. A random race is chosen. Winning a race results in the owner receiving $100. If the random number generated between 1-10 is less than/equal to the pet's skill, the pet wins.
      * @param owner represents the owner of the pet.
      */
-    public void race(Owner owner)
+    public String race(Owner owner)
     {
         String[] races = new String[] {"SWIMMING", "SPEED", "FLIGHT"};
         Random randomizer = new Random();
         int raceOption = randomizer.nextInt(3);
+        String result = "";
         
-        if(this.getEnergy() < 3)
+        
+        if(raceOption == 0)
         {
-            System.out.println(this.getPetName() + " doesn't have enough energy to race.");
-        }
-        else
-        {
-            if(raceOption == 0)
+            if((randomizer.nextInt(9) + 1) <= this.getSwimming())
             {
-                if((randomizer.nextInt(9) + 1) <= this.getSwimming())
-                {
-                    System.out.println("***** " + this.getPetName().toUpperCase() + " WON THE " + races[raceOption] + " RACE! YOU WIN $100 *****");
-                    owner.setMoney(owner.getMoney() + 100);
-                    owner.setRacesWon(owner.getRacesWon() + 1);
-                    this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
-                    this.setEnergy(this.getEnergy() - 3);
-                }
-                else
-                {
-                    System.out.println("***** " + this.getPetName().toUpperCase() + " LOST THE " + races[raceOption] + " RACE! *****");
-                    this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
-                    this.setEnergy(this.getEnergy() - 3);
-                }
-            }
-            else if(raceOption == 1)
-            {
-                if((randomizer.nextInt(9) + 1) <= this.getSpeed())
-                {
-                    System.out.println("***** " + this.getPetName().toUpperCase() + " WON THE " + races[raceOption] + " RACE! YOU WIN $100 *****");
-                    owner.setMoney(owner.getMoney() + 100);
-                    owner.setRacesWon(owner.getRacesWon() + 1);
-                    this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
-                    this.setEnergy(this.getEnergy() - 3);
-                }
-                else
-                {
-                    System.out.println("***** " + this.getPetName().toUpperCase() + " LOST THE " + races[raceOption] + " RACE! *****");
-                    this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
-                    this.setEnergy(this.getEnergy() - 3);
-                }
+                result = "WON THE " + races[raceOption] + " RACE!";
+                owner.setMoney(owner.getMoney() + 100);
+                owner.setRacesWon(owner.getRacesWon() + 1);
+                this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
+                this.setEnergy(this.getEnergy() - 3);
             }
             else
             {
-                if((randomizer.nextInt(9) + 1) <= this.getFlight())
-                {
-                    System.out.println("***** " + this.getPetName().toUpperCase() + " WON THE " + races[raceOption] + " RACE! YOU WIN $100 *****");
-                    owner.setMoney(owner.getMoney() + 100);
-                    owner.setRacesWon(owner.getRacesWon() + 1);
-                    this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
-                    this.setEnergy(this.getEnergy() - 3);
-                }
-                else
-                {
-                    System.out.println("***** " + this.getPetName().toUpperCase() + " LOST THE " + races[raceOption] + " RACE! *****");
-                    this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
-                    this.setEnergy(this.getEnergy() - 3);
-                }
+                result = "LOST THE " + races[raceOption] + " RACE!";
+                this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
+                this.setEnergy(this.getEnergy() - 3);
             }
-        }                     
+        }
+        else if(raceOption == 1)
+        {
+            if((randomizer.nextInt(9) + 1) <= this.getSpeed())
+            {
+                result = "WON THE " + races[raceOption] + " RACE! YOU WIN $100";
+                owner.setMoney(owner.getMoney() + 100);
+                owner.setRacesWon(owner.getRacesWon() + 1);
+                this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
+                this.setEnergy(this.getEnergy() - 3);
+            }
+            else
+            {
+                result = "LOST THE " + races[raceOption] + " RACE!";
+                this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
+                this.setEnergy(this.getEnergy() - 3);
+            }
+        }
+        else
+        {
+            if((randomizer.nextInt(9) + 1) <= this.getFlight())
+            {
+                result = "WON THE " + races[raceOption] + " RACE!";
+                owner.setMoney(owner.getMoney() + 100);
+                owner.setRacesWon(owner.getRacesWon() + 1);
+                this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
+                this.setEnergy(this.getEnergy() - 3);
+            }
+            else
+            {
+                result = "LOST THE " + races[raceOption] + " RACE!";
+                this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
+                this.setEnergy(this.getEnergy() - 3);
+            }
+        }
+        
+        return result;
     }
     
     /**
@@ -319,6 +316,6 @@ public abstract class Pet implements PetBehaviour
     {
         return "Pet Name:" + this.getPetName() + " | Health:" + this.getHealth() + " | Energy:" + this.getEnergy() + " | Swimming:" + this.getSwimming() + "/10  | Speed:" + this.getSpeed() + "/10  | Flight:" + this.getFlight() + "/10";
     }
-
-   
+    
+    
 }
