@@ -341,6 +341,13 @@ public class Model extends Observable
                     this.pet.setHealth(this.pet.getHealth() + 10);
                     this.pet.setEnergy(this.pet.getEnergy() + 2);
                     this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                    setChanged();
+                    notifyObservers(5);
+                }
+                else
+                {
+                    setChanged();
+                    notifyObservers(6);
                 }
             }
             else if(this.pet instanceof EarthDragon)
@@ -349,6 +356,13 @@ public class Model extends Observable
                 {
                     this.pet.setHealth(this.pet.getHealth() + 20);
                     this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                    setChanged();
+                    notifyObservers(5);
+                }
+                else
+                {
+                    setChanged();
+                    notifyObservers(6);
                 }
             }
             else if(this.pet instanceof FireDragon)
@@ -357,6 +371,13 @@ public class Model extends Observable
                 {
                     this.pet.setEnergy(this.pet.getEnergy() + 5);
                     this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                    setChanged();
+                    notifyObservers(5);
+                }
+                else
+                {
+                    setChanged();
+                    notifyObservers(6);
                 }
             }
             else if(this.pet instanceof IceDragon)
@@ -366,6 +387,13 @@ public class Model extends Observable
                     this.pet.setHealth(this.pet.getHealth() + 30);
                     this.pet.setEnergy(this.pet.getEnergy() + 4);
                     this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                    setChanged();
+                    notifyObservers(5);
+                }
+                else
+                {
+                    setChanged();
+                    notifyObservers(6);
                 }
             }
             else if(this.pet instanceof TerraDragon)
@@ -374,6 +402,13 @@ public class Model extends Observable
                 {
                     this.pet.setHealth(this.pet.getHealth() + 50);
                     this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                    setChanged();
+                    notifyObservers(5);
+                }
+                else
+                {
+                    setChanged();
+                    notifyObservers(6);
                 }
             }
             else
@@ -383,12 +418,44 @@ public class Model extends Observable
                     this.pet.setHealth(this.pet.getHealth() + 5);
                     this.pet.setEnergy(this.pet.getEnergy() + 8);
                     this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                    setChanged();
+                    notifyObservers(5);
+                }
+                else
+                {
+                    setChanged();
+                    notifyObservers(6);
                 }
             }
-   
+            
         }
-        setChanged();
-        notifyObservers(5);
+    }
+    
+    public void evolvePet()
+    {
+        if(owner.getRacesWon() == 5 && owner.getMoney() == 500)
+        {
+            if(pet instanceof WaterDragon)
+            {
+                pet = new IceDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 2, pet.getSpeed() + 2, pet.getFlight() + 2);
+            }
+            else if(pet instanceof EarthDragon)
+            {
+                pet = new TerraDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 2, pet.getSpeed() + 2, pet.getFlight() + 2);
+            }
+            else
+            {
+                pet = new LavaDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 2, pet.getSpeed() + 2, pet.getFlight() + 2);        
+            }
+            setChanged();
+            notifyObservers(7);
+        }
+        else
+        {
+            setChanged();
+            notifyObservers(8);
+        }
+        
     }
     
     
