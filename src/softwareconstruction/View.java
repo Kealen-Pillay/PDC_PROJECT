@@ -58,6 +58,7 @@ public class View extends JFrame implements Observer
     private JButton enterButton;
     
     private PowerPanel powerPanel;
+    private EvolvePanel evolvePanel;
     
     //------------------------------------ Constructor ------------------------------------------------
     
@@ -234,9 +235,12 @@ public class View extends JFrame implements Observer
         //----- Pet Power Panel -----
         powerPanel = new PowerPanel(model.getPet());
         
+        //----- Evolve Panel -----
+        evolvePanel = new EvolvePanel();
         
         this.getContentPane().add(this.getStartPanel(), BorderLayout.CENTER);
         this.add(powerPanel);
+        this.add(evolvePanel);
         this.getContentPane().setBackground(Color.gray);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -283,14 +287,59 @@ public class View extends JFrame implements Observer
         {
             model.getOwner().setFood(model.getOwner().getFood() + 1);
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
-            playerPanel.getEventLog().append("+1 food pellet.\n");          
+            playerPanel.getEventLog().append("+1 food pellet.\n");
+            foodPanel.newQuestion();
+            foodPanel.getAnswerBox().setText("");
         }
         else if((Integer) arg == 5)
         {
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             powerPanel.setPowerDescription(model.getPet());
+            playerPanel.getEventLog().append("Pet power used.\n");
         }
+        else if((Integer) arg == 6)
+        {
+            JOptionPane.showMessageDialog(null, "Your pet cannot use it's power as it is healthy!", "No Use For Pet Power", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if((Integer) arg == 7)
+        {
+            petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
+            petPanel.getSwimmingLabel().setText("Swimming: " + String.valueOf(model.getPet().getSwimming()) + " / 10");
+            petPanel.getSpeedLabel().setText("Speed: " + String.valueOf(model.getPet().getSpeed()) + " / 10");
+            petPanel.getFlightLabel().setText("Flight: " + String.valueOf(model.getPet().getFlight()) + " / 10");
+            playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
+            model.getOwner().setMaxPet(true);
+            String evolutionImage;
+            if(model.getPet() instanceof IceDragon)
+            {
+                evolutionImage = "ice_dragon.png";
+            }
+            else if(model.getPet() instanceof TerraDragon)
+            {
+                evolutionImage = "terra_dragon.png";
+            }
+            else
+            {
+                evolutionImage = "lava_dragon.png";
+            }
+            
+            Image newImage = new ImageIcon(evolutionImage).getImage();
+            mod = newImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            ImageIcon petIcon = new ImageIcon(mod);
+            petIconLabel.setIcon(petIcon);
+        }
+        else if((Integer) arg == 8)
+        {
+            JOptionPane.showMessageDialog(null, "You do not meet the conditions to evolve!", "Unable to Evolve Pet", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        if(model.getOwner().getMaxPet())
+        {
+            evolveButton.setEnabled(false);
+        }
+        
     }
     
     /**
@@ -501,12 +550,26 @@ public class View extends JFrame implements Observer
         petIconLabel.setLocation(275, 40);
         gamePanel.add(petIconLabel);
     }
-
+    
     /**
      * @return the powerPanel
      */
     public PowerPanel getPowerPanel() {
         return powerPanel;
+    }
+    
+    /**
+     * @return the evolvePanel
+     */
+    public EvolvePanel getEvolvePanel() {
+        return evolvePanel;
+    }
+    
+    /**
+     * @return the evolveButton
+     */
+    public JButton getEvolveButton() {
+        return evolveButton;
     }
     
     
