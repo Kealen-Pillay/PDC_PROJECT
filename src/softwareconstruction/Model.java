@@ -21,6 +21,7 @@ public class Model extends Observable
     //--------------------------- Instance Variables ----------------------------------------------
     private Pet pet;
     private Owner owner;
+    private String result;
     
     //---------------------------- Constructor -----------------------------------------------------
     public Model()
@@ -319,7 +320,7 @@ public class Model extends Observable
     
     public void racePet()
     {
-        this.pet.race(this.owner);
+        result = this.pet.race(this.owner);
         setChanged();
         notifyObservers(3);
     }
@@ -332,55 +333,69 @@ public class Model extends Observable
     
     public void usePower()
     {
-        if(this.pet.getPowerCounter() != 3)
+        if(owner.getMaxPet())
         {
-            if(this.pet instanceof WaterDragon)
+            this.evolvedPower(pet);
+        }
+        else
+        {
+            if(this.pet.getPowerCounter() != 3)
             {
-                if(pet.getHealth() != 100 || pet.getEnergy() != 10)
+                if(this.pet instanceof WaterDragon)
                 {
-                    this.pet.setHealth(this.pet.getHealth() + 10);
-                    this.pet.setEnergy(this.pet.getEnergy() + 2);
-                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                    setChanged();
-                    notifyObservers(5);
+                    if(pet.getHealth() != 100 || pet.getEnergy() != 10)
+                    {
+                        this.pet.setHealth(this.pet.getHealth() + 10);
+                        this.pet.setEnergy(this.pet.getEnergy() + 2);
+                        this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                        setChanged();
+                        notifyObservers(5);
+                    }
+                    else
+                    {
+                        setChanged();
+                        notifyObservers(6);
+                    }
                 }
-                else
+                else if(this.pet instanceof EarthDragon)
                 {
-                    setChanged();
-                    notifyObservers(6);
+                    if(pet.getHealth() != 100)
+                    {
+                        this.pet.setHealth(this.pet.getHealth() + 20);
+                        this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                        setChanged();
+                        notifyObservers(5);
+                    }
+                    else
+                    {
+                        setChanged();
+                        notifyObservers(6);
+                    }
+                }
+                else if(this.pet instanceof FireDragon)
+                {
+                    if(pet.getEnergy() != 10)
+                    {
+                        this.pet.setEnergy(this.pet.getEnergy() + 5);
+                        this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
+                        setChanged();
+                        notifyObservers(5);
+                    }
+                    else
+                    {
+                        setChanged();
+                        notifyObservers(6);
+                    }
                 }
             }
-            else if(this.pet instanceof EarthDragon)
-            {
-                if(pet.getHealth() != 100)
-                {
-                    this.pet.setHealth(this.pet.getHealth() + 20);
-                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                    setChanged();
-                    notifyObservers(5);
-                }
-                else
-                {
-                    setChanged();
-                    notifyObservers(6);
-                }
-            }
-            else if(this.pet instanceof FireDragon)
-            {
-                if(pet.getEnergy() != 10)
-                {
-                    this.pet.setEnergy(this.pet.getEnergy() + 5);
-                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                    setChanged();
-                    notifyObservers(5);
-                }
-                else
-                {
-                    setChanged();
-                    notifyObservers(6);
-                }
-            }
-            else if(this.pet instanceof IceDragon)
+        }
+    }
+    
+    private void evolvedPower(Pet pet)
+    {
+        if(pet.getPowerCounter() != 3)
+        {
+            if(this.pet instanceof IceDragon)
             {
                 if(pet.getHealth() != 100 || pet.getEnergy() != 10)
                 {
@@ -427,13 +442,13 @@ public class Model extends Observable
                     notifyObservers(6);
                 }
             }
-            
         }
+        
     }
     
     public void evolvePet()
     {
-        if(owner.getRacesWon() == 5 && owner.getMoney() == 500)
+        if(owner.getRacesWon() >= 1 && owner.getMoney() >= 100)
         {
             if(pet instanceof WaterDragon)
             {
@@ -445,7 +460,7 @@ public class Model extends Observable
             }
             else
             {
-                pet = new LavaDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 2, pet.getSpeed() + 2, pet.getFlight() + 2);        
+                pet = new LavaDragon(pet.getPetName(), pet.getHealth(), pet.getEnergy(), pet.getSwimming() + 2, pet.getSpeed() + 2, pet.getFlight() + 2);
             }
             setChanged();
             notifyObservers(7);
@@ -456,6 +471,13 @@ public class Model extends Observable
             notifyObservers(8);
         }
         
+    }
+
+    /**
+     * @return the result
+     */
+    public String getResult() {
+        return result;
     }
     
     
