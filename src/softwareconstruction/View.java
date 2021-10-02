@@ -56,6 +56,9 @@ public class View extends JFrame implements Observer
     private JTextField petNameField;
     private JLabel errorLabel2;
     private JButton enterButton;
+    
+    private PowerPanel powerPanel;
+    
     //------------------------------------ Constructor ------------------------------------------------
     
     public View(String title, Model m)
@@ -228,6 +231,10 @@ public class View extends JFrame implements Observer
         gamePanel.add(endGameButton);
         gamePanel.add(instructionsButton);
         
+        //----- Pet Power Panel -----
+        powerPanel = new PowerPanel(model.getPet());
+        
+        
         this.getContentPane().add(this.getStartPanel(), BorderLayout.CENTER);
         this.getContentPane().setBackground(Color.gray);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -254,13 +261,14 @@ public class View extends JFrame implements Observer
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
             playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
+            powerPanel.setPowerDescription(model.getPet());
         }
         else if((Integer) arg == 2)
         {
             petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
-            playerPanel.getEventLog().append(model.getPet().getPetName() + " ate 1 food pellet.\n");
+            playerPanel.getEventLog().append("-1 food pellet.\n");
             
         }
         else if((Integer) arg == 3)
@@ -274,8 +282,7 @@ public class View extends JFrame implements Observer
         {
             model.getOwner().setFood(model.getOwner().getFood() + 1);
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
-            playerPanel.getEventLog().append("+1 food pellet earned.\n");
-            
+            playerPanel.getEventLog().append("+1 food pellet.\n");          
         }
     }
     
@@ -486,6 +493,13 @@ public class View extends JFrame implements Observer
         petIconLabel.setSize(300, 300);
         petIconLabel.setLocation(275, 40);
         gamePanel.add(petIconLabel);
+    }
+
+    /**
+     * @return the powerPanel
+     */
+    public PowerPanel getPowerPanel() {
+        return powerPanel;
     }
     
     
