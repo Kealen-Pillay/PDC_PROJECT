@@ -236,6 +236,7 @@ public class View extends JFrame implements Observer
         
         
         this.getContentPane().add(this.getStartPanel(), BorderLayout.CENTER);
+        this.add(powerPanel);
         this.getContentPane().setBackground(Color.gray);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -283,6 +284,11 @@ public class View extends JFrame implements Observer
             model.getOwner().setFood(model.getOwner().getFood() + 1);
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
             playerPanel.getEventLog().append("+1 food pellet.\n");          
+        }
+        else if((Integer) arg == 5)
+        {
+            petPanel.getHealthLabel().setText("Health: " + String.valueOf(model.getPet().getHealth()) + " / 100");
+            petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
         }
     }
     
