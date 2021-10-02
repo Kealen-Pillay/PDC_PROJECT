@@ -26,27 +26,29 @@ public class PowerPanel extends JPanel
         Font f = new Font("Arial", Font.BOLD, 50);
         powerLabel.setFont(f);
         powerLabel.setSize(450, 100);
-        powerLabel.setLocation(300, 50);
+        powerLabel.setLocation(280, 40);
         
         powerDescription = new JTextArea();
+        Font f1 = new Font("Arial", Font.PLAIN, 18);
+        powerDescription.setFont(f1);
         powerDescription.setBackground(new Color(148, 129, 240));
-        powerDescription.setSize(600, 300);
-        powerDescription.setLocation(50, 200);
+        powerDescription.setSize(800, 200);
+        powerDescription.setLocation(20, 200);
         powerDescription.setEditable(false);
         
         yesButton = new JButton("Use Pet Power");
         yesButton.setSize(150,50);
-        yesButton.setLocation(200, 500);
+        yesButton.setLocation(250, 450);
         
         goBackButton = new JButton("Go Back");
         goBackButton.setSize(150, 50);
-        goBackButton.setLocation(400, 500);
+        goBackButton.setLocation(450, 450);
         
         this.add(powerLabel);
         this.add(powerDescription);
         this.add(yesButton);
         this.add(goBackButton);
-        this.setVisible(true);
+        this.setVisible(false);
     }
     
     //--------------------------------------------------- Methods -------------------------------------
