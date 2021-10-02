@@ -43,6 +43,7 @@ public class PlayerPanel extends JPanel
         racesLabel.setLocation(10, 155);
         
         eventLog = new JTextArea();
+        eventLog.setEditable(false);
         eventLog.setSize(170, 100);
         
         scrollpane = new JScrollPane(getEventLog());
@@ -50,6 +51,7 @@ public class PlayerPanel extends JPanel
         scrollpane.setLocation(10, 185);
         scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
 
         this.add(playerPanelTitle);
         this.add(moneyLabel);
