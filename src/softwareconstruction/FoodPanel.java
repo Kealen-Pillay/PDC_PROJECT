@@ -46,7 +46,7 @@ public class FoodPanel extends JPanel
         this.newQuestion();
         Font f = new Font("Arial", Font.BOLD, 20);
         questionLabel.setFont(f);
-        questionLabel.setSize(80, 40);
+        questionLabel.setSize(100, 40);
         questionLabel.setLocation(60, 70);
         
         this.add(earnFoodLabel);
