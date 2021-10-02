@@ -134,11 +134,11 @@ public class Controller implements ActionListener
         }
         else if(source == view.getFeedButton())
         {
-            if(model.getOwner().getFood() != 0 && model.getPet().getHealth() != 100)
+            if(model.getOwner().getFood() != 0 && (model.getPet().getHealth() != 100 || model.getPet().getEnergy() != 10))
             {
                 model.feedPet();
             }
-            else if(model.getPet().getHealth() == 100)
+            else if(model.getPet().getHealth() == 100 && model.getPet().getEnergy() == 10)
             {
                 JOptionPane.showMessageDialog(null, "Your pet's health and energy is full.", "Pet Health & Energy Full", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -159,16 +159,9 @@ public class Controller implements ActionListener
             }
         }
         else if(source == view.getPetPowerButton())
-        {
-            if(model.getPet().getPowerCounter() == 3)
-            {
-                JOptionPane.showMessageDialog(null, "Your Pet has run out of power!", "No More Pet Powers", JOptionPane.INFORMATION_MESSAGE);
-            }
-            else
-            {
-                view.getGamePanel().setVisible(false);
-                view.getPowerPanel().setVisible(true);
-            }
+        {        
+            view.getGamePanel().setVisible(false);
+            view.getPowerPanel().setVisible(true);           
         }
         else if(source  == view.getEvolveButton())
         {
@@ -181,8 +174,8 @@ public class Controller implements ActionListener
             view.getGamePanel().setVisible(true);
         }
         else if(source == view.getEvolvePanel().getEvolveButton())
-        {          
-            model.evolvePet(); 
+        {
+            model.evolvePet();
             view.getEvolvePanel().setVisible(false);
             view.getGamePanel().setVisible(true);
         }
