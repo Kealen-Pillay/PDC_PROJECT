@@ -31,6 +31,7 @@ public class Controller implements ActionListener
         view.getInstructionsButton().addActionListener(this);
         view.getFoodPanel().getEnterButton().addActionListener(this);
         view.getPowerPanel().getGoBackButton().addActionListener(this);
+        view.getPowerPanel().getYesButton().addActionListener(this);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
