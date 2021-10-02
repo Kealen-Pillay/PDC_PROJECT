@@ -156,8 +156,15 @@ public class Controller implements ActionListener
         }
         else if(source == view.getPetPowerButton())
         {
-            view.getGamePanel().setVisible(false);
-            view.add(view.getPowerPanel());
+            if(model.getPet().getPowerCounter() == 3)
+            {
+                JOptionPane.showMessageDialog(null, "Your Pet has run out of power!", "No More Pet Powers", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                view.getGamePanel().setVisible(false);
+                view.getPowerPanel().setVisible(true);
+            }
         }
         else if(source == view.getInstructionsButton())
         {
@@ -181,6 +188,12 @@ public class Controller implements ActionListener
         }
         else if(source == view.getPowerPanel().getGoBackButton())
         {
+            view.getPowerPanel().setVisible(false);
+            view.getGamePanel().setVisible(true);
+        }
+        else if(source == view.getPowerPanel().getYesButton())
+        {
+            model.usePower();
             view.getPowerPanel().setVisible(false);
             view.getGamePanel().setVisible(true);
         }
