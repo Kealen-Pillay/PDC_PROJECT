@@ -572,7 +572,7 @@ public class OldMain
         }
         Highscores hs = new Highscores(player.getName(), player.getRacesWon());
         hs.writeScores();
-        hs.displayScores();
+        
         
         System.out.print("\n");
         reviews();
