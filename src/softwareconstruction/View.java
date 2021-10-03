@@ -59,6 +59,7 @@ public class View extends JFrame implements Observer
     
     private PowerPanel powerPanel;
     private EvolvePanel evolvePanel;
+    private EndPanel endPanel;
     
     //------------------------------------ Constructor ------------------------------------------------
     
@@ -102,6 +103,8 @@ public class View extends JFrame implements Observer
         instructionPanel = new JPanel();
         instructionPanel.setLayout(null);
         instructionPanel.setBackground(new Color(255, 134, 97));
+        instructionPanel.setSize(853, 600);
+        instructionPanel.setLocation(0, 0);
         
         instructionTitleLabel = new JLabel("INSTRUCTIONS");
         Font instructionTitleFont = new Font("Arial", Font.BOLD, 40);
@@ -122,7 +125,7 @@ public class View extends JFrame implements Observer
         instructionPanel.add(instructionTitleLabel);
         instructionPanel.add(continueButton);
         instructionPanel.add(instructionText);
-        
+        instructionPanel.setVisible(false);
         
         //----- Pet Selection Panel -----
         selectionPanel = new JPanel();
@@ -181,6 +184,7 @@ public class View extends JFrame implements Observer
         selectionPanel.add(petNameField);
         selectionPanel.add(enterButton);
         selectionPanel.add(errorLabel2);
+        selectionPanel.setVisible(false);
         
         //----- Pet Panel ------
         petPanel = new PetPanel();
@@ -220,8 +224,9 @@ public class View extends JFrame implements Observer
         endGameButton.setLocation(305, 505);
         
         //----- Game Panel -----
-        gamePanel = new GamePanel();
-        
+        gamePanel = new GamePanel();  
+        gamePanel.setSize(853, 600);
+        gamePanel.setLocation(0, 0);
         gamePanel.add(petPanel);
         gamePanel.add(playerPanel);
         gamePanel.add(foodPanel);
@@ -231,6 +236,7 @@ public class View extends JFrame implements Observer
         gamePanel.add(petPowerButton);
         gamePanel.add(endGameButton);
         gamePanel.add(instructionsButton);
+        gamePanel.setVisible(false);
         
         //----- Pet Power Panel -----
         powerPanel = new PowerPanel(model.getPet());
@@ -238,9 +244,16 @@ public class View extends JFrame implements Observer
         //----- Evolve Panel -----
         evolvePanel = new EvolvePanel();
         
+        //----- End Panel -----
+        endPanel = new EndPanel();
+        
         this.getContentPane().add(this.getStartPanel(), BorderLayout.CENTER);
         this.add(powerPanel);
+        this.add(endPanel);
         this.add(evolvePanel);
+        this.add(gamePanel);
+        this.add(instructionPanel);
+        this.add(selectionPanel);
         this.getContentPane().setBackground(Color.gray);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -581,6 +594,13 @@ public class View extends JFrame implements Observer
      */
     public JButton getEvolveButton() {
         return evolveButton;
+    }
+
+    /**
+     * @return the endPanel
+     */
+    public EndPanel getEndPanel() {
+        return endPanel;
     }
     
     
