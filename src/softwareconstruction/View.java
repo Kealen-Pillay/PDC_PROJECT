@@ -165,7 +165,7 @@ public class View extends JFrame implements Observer
         optionGroup.add(option2);
         optionGroup.add(option3);
         
-        petNameField = new JTextField("Enter Pet Name");
+        petNameField = new JTextField("Enter Pet Name Here...");
         petNameField.setSize(250, 30);
         petNameField.setLocation(250, 450);
         
@@ -225,7 +225,7 @@ public class View extends JFrame implements Observer
         endGameButton.setLocation(305, 505);
         
         //----- Game Panel -----
-        gamePanel = new GamePanel();  
+        gamePanel = new GamePanel();
         gamePanel.setSize(853, 600);
         gamePanel.setLocation(0, 0);
         gamePanel.add(petPanel);
@@ -282,11 +282,12 @@ public class View extends JFrame implements Observer
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
             powerPanel.setPowerDescription(model.getPet());
             usernameBox.setText("");
-            petNameField.setText("");
+            petNameField.setText("Enter Pet Name Here...");
             optionGroup.clearSelection();
+            evolveButton.setEnabled(true);
             endPanel.getReview().setEditable(true);
             endPanel.getSubmitButton().setEnabled(true);
-            endPanel.getReview().setText("Enter Review Here...");
+            endPanel.getReview().setText("Enter Review Here...");   
         }
         else if((Integer) arg == 2)
         {
@@ -363,10 +364,12 @@ public class View extends JFrame implements Observer
             endPanel.getSubmitButton().setEnabled(false);
             endPanel.getReview().setText("*** REVIEW SUBMITTED ***");
         }
+        
         if(model.getOwner().getMaxPet())
         {
             evolveButton.setEnabled(false);
         }
+        
         if(model.getPet().getPowerCounter() == 3)
         {
             petPowerButton.setEnabled(false);
@@ -374,6 +377,15 @@ public class View extends JFrame implements Observer
         else
         {
             petPowerButton.setEnabled(true);
+        }
+        
+        if(model.getPet().getHealth() == 0)
+        {
+            gamePanel.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Your Pet Has Died! It has 0HP", "Death of Pet", JOptionPane.INFORMATION_MESSAGE);
+            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon());
+            endPanel.setScores(h.sortValues());
+            endPanel.setVisible(true);
         }
         
     }
@@ -607,7 +619,7 @@ public class View extends JFrame implements Observer
     public JButton getEvolveButton() {
         return evolveButton;
     }
-
+    
     /**
      * @return the endPanel
      */
