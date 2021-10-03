@@ -13,7 +13,7 @@ public class Controller implements ActionListener
 {
     //----------------------------------------------- Instance Variables ------------------------------------------
     private Model model;
-    private View view;
+    public View view;
     
     //----------------------------------------------- Constructor ------------------------------------------
     
@@ -23,6 +23,9 @@ public class Controller implements ActionListener
         view = v;
         view.getStartButton().addActionListener(this);
         view.getContinueButton().addActionListener(this);
+        view.getOption1().addActionListener(this);
+        view.getOption2().addActionListener(this);
+        view.getOption3().addActionListener(this);
         view.getEnterButton().addActionListener(this);
         view.getFeedButton().addActionListener(this);
         view.getRaceButton().addActionListener(this);
@@ -36,6 +39,7 @@ public class Controller implements ActionListener
         view.getEvolvePanel().getEvolveButton().addActionListener(this);
         view.getEvolvePanel().getGoBackButton().addActionListener(this);
         view.getEndPanel().getPlayAgainButton().addActionListener(this);
+        view.getEndPanel().getSubmitButton().addActionListener(this);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
@@ -74,6 +78,18 @@ public class Controller implements ActionListener
         {
             view.getInstructionPanel().setVisible(false);
             view.getSelectionPanel().setVisible(true);
+        }
+        else if(source == view.getOption1())
+        {
+            view.getEnterButton().setEnabled(true);
+        }
+        else if(source == view.getOption2())
+        {
+            view.getEnterButton().setEnabled(true);
+        }
+        else if(source == view.getOption3())
+        {
+            view.getEnterButton().setEnabled(true);
         }
         else if(source == view.getEnterButton())
         {
@@ -221,6 +237,13 @@ public class Controller implements ActionListener
             view.getEndPanel().setVisible(false);
             view.getStartPanel().setVisible(true);
             view.getPlayerPanel().getEventLog().setText("");
+            view.getEnterButton().setEnabled(false);
+        }
+        else if(source == view.getEndPanel().getSubmitButton())
+        {
+            String review = view.getEndPanel().getReview().getText();
+            model.reviews(review);
+            
         }
         
     }
