@@ -174,6 +174,7 @@ public class View extends JFrame implements Observer
         errorLabel2.setLocation(255, 500);
         
         enterButton = new JButton("Confirm");
+        enterButton.setEnabled(false);
         enterButton.setSize(100, 30);
         enterButton.setLocation(510, 450);
         
@@ -280,6 +281,12 @@ public class View extends JFrame implements Observer
             playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
             powerPanel.setPowerDescription(model.getPet());
+            usernameBox.setText("");
+            petNameField.setText("");
+            optionGroup.clearSelection();
+            endPanel.getReview().setEditable(true);
+            endPanel.getSubmitButton().setEnabled(true);
+            endPanel.getReview().setText("Enter Review Here...");
         }
         else if((Integer) arg == 2)
         {
@@ -350,7 +357,12 @@ public class View extends JFrame implements Observer
         {
             JOptionPane.showMessageDialog(null, "You do not meet the conditions to evolve!", "Unable to Evolve Pet", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+        else if((Integer) arg == 9)
+        {
+            endPanel.getReview().setEditable(false);
+            endPanel.getSubmitButton().setEnabled(false);
+            endPanel.getReview().setText("*** REVIEW SUBMITTED ***");
+        }
         if(model.getOwner().getMaxPet())
         {
             evolveButton.setEnabled(false);
