@@ -274,7 +274,7 @@ public abstract class Pet implements PetBehaviour
         {
             if((randomizer.nextInt(9) + 1) <= this.getSpeed())
             {
-                result = "WON THE " + races[raceOption] + " RACE! YOU WIN $100";
+                result = "WON THE " + races[raceOption] + " RACE!";
                 owner.setMoney(owner.getMoney() + 100);
                 owner.setRacesWon(owner.getRacesWon() + 1);
                 this.setHealth(this.getHealth() - (randomizer.nextInt(20) + 1));
