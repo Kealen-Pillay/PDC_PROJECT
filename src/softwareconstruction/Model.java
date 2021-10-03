@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -238,34 +237,9 @@ public class Model extends Observable
         try
         {
             PrintWriter outputStream = new PrintWriter(new FileOutputStream("Reviews.txt", true));
-            Scanner keyboard = new Scanner(System.in);
-            String answer = "";
             String review = null;
-            System.out.println("Would you like to leave a review?");
-            
-            while(true)
-            {
-                answer = keyboard.nextLine();
-                if(answer.toLowerCase().equals("yes") || answer.toLowerCase().equals("no"))
-                {
-                    break;
-                }
-                else
-                {
-                    System.out.println("Invalid Input! Try Again. (yes / no) only.");
-                }
-            }
-            
-            if(answer.toLowerCase().equals("yes"))
-            {
-                System.out.println("Enter your review below (Press Enter Key to Submit Review):");
-                review = keyboard.nextLine();
-                outputStream.print(review + "\n");
-                System.out.println("Thank you for leaving a review :)");
-            }
-            System.out.println("******************************************************** THANKS FOR PLAYING ********************************************************");
-            outputStream.close();
-            
+            outputStream.print(review + "\n");           
+            outputStream.close();  
         }
         catch(FileNotFoundException e)
         {
@@ -448,7 +422,7 @@ public class Model extends Observable
     
     public void evolvePet()
     {
-        if(owner.getRacesWon() >= 1 && owner.getMoney() >= 100)
+        if(owner.getRacesWon() >= 5 && owner.getMoney() >= 500)
         {
             if(pet instanceof WaterDragon)
             {
@@ -472,7 +446,7 @@ public class Model extends Observable
         }
         
     }
-
+    
     /**
      * @return the result
      */
