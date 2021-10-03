@@ -25,9 +25,6 @@ public class VirtualPetGame
     
     public static void main(String[] args) 
     {
-        VirtualPetGame game = new VirtualPetGame();
-        
-    }
-    
-    
+        VirtualPetGame game = new VirtualPetGame(); 
+    }  
 }
