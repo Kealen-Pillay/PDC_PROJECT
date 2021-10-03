@@ -15,7 +15,7 @@ public class EvolvePanel extends JPanel
     private JButton evolveButton;
     private JButton goBackButton;
     
-    //--------------------------------------------------- Instance Variables -------------------------------------
+    //--------------------------------------------------- Constructor -------------------------------------
     public EvolvePanel()
     {
         this.setLayout(null);
