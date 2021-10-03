@@ -139,32 +139,18 @@ public class Owner implements OwnerActions
             {
                 pet.setEnergy(pet.getEnergy() + 1);
                 this.setFood(this.getFood() - 1);
-                System.out.println(pet.getPetName() + "'s energy went up.");
             }
             else if(pet.getHealth() < 100 && pet.getEnergy() == 10)
             {
                 pet.setHealth(pet.getHealth() + 5);
                 this.setFood(this.getFood() - 1);
-                System.out.println(pet.getPetName() + "'s health went up.");
-
             }
             else if((pet.getEnergy() < 10) && (pet.getHealth() < 100))
             {
                 pet.setEnergy(pet.getEnergy() + 1);                
                 this.setFood(this.getFood() - 1);
-                System.out.println(pet.getPetName() + "'s energy went up.");
-
-            }
-            else
-            {
-                System.out.println(pet.getPetName() + "'s health and energy is full.");
-            }
-                    
-        }
-        else
-        {
-            System.out.println("You have no food left.");
-        }
+            }                    
+        }   
     }
     
     /**

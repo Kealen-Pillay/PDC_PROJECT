@@ -82,7 +82,7 @@ public class Highscores
      * Sorts the scores stored in the HashMap containing players and their corresponding scores and sorts the scores in descending order.
      * @return returns an ArrayList<Map.Entry<String, Integer>> containing the sorted scores in descending order. 
      */
-    private ArrayList<Map.Entry<String, Integer>> sortValues()
+    public ArrayList<Map.Entry<String, Integer>> sortValues()
     {
         readScores();
         Set<Map.Entry<String, Integer>> set = this.highscores.entrySet();
@@ -123,44 +123,5 @@ public class Highscores
         }     
     }
     
-    /**
-     * Displays the top 5 scores of all time to the user.
-     */
-    public void displayScores()
-    {
-        try
-        {
-            BufferedReader inputStream = new BufferedReader(new FileReader("Highscores.txt"));
-            System.out.println("\nHIGHSCORES");
-            System.out.println("----------");
-            int counter = 0;
-            String line = null;
-            
-            while((line = inputStream.readLine()) != null)
-            {
-                if(counter == 5)
-                {
-                    break;
-                }
-                StringTokenizer st = new StringTokenizer(line, ",");
-                while(st.hasMoreTokens())
-                {
-                    if(counter == 5)
-                    {
-                        break;
-                    }
-                    System.out.println((counter + 1) + ") Player: " + st.nextToken() + " - Races Won: " + st.nextToken());
-                    counter++;
-                }
-            }
-        } 
-        catch (FileNotFoundException ex) 
-        {
-            System.out.println("File Not Found.");
-        } 
-        catch (IOException ex) 
-        {
-            System.out.println("IOException");
-        }
-    }   
+
 }
