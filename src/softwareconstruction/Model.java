@@ -232,14 +232,15 @@ public class Model extends Observable
     /**
      * Allows the player to write a review after playing the game. All reviews are stored in an external text file.
      */
-    public void reviews()
+    public void reviews(String review)
     {
         try
         {
-            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Reviews.txt", true));
-            String review = null;
+            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Reviews.txt", true));     
             outputStream.print(review + "\n");           
             outputStream.close();  
+            setChanged();
+            notifyObservers(9);
         }
         catch(FileNotFoundException e)
         {
@@ -422,7 +423,7 @@ public class Model extends Observable
     
     public void evolvePet()
     {
-        if(owner.getRacesWon() >= 5 && owner.getMoney() >= 500)
+        if(owner.getRacesWon() >= 1 && owner.getMoney() >= 100)
         {
             if(pet instanceof WaterDragon)
             {
