@@ -35,6 +35,7 @@ public class Controller implements ActionListener
         view.getPowerPanel().getYesButton().addActionListener(this);
         view.getEvolvePanel().getEvolveButton().addActionListener(this);
         view.getEvolvePanel().getGoBackButton().addActionListener(this);
+        view.getEndPanel().getPlayAgainButton().addActionListener(this);
     }
     
     //------------------------------------------------- Methods --------------------------------------------------
@@ -65,14 +66,14 @@ public class Controller implements ActionListener
                 {
                     model.setOwner(new Owner(username, 0, 10, 0, false));
                     view.getStartPanel().setVisible(false);
-                    view.add(view.getInstructionPanel());
+                    view.getInstructionPanel().setVisible(true); 
                 }
             }
         }
         else if(source == view.getContinueButton())
         {
             view.getInstructionPanel().setVisible(false);
-            view.add(view.getSelectionPanel());
+            view.getSelectionPanel().setVisible(true);
         }
         else if(source == view.getEnterButton())
         {
@@ -125,7 +126,7 @@ public class Controller implements ActionListener
                         view.setPetImage("fire_dragon.png");
                     }
                     view.getSelectionPanel().setVisible(false);
-                    view.add(view.getGamePanel());
+                    view.getGamePanel().setVisible(true);
                     model.setup();
                     
                 }
@@ -207,6 +208,19 @@ public class Controller implements ActionListener
             model.usePower();
             view.getPowerPanel().setVisible(false);
             view.getGamePanel().setVisible(true);
+        }
+        else if(source == view.getEndGameButton())
+        {
+            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon());
+            view.getEndPanel().setScores(h.sortValues());
+            view.getGamePanel().setVisible(false);
+            view.getEndPanel().setVisible(true);
+        }
+        else if(source == view.getEndPanel().getPlayAgainButton())
+        {
+            view.getEndPanel().setVisible(false);
+            view.getStartPanel().setVisible(true);
+            view.getPlayerPanel().getEventLog().setText("");
         }
         
     }
