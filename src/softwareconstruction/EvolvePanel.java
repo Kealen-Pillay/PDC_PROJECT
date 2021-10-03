@@ -29,7 +29,7 @@ public class EvolvePanel extends JPanel
         evolveLabel.setLocation(280, 40);
         
         evolveDescription = new JTextArea("TO EVOLVE YOUR PET YOU MUST HAVE:\n\n"
-                + "1) $500\n\n2) 5 RACES WON\n\n"
+                + "1) $100\n\n2) 1 RACE WON\n\n"
                 + "--------------------------------\n"
                 + "EVOLUTION TABLE\n"
                 + "--------------------------------\n"
