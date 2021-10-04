@@ -228,6 +228,10 @@ public class View extends JFrame implements Observer
         gamePanel = new GamePanel();
         gamePanel.setSize(853, 600);
         gamePanel.setLocation(0, 0);
+        petIconLabel = new JLabel();       
+        petIconLabel.setSize(300, 300);
+        petIconLabel.setLocation(275, 40);
+        gamePanel.add(petIconLabel);
         gamePanel.add(petPanel);
         gamePanel.add(playerPanel);
         gamePanel.add(foodPanel);
@@ -585,18 +589,14 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @param petImage the petImage to set
+     * @param image
      */
     public void setPetImage(String image)
     {
         this.petImage = new ImageIcon(image).getImage();
         mod = petImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         ImageIcon petIcon = new ImageIcon(mod);
-        petIconLabel = new JLabel();
         petIconLabel.setIcon(petIcon);
-        petIconLabel.setSize(300, 300);
-        petIconLabel.setLocation(275, 40);
-        gamePanel.add(petIconLabel);
     }
     
     /**
