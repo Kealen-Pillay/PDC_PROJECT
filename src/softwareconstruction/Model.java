@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -20,11 +21,15 @@ public class Model extends Observable
     //--------------------------- Instance Variables ----------------------------------------------
     private Pet pet;
     private Owner owner;
-    private String result;
+    private String raceResult;
+    private DBManager dbManager;
+    private Connection conn;
     
     //---------------------------- Constructor -----------------------------------------------------
     public Model()
     {
+        this.dbManager = new DBManager();
+        this.conn = this.dbManager.getConn();
     }
     
     //-------------------------- Methods ------------------------------------------------------------
@@ -65,7 +70,6 @@ public class Model extends Observable
     {
         ArrayList<Pet> pets = new ArrayList<Pet> ();
         String line = null;
-        
         try
         {
             BufferedReader inputStream = new BufferedReader(new FileReader("petstats.txt"));
@@ -84,7 +88,6 @@ public class Model extends Observable
                     Pet p3 = new FireDragon(st.nextToken(), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
                     pets.add(p3);
                 }
-                
             }
             inputStream.close();
         }
@@ -96,13 +99,11 @@ public class Model extends Observable
         {
             System.out.println("IOException");
         }
-        
         return pets;
     }
     
     /**
-     * Allows the user to earn food for their pet by answering basic math questions correctly. Math questions are randomly generated. Each correct question will increase the player's food amount by 1.
-     * @param owner represents the owner of the pet.
+     * Allows the user to earn food for their pet by answering basic math questions correctly.Math questions are randomly generated. Each correct question will increase the player's food amount by 1.
      */
     public HashMap<String, Integer> earnFood()
     {
@@ -295,7 +296,7 @@ public class Model extends Observable
     
     public void racePet()
     {
-        result = this.pet.race(this.owner);
+        raceResult = this.pet.race(this.owner);
         setChanged();
         notifyObservers(3);
     }
@@ -449,10 +450,24 @@ public class Model extends Observable
     }
     
     /**
-     * @return the result
+     * @return the raceResult
      */
-    public String getResult() {
-        return result;
+    public String getRaceResult() {
+        return raceResult;
+    }
+
+    /**
+     * @return the dbManager
+     */
+    public DBManager getDbManager() {
+        return dbManager;
+    }
+
+    /**
+     * @return the conn
+     */
+    public Connection getConn() {
+        return conn;
     }
     
     

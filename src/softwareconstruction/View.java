@@ -307,7 +307,7 @@ public class View extends JFrame implements Observer
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
-            playerPanel.getEventLog().append(model.getResult() + "\n");
+            playerPanel.getEventLog().append(model.getRaceResult() + "\n");
         }
         else if((Integer) arg == 4)
         {
