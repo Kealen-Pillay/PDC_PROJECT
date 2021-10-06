@@ -7,10 +7,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,41 +30,55 @@ public class Model extends Observable
     private String raceResult;
     private DBManager dbManager;
     private Connection conn;
+    private Statement statement;
     
     //---------------------------- Constructor -----------------------------------------------------
     public Model()
     {
         this.dbManager = new DBManager();
-        this.conn = this.dbManager.getConn();
+        this.conn = this.dbManager.getConn();      
     }
     
     //-------------------------- Methods ------------------------------------------------------------
     /**
-     * Presents the player with instructions of how the game and game mechanics work.
+     * Presents the player with instructions of how the game works.
      */
     public String instructions()
     {
         String text = "";
         try
         {
-            BufferedReader instructions = new BufferedReader(new FileReader("Instructions.txt"));
-            String line = null;
-            
-            while((line = instructions.readLine()) != null)
+            this.checkExistedTable("INSTRUCTIONS");
+            statement = conn.createStatement();
+            String instructionsTable = "CREATE TABLE INSTRUCTIONS (RULES VARCHAR(130))";
+            statement.executeUpdate(instructionsTable);
+            String instructions = "INSERT INTO INSTRUCTIONS VALUES" +
+                    "('- Welcome to the virtual pet game, We hope you take care of your little buddy.'),\n" +
+                    "('- Once you have adopted your virtual pet, it will be your responsibility to take care of your new friend.'),\n" +
+                    "('- Your new pet will have various skills such as swimming, speed, and flight.'),\n" +
+                    "('- Depending on the pet you adopt, some pets have better skills or worse skills than others.'),\n" +
+                    "('- You may choose to enter your pet into races such as swimming, speed or flight.'),\n" +
+                    "('- If your pet wins the race, you will be rewarded with money which you may save to evolve your pet and make it more skilled.'),\n" +
+                    "('- Entering your pet into a race will cause it too lose health and energy.'),\n" +
+                    "('- It will be your responsibility to ensure your pet is full of energy and healthy by feeding them pellets.'),\n" +
+                    "('- Feeding your pet a pellet will restore 1 energy bar.'),\n" +
+                    "('- Once your pet is at full energy, its health will begin to increase when fed.'),\n" +
+                    "('- You can earn pellets by answering basic math questions.'),\n" +
+                    "('- Each pet has a unique power that can be used, but be conservative as each power only has 3 uses.')," +
+                    "('- Be sure to keep your pet well fed to keep it from dying. (Death of pet will end game)'),\n" +
+                    "('- Have Fun!')";
+            statement.executeUpdate(instructions);
+            ResultSet rs = statement.executeQuery("SELECT RULES FROM INSTRUCTIONS");
+            while(rs.next())
             {
-                text += line + "\n\n";
+                text += rs.getString("RULES") + "\n\n";
             }
-            text += "";
-            instructions.close();
+            rs.close();
         }
-        catch(FileNotFoundException e)
+        catch (SQLException ex)
         {
-            System.out.println("File Not Found.");
-        }
-        catch(IOException e)
-        {
-            System.out.println("IO Exception.");
-        }
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         return text;
     }
     
@@ -237,9 +257,9 @@ public class Model extends Observable
     {
         try
         {
-            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Reviews.txt", true));     
-            outputStream.print(review + "\n");           
-            outputStream.close();  
+            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Reviews.txt", true));
+            outputStream.print(review + "\n");
+            outputStream.close();
             setChanged();
             notifyObservers(9);
         }
@@ -455,19 +475,47 @@ public class Model extends Observable
     public String getRaceResult() {
         return raceResult;
     }
-
+    
     /**
      * @return the dbManager
      */
     public DBManager getDbManager() {
         return dbManager;
     }
-
+    
     /**
      * @return the conn
      */
     public Connection getConn() {
         return conn;
+    }
+    
+     public void checkExistedTable(String name)
+    {
+        try
+        {
+            DatabaseMetaData dbmd = this.conn.getMetaData();
+            String[] types = {"TABLE"};
+            statement = this.conn.createStatement();
+            ResultSet rs = dbmd.getTables(null, null, null, types);
+            
+            while(rs.next())
+            {
+                String table_name = rs.getString("TABLE_NAME");
+                System.out.println(table_name);
+                if(table_name.equalsIgnoreCase(name))
+                {
+                    statement.executeUpdate("Drop table " + name);
+                    System.out.println("Table " + name + " has been deleted");
+                    break;
+                }
+            }
+            rs.close();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
