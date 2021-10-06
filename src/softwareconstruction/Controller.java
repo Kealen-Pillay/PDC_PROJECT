@@ -144,7 +144,7 @@ public class Controller implements ActionListener
                     view.getSelectionPanel().setVisible(false);
                     view.getGamePanel().setVisible(true);
                     model.setup();
-                    
+                    model.usageStats(model.getPet());
                 }
                 
             }
@@ -238,6 +238,8 @@ public class Controller implements ActionListener
             view.getStartPanel().setVisible(true);
             view.getPlayerPanel().getEventLog().setText("");
             view.getEnterButton().setEnabled(false);
+            view.getErrorLabel().setText("");
+            view.getErrorLabel2().setText("");
         }
         else if(source == view.getEndPanel().getSubmitButton())
         {
