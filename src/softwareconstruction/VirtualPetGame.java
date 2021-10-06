@@ -20,7 +20,6 @@ public class VirtualPetGame
         Dimension frameDimension = view.getSize();
         view.setLocation((screenDimension.width-frameDimension.width)/2, (screenDimension.height-frameDimension.height)/2);
         view.setVisible(true);
-        model.getDbManager().closeConnections();
     }
     
     
