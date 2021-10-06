@@ -4,19 +4,22 @@ package softwareconstruction;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author kealenpillay
  */
-public class DBManager 
+public class DBManager
 {
     //----------------------------------------------------- Instance Variables ---------------------------------------------------------
     private static final String USERNAME = "pdc";
     private static final String PASSWORD = "pdc";
     private static final String URL = "jdbc:derby:VirtualPetGameDB; create=true";
     private Connection conn;
-    
+   
     //----------------------------------------------------- Constructor ---------------------------------------------------------
     public DBManager()
     {
@@ -24,11 +27,11 @@ public class DBManager
     }
     
     //----------------------------------------------------- Methods ---------------------------------------------------------
-
+    
     /**
      * @return the conn
      */
-    public Connection getConn() 
+    public Connection getConn()
     {
         return conn;
     }
@@ -36,31 +39,31 @@ public class DBManager
     /**
      * Establish a connection to the database
      */
-    public void establishConnection() 
+    public void establishConnection()
     {
-        if(this.conn == null) 
+        if(this.conn == null)
         {
-            try 
+            try
             {
                 conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                System.out.println(URL + " Get Connected Successfully ....");
-            } 
-            catch (SQLException ex) 
+                System.out.println(URL + " Connected Successfully ....");
+            }
+            catch (SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }
         }
     }
-
-    public void closeConnections() 
+    
+    public void closeConnections()
     {
-        if(conn != null) 
+        if(conn != null)
         {
-            try 
+            try
             {
                 conn.close();
-            } 
-            catch (SQLException ex) 
+            }
+            catch (SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }
