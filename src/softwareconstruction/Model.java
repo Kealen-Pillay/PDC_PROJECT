@@ -36,22 +36,19 @@ public class Model extends Observable
     public Model()
     {
         this.dbManager = new DBManager();
-        this.conn = this.dbManager.getConn();      
-    }
-    
-    //-------------------------- Methods ------------------------------------------------------------
-    /**
-     * Presents the player with instructions of how the game works.
-     */
-    public String instructions()
-    {
-        String text = "";
+        this.conn = this.dbManager.getConn();
+        
         try
         {
             this.checkExistedTable("INSTRUCTIONS");
             statement = conn.createStatement();
             String instructionsTable = "CREATE TABLE INSTRUCTIONS (RULES VARCHAR(130))";
-            statement.executeUpdate(instructionsTable);
+            this.checkExistedTable("REVIEWS");
+            String reviewsTable = "CREATE TABLE REVIEWS (REVIEW VARCHAR(255))"; 
+            this.checkExistedTable("USAGESTATS");
+            String usageTable = "CREATE TABLE USAGESTATS (FIRE_DRAGON INT, WATER_DRAGON INT, EARTH_DRAGON INT)";
+            
+            
             String instructions = "INSERT INTO INSTRUCTIONS VALUES" +
                     "('- Welcome to the virtual pet game, We hope you take care of your little buddy.'),\n" +
                     "('- Once you have adopted your virtual pet, it will be your responsibility to take care of your new friend.'),\n" +
@@ -67,7 +64,30 @@ public class Model extends Observable
                     "('- Each pet has a unique power that can be used, but be conservative as each power only has 3 uses.')," +
                     "('- Be sure to keep your pet well fed to keep it from dying. (Death of pet will end game)'),\n" +
                     "('- Have Fun!')";
+            
+            String petStats = "INSERT INTO USAGESTATS VALUES (" + 0 + "," + 0 + "," + 0 + ")";
+            
+            statement.executeUpdate(instructionsTable);
             statement.executeUpdate(instructions);
+            statement.executeUpdate(reviewsTable);
+            statement.executeUpdate(usageTable);
+            statement.executeUpdate(petStats);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //-------------------------- Methods ------------------------------------------------------------
+    /**
+     * Presents the player with instructions of how the game works.
+     */
+    public String instructions()
+    {
+        String text = "";
+        try
+        {
             ResultSet rs = statement.executeQuery("SELECT RULES FROM INSTRUCTIONS");
             while(rs.next())
             {
@@ -78,7 +98,7 @@ public class Model extends Observable
         catch (SQLException ex)
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return text;
     }
     
@@ -200,53 +220,34 @@ public class Model extends Observable
     {
         try
         {
-            BufferedReader inputStream = new BufferedReader(new FileReader("PetUsageStatistics.txt"));
-            String line = null;
-            HashMap<String, Integer> usages = new HashMap<String, Integer>();
-            int usage = 0;
-            while((line = inputStream.readLine()) != null)
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT FIRE_DRAGON, EARTH_DRAGON, WATER_DRAGON FROM USAGESTATS");
+            int fireCount = 0;
+            int earthCount = 0;
+            int waterCount = 0;
+            while(rs.next())
             {
-                StringTokenizer st = new StringTokenizer(line, ",");
-                while(st.hasMoreTokens())
-                {
-                    usages.put(st.nextToken(), Integer.parseInt(st.nextToken()));
-                }
+                fireCount = rs.getInt(1);
+                earthCount = rs.getInt(2);
+                waterCount = rs.getInt(3);
             }
-            inputStream.close();
-            
+            rs.close();
             if(p instanceof WaterDragon)
             {
-                usage = usages.get("WaterDragon");
-                usage++;
-                usages.put("WaterDragon", usage);
+                waterCount++;
             }
-            else if(p instanceof FireDragon)
+            else if(p instanceof EarthDragon)
             {
-                usage = usages.get("FireDragon");
-                usage++;
-                usages.put("FireDragon", usage);
+                earthCount++;
             }
             else
             {
-                usage = usages.get("EarthDragon");
-                usage++;
-                usages.put("EarthDragon", usage);
+                fireCount++;
             }
-            
-            PrintWriter outputStream = new PrintWriter(new FileOutputStream("PetUsageStatistics.txt"));
-            for(HashMap.Entry<String, Integer> entry : usages.entrySet())
-            {
-                outputStream.println(entry.getKey() + "," + entry.getValue());
-            }
-            outputStream.close();
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File Not Found.");
-        }
-        catch(IOException e)
-        {
-            System.out.println("IO Exception.");
+            String petStats = "INSERT INTO USAGESTATS VALUES (" + fireCount + "," + waterCount + "," + earthCount + ")";
+            statement.executeUpdate(petStats);
+        } catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -254,18 +255,17 @@ public class Model extends Observable
      * Allows the player to write a review after playing the game. All reviews are stored in an external text file.
      */
     public void reviews(String review)
-    {
+    { 
         try
         {
-            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Reviews.txt", true));
-            outputStream.print(review + "\n");
-            outputStream.close();
+            statement = conn.createStatement();         
+            String insertion = "INSERT INTO REVIEWS VALUES ('"+ review + "')";
+            statement.executeUpdate(insertion);
             setChanged();
             notifyObservers(9);
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File Not Found.");
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -490,7 +490,7 @@ public class Model extends Observable
         return conn;
     }
     
-     public void checkExistedTable(String name)
+    public void checkExistedTable(String name)
     {
         try
         {
@@ -511,12 +511,10 @@ public class Model extends Observable
                 }
             }
             rs.close();
-        } 
-        catch (SQLException ex) 
+        }
+        catch (SQLException ex)
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
+    }  
 }
