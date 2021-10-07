@@ -212,13 +212,13 @@ public class Controller implements ActionListener
                 }
                 else
                 {
+                    view.getFoodPanel().newQuestion();
                     view.getFoodPanel().getAnswerBox().setText("");
                 }
             }
             catch(NumberFormatException ex)
             {
                 JOptionPane.showMessageDialog(null, "Only integers are accepted as answers when earning food.", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
-                view.getFoodPanel().newQuestion();
                 view.getFoodPanel().getAnswerBox().setText("");
             }
             
