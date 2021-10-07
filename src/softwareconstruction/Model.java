@@ -252,7 +252,7 @@ public class Model extends Observable
     }
     
     /**
-     * Allows the player to write a review after playing the game. All reviews are stored in an external text file.
+     * Allows the player to write a review after playing the game. All reviews are stored in the embedded database.
      */
     public void reviews(String review)
     { 
