@@ -44,9 +44,13 @@ public class Model extends Observable
             statement = conn.createStatement();
             String instructionsTable = "CREATE TABLE INSTRUCTIONS (RULES VARCHAR(130))";
             this.checkExistedTable("REVIEWS");
-            String reviewsTable = "CREATE TABLE REVIEWS (REVIEW VARCHAR(255))"; 
+            String reviewsTable = "CREATE TABLE REVIEWS (REVIEW VARCHAR(255))";
             this.checkExistedTable("USAGESTATS");
             String usageTable = "CREATE TABLE USAGESTATS (FIRE_DRAGON INT, WATER_DRAGON INT, EARTH_DRAGON INT)";
+            this.checkExistedTable("USERNAMES");
+            String usernameTable = "CREATE TABLE USERNAMES (NAMES VARCHAR(10))";
+            this.checkExistedTable("FOOD");
+            String foodTable = "CREATE TABLE FOOD (QUESTIONS VARCHAR(10),ANSWERS INT)";
             
             
             String instructions = "INSERT INTO INSTRUCTIONS VALUES" +
@@ -64,17 +68,35 @@ public class Model extends Observable
                     "('- Each pet has a unique power that can be used, but be conservative as each power only has 3 uses.')," +
                     "('- Be sure to keep your pet well fed to keep it from dying. (Death of pet will end game)'),\n" +
                     "('- Have Fun!')";
-            
             String petStats = "INSERT INTO USAGESTATS VALUES (" + 0 + "," + 0 + "," + 0 + ")";
             
+            statement.executeUpdate(foodTable);
+            BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
+            String line = null;
+            while((line = input.readLine()) != null)
+            {
+                StringTokenizer st = new StringTokenizer(line, ",");
+                while(st.hasMoreTokens())
+                {
+                    String insertion = "INSERT INTO FOOD VALUES ('" + st.nextToken() + "'," + Integer.parseInt(st.nextToken()) + ")";
+                    statement.executeUpdate(insertion);
+                }
+            }
+            input.close();
             statement.executeUpdate(instructionsTable);
             statement.executeUpdate(instructions);
             statement.executeUpdate(reviewsTable);
             statement.executeUpdate(usageTable);
             statement.executeUpdate(petStats);
-        } 
-        catch (SQLException ex) 
+            statement.executeUpdate(usernameTable);
+            
+        }
+        catch (SQLException ex)
         {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -143,40 +165,29 @@ public class Model extends Observable
     }
     
     /**
-     * Allows the user to earn food for their pet by answering basic math questions correctly.Math questions are randomly generated. Each correct question will increase the player's food amount by 1.
+     * Reads all the math questions and corresponding answers from embedded database and store it as a key-value pair in a HashMap<String, Integer> that is returned.
      */
     public HashMap<String, Integer> earnFood()
     {
         HashMap<String, Integer> questions = new HashMap<String, Integer> ();
         try
         {
-            BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
-            String line = null;
-            
-            while((line = input.readLine()) != null)
+            ResultSet rs = statement.executeQuery("SELECT QUESTIONS, ANSWERS FROM FOOD");
+            while(rs.next())
             {
-                StringTokenizer st = new StringTokenizer(line, ",");
-                while(st.hasMoreTokens())
-                {
-                    questions.put(st.nextToken(), Integer.parseInt(st.nextToken()));
-                }
+                String question = rs.getString("QUESTIONS");
+                int answer = rs.getInt(2);
+                questions.put(question, answer);
             }
-            
-            input.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File Not Found.");
-        }
-        catch (IOException ex)
-        {
-            System.out.println("IOException");
-        }
+        
         return questions;
     };
     
     /**
-     * Checks if the username the player has entered already exists. True is returned if the username already exists, otherwise the new username is added to list of existing usernames in external file and false is returned.
+     * Checks if the username the player has entered already exists. True is returned if the username already exists, otherwise the new username is added to list of existing usernames in the embedded database and false is returned.
      * @param username represents the username to check.
      * @return returns a Boolean value. True is returned if the username already exists, otherwise false is returned.
      */
@@ -184,36 +195,56 @@ public class Model extends Observable
     {
         try
         {
-            BufferedReader inputStream = new BufferedReader(new FileReader("Usernames.txt"));
-            String line = null;
-            
-            while((line = inputStream.readLine()) != null)
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT NAMES FROM USERNAMES");
+            while(rs.next())
             {
-                if(line.toLowerCase().equals(username.toLowerCase()))
+                String name = rs.getString("NAMES");
+                if(name.equals(username))
                 {
-                    inputStream.close();
                     return true;
                 }
             }
-            inputStream.close();
-            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Usernames.txt", true));
-            outputStream.println(username.toUpperCase());
-            outputStream.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("File Not Found.");
-        }
-        catch(IOException e)
-        {
-            System.out.println("IO Exception");
+            String insertion = "INSERT INTO USERNAMES VALUES ('" + username + "')";
+            statement.executeUpdate(insertion);
+            rs.close();
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return false;
+//        try
+//        {
+//            BufferedReader inputStream = new BufferedReader(new FileReader("Usernames.txt"));
+//            String line = null;
+//
+//            while((line = inputStream.readLine()) != null)
+//            {
+//                if(line.toLowerCase().equals(username.toLowerCase()))
+//                {
+//                    inputStream.close();
+//                    return true;
+//                }
+//            }
+//            inputStream.close();
+//            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Usernames.txt", true));
+//            outputStream.println(username.toUpperCase());
+//            outputStream.close();
+//        }
+//        catch (FileNotFoundException e)
+//        {
+//            System.out.println("File Not Found.");
+//        }
+//        catch(IOException e)
+//        {
+//            System.out.println("IO Exception");
+//        }
+
+return false;
     }
     
     /**
-     * Reads from an external file which keeps track of how many times each type of pet has been selected. This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
+     * Pet stats are stored in embedded database.This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
      * @param p represents the current player's selected pet. This is used to check the type of pet in order to update usage statistics.
      */
     public void usageStats(Pet p)
@@ -255,15 +286,15 @@ public class Model extends Observable
      * Allows the player to write a review after playing the game. All reviews are stored in the embedded database.
      */
     public void reviews(String review)
-    { 
+    {
         try
         {
-            statement = conn.createStatement();         
+            statement = conn.createStatement();
             String insertion = "INSERT INTO REVIEWS VALUES ('"+ review + "')";
             statement.executeUpdate(insertion);
             setChanged();
             notifyObservers(9);
-        } 
+        }
         catch (SQLException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -516,5 +547,5 @@ public class Model extends Observable
         {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }  
+    }
 }
