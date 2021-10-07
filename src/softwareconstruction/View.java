@@ -197,7 +197,7 @@ public class View extends JFrame implements Observer
         
         
         //----- Food Panel -----
-        foodPanel = new FoodPanel(model.earnFood());
+        foodPanel = new FoodPanel(model.loadFood());
         foodPanel.setLocation(630, 380);
         
         feedButton = new JButton("Feed Pet");

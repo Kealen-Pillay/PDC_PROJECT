@@ -167,7 +167,7 @@ public class Model extends Observable
     /**
      * Reads all the math questions and corresponding answers from embedded database and store it as a key-value pair in a HashMap<String, Integer> that is returned.
      */
-    public HashMap<String, Integer> earnFood()
+    public HashMap<String, Integer> loadFood()
     {
         HashMap<String, Integer> questions = new HashMap<String, Integer> ();
         try
