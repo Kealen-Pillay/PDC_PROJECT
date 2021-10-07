@@ -51,7 +51,8 @@ public class Model extends Observable
             String usernameTable = "CREATE TABLE USERNAMES (NAMES VARCHAR(10))";
             this.checkExistedTable("FOOD");
             String foodTable = "CREATE TABLE FOOD (QUESTIONS VARCHAR(10),ANSWERS INT)";
-            
+            this.checkExistedTable("PETS");
+            String petTable = "CREATE TABLE PETS (NAME VARCHAR(1), HEALTH INT, ENERGY INT, SWIMMING INT, SPEED INT, FLIGHT INT)";
             
             String instructions = "INSERT INTO INSTRUCTIONS VALUES" +
                     "('- Welcome to the virtual pet game, We hope you take care of your little buddy.'),\n" +
@@ -69,7 +70,6 @@ public class Model extends Observable
                     "('- Be sure to keep your pet well fed to keep it from dying. (Death of pet will end game)'),\n" +
                     "('- Have Fun!')";
             String petStats = "INSERT INTO USAGESTATS VALUES (" + 0 + "," + 0 + "," + 0 + ")";
-            
             statement.executeUpdate(foodTable);
             BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
             String line = null;
@@ -82,6 +82,11 @@ public class Model extends Observable
                     statement.executeUpdate(insertion);
                 }
             }
+            String petInsertion = "INSERT INTO PETS VALUES"
+                    + "('w'," + 100 + "," + 10 + "," + 6 + "," + 2 + "," + 4 + "),\n"
+                    + "('e '," + 100 + "," + 10 + "," + 4 + "," + 6 + "," + 2 + "),\n"
+                    + "('f'," + 100 + "," + 10 + "," + 2 + "," + 4 + "," + 6 + ")";
+            
             input.close();
             statement.executeUpdate(instructionsTable);
             statement.executeUpdate(instructions);
@@ -89,6 +94,8 @@ public class Model extends Observable
             statement.executeUpdate(usageTable);
             statement.executeUpdate(petStats);
             statement.executeUpdate(usernameTable);
+            statement.executeUpdate(petTable);
+            statement.executeUpdate(petInsertion);
             
         }
         catch (SQLException ex)
@@ -131,35 +138,21 @@ public class Model extends Observable
     public ArrayList<Pet> petList()
     {
         ArrayList<Pet> pets = new ArrayList<Pet> ();
-        String line = null;
         try
         {
-            BufferedReader inputStream = new BufferedReader(new FileReader("petstats.txt"));
-            
-            while((line = inputStream.readLine()) != null)
-            {
-                StringTokenizer st = new StringTokenizer(line, ",");
-                while(st.hasMoreTokens())
-                {
-                    Pet p1 = new WaterDragon(st.nextToken(), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
-                    pets.add(p1);
-                    
-                    Pet p2 = new EarthDragon(st.nextToken(), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
-                    pets.add(p2);
-                    
-                    Pet p3 = new FireDragon(st.nextToken(), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
-                    pets.add(p3);
-                }
-            }
-            inputStream.close();
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File not found.");
-        }
-        catch(IOException ex)
-        {
-            System.out.println("IOException");
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT NAME, HEALTH, ENERGY, SWIMMING, SPEED, FLIGHT FROM PETS");
+            rs.next();
+            Pet p1 = new WaterDragon(rs.getString("NAME"), rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));
+            rs.next();
+            Pet p2 = new EarthDragon(rs.getString("NAME"), rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));
+            rs.next();
+            Pet p3 = new FireDragon(rs.getString("NAME"), rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));
+            pets.add(p1);
+            pets.add(p2);
+            pets.add(p3);
+        } catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return pets;
     }
@@ -212,35 +205,7 @@ public class Model extends Observable
         } catch (SQLException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-//        try
-//        {
-//            BufferedReader inputStream = new BufferedReader(new FileReader("Usernames.txt"));
-//            String line = null;
-//
-//            while((line = inputStream.readLine()) != null)
-//            {
-//                if(line.toLowerCase().equals(username.toLowerCase()))
-//                {
-//                    inputStream.close();
-//                    return true;
-//                }
-//            }
-//            inputStream.close();
-//            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Usernames.txt", true));
-//            outputStream.println(username.toUpperCase());
-//            outputStream.close();
-//        }
-//        catch (FileNotFoundException e)
-//        {
-//            System.out.println("File Not Found.");
-//        }
-//        catch(IOException e)
-//        {
-//            System.out.println("IO Exception");
-//        }
-
-return false;
+        return false;
     }
     
     /**
@@ -533,7 +498,6 @@ return false;
             while(rs.next())
             {
                 String table_name = rs.getString("TABLE_NAME");
-                System.out.println(table_name);
                 if(table_name.equalsIgnoreCase(name))
                 {
                     statement.executeUpdate("Drop table " + name);
