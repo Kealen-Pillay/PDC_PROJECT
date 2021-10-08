@@ -387,7 +387,7 @@ public class View extends JFrame implements Observer
         {
             gamePanel.setVisible(false);
             JOptionPane.showMessageDialog(null, "Your Pet Has Died! It has 0HP", "Death of Pet", JOptionPane.INFORMATION_MESSAGE);
-            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon());
+            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon(), this.model.getConn(), this.model);
             endPanel.setScores(h.sortValues());
             endPanel.setVisible(true);
         }
