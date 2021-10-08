@@ -236,7 +236,8 @@ public class Controller implements ActionListener
         }
         else if(source == view.getEndGameButton())
         {
-            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon());
+            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon(), this.model.getConn(), this.model);
+            h.writeScore();
             view.getEndPanel().setScores(h.sortValues());
             view.getGamePanel().setVisible(false);
             view.getEndPanel().setVisible(true);
