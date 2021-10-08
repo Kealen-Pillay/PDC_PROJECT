@@ -1,90 +1,91 @@
 package softwareconstruction;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author kealenpillay
  */
-public class Highscores 
+public class Highscores
 {
     //--------------------------------------------- Instance Variables ---------------------------------------------------
     
     private String playerName;
     private int racesWon;
     private HashMap<String, Integer> highscores;
+    private Connection conn;
+    private Statement statement;
+    private Model m;
     
     //--------------------------------------------- Constructor ----------------------------------------------------
-    public Highscores(String playerName, int racesWon)
+    public Highscores(String playerName, int racesWon, Connection conn, Model m)
     {
         this.playerName = playerName;
         this.racesWon = racesWon;
         this.highscores = new HashMap<String, Integer> ();
+        this.conn = conn;
+        this.m = m;
+        
+        try
+        {
+            statement = conn.createStatement();
+            if(!m.checkExistedTable("HIGHSCORES"))
+            {
+                String highscoresTable = "CREATE TABLE HIGHSCORES (PLAYER VARCHAR(10), SCORE INT)";
+                statement.executeUpdate(highscoresTable);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
-       
+    
     //--------------------------------------------- Methods ----------------------------------------------------
     
     /**
-     * Reads in scores stored in an external text file and stores the values in a HashMap. The HashMap contains players and their corresponding scores.
+     * Reads in scores stored in an embedded database and stores the values in a HashMap. The HashMap contains players and their corresponding scores.
      */
     private void readScores()
     {
         try
         {
-            //Sorting Highscores
-            BufferedReader inputStream = new BufferedReader(new FileReader("Highscores.txt"));
+            statement = conn.createStatement();
             HashMap<String, Integer> scores = new HashMap<String, Integer> ();
-            String line = null;
-            String name = null;
-            int score = 0;
-            
             scores.put(this.playerName, this.racesWon);
-            
-            while((line = inputStream.readLine()) != null)
+            ResultSet rs = statement.executeQuery("SELECT PLAYER, SCORE FROM HIGHSCORES");
+            while(rs.next())
             {
-                StringTokenizer st = new StringTokenizer(line, ",");
-                while(st.hasMoreTokens())
-                {
-                    name = st.nextToken();
-                    score = Integer.parseInt(st.nextToken());
-                    scores.put(name, score);   
-                }
+                String player = rs.getString("PLAYER");
+                int score = rs.getInt(2);
+                scores.put(player, score);
             }
-            inputStream.close();
-            
+            rs.close();
             this.highscores = scores;
+        } catch (SQLException ex) {
+            Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File Not Found.");
-        } 
-        catch (IOException ex) 
-        {
-            System.out.println("IOException");
-        }
-        
     }
-     
+    
     /**
      * Sorts the scores stored in the HashMap containing players and their corresponding scores and sorts the scores in descending order.
-     * @return returns an ArrayList<Map.Entry<String, Integer>> containing the sorted scores in descending order. 
+     * @return returns an ArrayList<Map.Entry<String, Integer>> containing the sorted scores in descending order.
      */
     public ArrayList<Map.Entry<String, Integer>> sortValues()
     {
-        readScores();
+        this.readScores();
         Set<Map.Entry<String, Integer>> set = this.highscores.entrySet();
         ArrayList<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>> (set);
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
@@ -95,33 +96,25 @@ public class Highscores
                 return o1.getValue().compareTo(o2.getValue());
             }
         });
-        
         Collections.reverse(list);
-        
         return list;
-        
     }
     
     /**
-     * Writes the sorted scores to the same external text file that the scores are read from.
+     * Writes the sorted scores to the embedded database.
      */
-    public void writeScores()
+    public void writeScore()
     {
         try
         {
-            ArrayList<Map.Entry<String, Integer>> list = sortValues();
-            PrintWriter outputStream = new PrintWriter(new FileOutputStream("Highscores.txt"));   
-            for(Map.Entry<String, Integer> entry : list)
-            {
-                outputStream.println(entry.getKey().toUpperCase() + "," + entry.getValue());
-            }
-            outputStream.close();
-        } 
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File Not Found.");
-        }     
+            statement = conn.createStatement();
+            String insertion = "INSERT INTO HIGHSCORES VALUES('" + this.playerName + "'," + this.racesWon + ")";
+            statement.executeUpdate(insertion);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-
+    
 }

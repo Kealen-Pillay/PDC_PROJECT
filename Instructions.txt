@@ -3,7 +3,6 @@
 - Your new pet will have various skills such as; swimming, speed and flight.
 - Depending on the pet you adopt, some pets have better skills and worse skills than others.
 - You may choose to enter your pet into races including: swimming, speed or flight.
-- Be warned! Entering races causes your pet to lose health and energy each time!
 - If your pet wins the race, you will be rewarded with money which you may save to evolve your pet and make it more skilled.
 - Entering your pet into a race will cause it too lose health and energy.
 - It will be your responsibility to ensure your pet is full of energy and healthy by feeding them pellets.

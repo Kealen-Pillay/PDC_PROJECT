@@ -197,7 +197,7 @@ public class View extends JFrame implements Observer
         
         
         //----- Food Panel -----
-        foodPanel = new FoodPanel(model.earnFood());
+        foodPanel = new FoodPanel(model.loadFood());
         foodPanel.setLocation(630, 380);
         
         feedButton = new JButton("Feed Pet");
@@ -307,7 +307,7 @@ public class View extends JFrame implements Observer
             petPanel.getEnergyLabel().setText("Energy: " + String.valueOf(model.getPet().getEnergy()) + " / 10");
             playerPanel.getMoneyLabel().setText("Money: $" + String.valueOf(model.getOwner().getMoney()));
             playerPanel.getRacesLabel().setText("Races Won: " + String.valueOf(model.getOwner().getRacesWon()));
-            playerPanel.getEventLog().append(model.getResult() + "\n");
+            playerPanel.getEventLog().append(model.getRaceResult() + "\n");
         }
         else if((Integer) arg == 4)
         {
@@ -387,7 +387,7 @@ public class View extends JFrame implements Observer
         {
             gamePanel.setVisible(false);
             JOptionPane.showMessageDialog(null, "Your Pet Has Died! It has 0HP", "Death of Pet", JOptionPane.INFORMATION_MESSAGE);
-            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon());
+            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon(), this.model.getConn(), this.model);
             endPanel.setScores(h.sortValues());
             endPanel.setVisible(true);
         }

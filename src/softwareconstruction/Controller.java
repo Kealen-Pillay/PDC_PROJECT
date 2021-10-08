@@ -70,7 +70,7 @@ public class Controller implements ActionListener
                 {
                     model.setOwner(new Owner(username, 0, 10, 0, false));
                     view.getStartPanel().setVisible(false);
-                    view.getInstructionPanel().setVisible(true); 
+                    view.getInstructionPanel().setVisible(true);
                 }
             }
         }
@@ -144,7 +144,7 @@ public class Controller implements ActionListener
                     view.getSelectionPanel().setVisible(false);
                     view.getGamePanel().setVisible(true);
                     model.setup();
-                    
+                    model.usageStats(model.getPet());
                 }
                 
             }
@@ -176,9 +176,9 @@ public class Controller implements ActionListener
             }
         }
         else if(source == view.getPetPowerButton())
-        {        
+        {
             view.getGamePanel().setVisible(false);
-            view.getPowerPanel().setVisible(true);           
+            view.getPowerPanel().setVisible(true);
         }
         else if(source  == view.getEvolveButton())
         {
@@ -203,16 +203,25 @@ public class Controller implements ActionListener
         }
         else if(source == view.getFoodPanel().getEnterButton())
         {
-            int userAnswer = Integer.parseInt(view.getFoodPanel().getAnswerBox().getText());
-            if(userAnswer == view.getFoodPanel().getAnswer())
+            try
             {
-                model.incrementFood();
+                int userAnswer = Integer.parseInt(view.getFoodPanel().getAnswerBox().getText());
+                if(userAnswer == view.getFoodPanel().getAnswer())
+                {
+                    model.incrementFood();
+                }
+                else
+                {
+                    view.getFoodPanel().newQuestion();
+                    view.getFoodPanel().getAnswerBox().setText("");
+                }
             }
-            else
+            catch(NumberFormatException ex)
             {
-                view.getFoodPanel().newQuestion();
+                JOptionPane.showMessageDialog(null, "Only integers are accepted as answers when earning food.", "Invalid Input", JOptionPane.INFORMATION_MESSAGE);
                 view.getFoodPanel().getAnswerBox().setText("");
             }
+            
         }
         else if(source == view.getPowerPanel().getGoBackButton())
         {
@@ -227,7 +236,8 @@ public class Controller implements ActionListener
         }
         else if(source == view.getEndGameButton())
         {
-            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon());
+            Highscores h = new Highscores(model.getOwner().getName(), model.getOwner().getRacesWon(), this.model.getConn(), this.model);
+            h.writeScore();
             view.getEndPanel().setScores(h.sortValues());
             view.getGamePanel().setVisible(false);
             view.getEndPanel().setVisible(true);
@@ -238,6 +248,9 @@ public class Controller implements ActionListener
             view.getStartPanel().setVisible(true);
             view.getPlayerPanel().getEventLog().setText("");
             view.getEnterButton().setEnabled(false);
+            view.getUsernameBox().setText("Enter Username Here...");
+            view.getErrorLabel().setText("");
+            view.getErrorLabel2().setText("");
         }
         else if(source == view.getEndPanel().getSubmitButton())
         {
