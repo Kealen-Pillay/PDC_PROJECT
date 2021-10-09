@@ -1,7 +1,5 @@
 package softwareconstruction;
 
-import java.util.Scanner;
-
 /**
  *
  * @author kealenpillay
@@ -29,26 +27,6 @@ public class FireDragon extends Pet
     //------------------------------------ Methods ---------------------------------------------
     
     /**
-     * Causes the fire dragon to roar. The type of roar varies depending on the fire dragon's health, giving the owner and indication of the fire dragon's health.
-     */
-    @Override
-    public void roar()
-    {
-        if(this.getHealth() <= 50 && this.getHealth() > 25)
-        {
-            System.out.println(this.getPetName() + " let out a whine...");
-        }
-        else if(this.getHealth() <= 25)
-        {
-            System.out.println(this.getPetName() + " let out a cry...");
-        }
-        else
-        {
-            System.out.println(this.getPetName() + " let out a fiery roar!...");
-        }
-    }
-    
-    /**
      *  Provides the user with a description of the fire dragon pet.
      */
     @Override
@@ -58,7 +36,7 @@ public class FireDragon extends Pet
     }
     
     /**
-     * Allows the fire dragon pet to use it's special power. This will restore up to 5 energy points to the fire dragon pet. This power has three uses.
+     * Describes the fire dragon's unique pet power and its remaining uses.
      */
     @Override
     public String power()

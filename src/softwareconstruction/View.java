@@ -11,7 +11,6 @@ import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
- *
  * @author kealenpillay
  */
 public class View extends JFrame implements Observer
@@ -63,6 +62,11 @@ public class View extends JFrame implements Observer
     
     //------------------------------------ Constructor ------------------------------------------------
     
+    /**
+     * Multiple input parameter constructor.
+     * @param title represents the frame's title.
+     * @param m represents the model.
+     */
     public View(String title, Model m)
     {
         super(title);
@@ -269,6 +273,11 @@ public class View extends JFrame implements Observer
     
     //----------------------------------- Methods -----------------------------------------------
     
+    /**
+     * Observer's update method which is invoked to update the user interface when changes are made to the observable class.
+     * @param o represents the observable object.
+     * @param arg represents the argument that will determine how the user interface will be updated.
+     */
     @Override
     public void update(Observable o, Object arg)
     {
@@ -311,7 +320,6 @@ public class View extends JFrame implements Observer
         }
         else if((Integer) arg == 4)
         {
-            model.getOwner().setFood(model.getOwner().getFood() + 1);
             playerPanel.getFoodLabel().setText("Food: " + String.valueOf(model.getOwner().getFood()));
             playerPanel.getEventLog().append("+1 food pellet.\n");
             foodPanel.newQuestion();
@@ -395,7 +403,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the feedButton
+     * @return the feedButton.
      */
     public JButton getFeedButton()
     {
@@ -403,7 +411,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the raceButton
+     * @return the raceButton.
      */
     public JButton getRaceButton()
     {
@@ -411,7 +419,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the petPowerButton
+     * @return the petPowerButton.
      */
     public JButton getPetPowerButton()
     {
@@ -419,7 +427,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the endGameButton
+     * @return the endGameButton.
      */
     public JButton getEndGameButton()
     {
@@ -427,7 +435,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the instructionsButton
+     * @return the instructionsButton.
      */
     public JButton getInstructionsButton()
     {
@@ -435,161 +443,162 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the usernameBox
+     * @return the usernameBox.
      */
     public JTextField getUsernameBox() {
         return usernameBox;
     }
     
     /**
-     * @return the startButton
+     * @return the startButton.
      */
     public JButton getStartButton() {
         return startButton;
     }
     
     /**
-     * @return the errorLabel
+     * @return the errorLabel.
      */
     public JLabel getErrorLabel() {
         return errorLabel;
     }
     
     /**
-     * @return the startPanel
+     * @return the startPanel.
      */
     public JPanel getStartPanel() {
         return startPanel;
     }
     
     /**
-     * @return the gameLabel
+     * @return the gameLabel.
      */
     public JLabel getGameLabel() {
         return gameLabel;
     }
     
     /**
-     * @return the selectionPanel
+     * @return the selectionPanel.
      */
     public JPanel getSelectionPanel() {
         return selectionPanel;
     }
     
     /**
-     * @return the selectionLabel
+     * @return the selectionLabel.
      */
     public JLabel getSelectionLabel() {
         return selectionLabel;
     }
     
     /**
-     * @return the option1
+     * @return the option1.
      */
     public JRadioButton getOption1() {
         return option1;
     }
     
     /**
-     * @return the option2
+     * @return the option2.
      */
     public JRadioButton getOption2() {
         return option2;
     }
     
     /**
-     * @return the option3
+     * @return the option3.
      */
     public JRadioButton getOption3() {
         return option3;
     }
     
     /**
-     * @return the petNameField
+     * @return the petNameField.
      */
     public JTextField getPetNameField() {
         return petNameField;
     }
     
     /**
-     * @return the errorLabel2
+     * @return the errorLabel2.
      */
     public JLabel getErrorLabel2() {
         return errorLabel2;
     }
     
     /**
-     * @return the enterButton
+     * @return the enterButton.
      */
     public JButton getEnterButton() {
         return enterButton;
     }
     
     /**
-     * @return the petPanel
+     * @return the petPanel.
      */
     public PetPanel getPetPanel() {
         return petPanel;
     }
     
     /**
-     * @return the playerPanel
+     * @return the playerPanel.
      */
     public PlayerPanel getPlayerPanel() {
         return playerPanel;
     }
     
     /**
-     * @return the foodPanel
+     * @return the foodPanel.
      */
     public FoodPanel getFoodPanel() {
         return foodPanel;
     }
     
     /**
-     * @return the instructionPanel
+     * @return the instructionPanel.
      */
     public JPanel getInstructionPanel() {
         return instructionPanel;
     }
     
     /**
-     * @return the instructionLabel
+     * @return the instructionLabel.
      */
     public JTextArea getInstructionText() {
         return instructionText;
     }
     
     /**
-     * @return the instructionTitleLabel
+     * @return the instructionTitleLabel.
      */
     public JLabel getInstructionTitleLabel() {
         return instructionTitleLabel;
     }
     
     /**
-     * @return the continueButton
+     * @return the continueButton.
      */
     public JButton getContinueButton() {
         return continueButton;
     }
     
     /**
-     * @return the optionGroup
+     * @return the optionGroup.
      */
     public ButtonGroup getOptionGroup() {
         return optionGroup;
     }
     
     /**
-     * @return the gamePanel
+     * @return the gamePanel.
      */
     public JPanel getGamePanel() {
         return gamePanel;
     }
     
     /**
-     * @param image
+     * Sets the image on the game panel.
+     * @param image represents the image object to be used.
      */
     public void setPetImage(String image)
     {
@@ -600,28 +609,28 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * @return the powerPanel
+     * @return the powerPanel.
      */
     public PowerPanel getPowerPanel() {
         return powerPanel;
     }
     
     /**
-     * @return the evolvePanel
+     * @return the evolvePanel.
      */
     public EvolvePanel getEvolvePanel() {
         return evolvePanel;
     }
     
     /**
-     * @return the evolveButton
+     * @return the evolveButton.
      */
     public JButton getEvolveButton() {
         return evolveButton;
     }
     
     /**
-     * @return the endPanel
+     * @return the endPanel.
      */
     public EndPanel getEndPanel() {
         return endPanel;

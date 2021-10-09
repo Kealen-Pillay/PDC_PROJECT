@@ -20,6 +20,9 @@ public class EndPanel extends JPanel
     
     //--------------------------------------------------- Constructor -------------------------------------
     
+    /**
+     * Zero input parameter constructor.
+     */
     public EndPanel()
     {
         this.setLayout(null);
@@ -62,6 +65,10 @@ public class EndPanel extends JPanel
     
     //--------------------------------------------------- Methods -------------------------------------
     
+    /**
+     * Sets the top 5 high scores that are displayed at the end of the game on the end screen.
+     * @param scores 
+     */
     public void setScores(List<Map.Entry<String, Integer>> scores)
     {
         String scoreList = "";
@@ -79,35 +86,35 @@ public class EndPanel extends JPanel
     }
 
     /**
-     * @return the highscoresLabel
+     * @return the highscoresLabel.
      */
     public JLabel getHighscoresLabel() {
         return highscoresLabel;
     }
 
     /**
-     * @return the high scores
+     * @return the high scores.
      */
     public JTextArea getHighscores() {
         return highscores;
     }
 
     /**
-     * @return the review
+     * @return the review.
      */
     public JTextField getReview() {
         return review;
     }
 
     /**
-     * @return the playAgainButton
+     * @return the playAgainButton.
      */
     public JButton getPlayAgainButton() {
         return playAgainButton;
     }
 
     /**
-     * @return the submitButton
+     * @return the submitButton.
      */
     public JButton getSubmitButton() {
         return submitButton;

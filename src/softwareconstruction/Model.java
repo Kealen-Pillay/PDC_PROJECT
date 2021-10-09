@@ -31,6 +31,10 @@ public class Model extends Observable
     private Statement statement;
     
     //---------------------------- Constructor -----------------------------------------------------
+    
+    /**
+     * Zero input parameter constructor.
+     */
     public Model()
     {
         this.dbManager = new DBManager();
@@ -116,8 +120,9 @@ public class Model extends Observable
     }
     
     //-------------------------- Methods ------------------------------------------------------------
+    
     /**
-     * Presents the player with instructions of how the game works.
+     * Presents the player with instructions of how the game works. Instructions are read from the embedded database.
      */
     public String instructions()
     {
@@ -139,7 +144,7 @@ public class Model extends Observable
     }
     
     /**
-     * Start screen which allows the user to pick the type of pet they want and the name of the pet.
+     * Reads in each type of dragon's stats from the embedded database, and stores it in an ArrayList which is returned.
      * @return returns either a WaterDragon, EarthDragon or FireDragon pet object.
      */
     public ArrayList<Pet> petList()
@@ -165,7 +170,7 @@ public class Model extends Observable
     }
     
     /**
-     * Reads all the math questions and corresponding answers from embedded database and store it as a key-value pair in a HashMap<String, Integer> that is returned.
+     * Reads math questions and corresponding answers from embedded database and stores them as a key-value pair in a HashMap<String, Integer> that is returned.
      */
     public HashMap<String, Integer> loadFood()
     {
@@ -187,7 +192,7 @@ public class Model extends Observable
     };
     
     /**
-     * Checks if the username the player has entered already exists. True is returned if the username already exists, otherwise the new username is added to list of existing usernames in the embedded database and false is returned.
+     * Checks if the username the player username already exists within the embedded database. True is returned if the username already exists, otherwise the new username is added to list of existing usernames in the embedded database and false is returned.
      * @param username represents the username to check.
      * @return returns a Boolean value. True is returned if the username already exists, otherwise false is returned.
      */
@@ -216,8 +221,8 @@ public class Model extends Observable
     }
     
     /**
-     * Pet stats are stored in embedded database.This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
-     * @param p represents the current player's selected pet. This is used to check the type of pet in order to update usage statistics.
+     * Pet stats are read from the embedded database and updated, then stored in embedded database.This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
+     * @param p represents the current player's selected pet. This is used to check the type of pet in order to update usage statistics stored in the embedded database.
      */
     public void usageStats(Pet p)
     {
@@ -255,7 +260,7 @@ public class Model extends Observable
     }
     
     /**
-     * Allows the player to write a review after playing the game. All reviews are stored in the embedded database.
+     * Allows the player to write a review after playing the game. All reviews are written to and stored in the embedded database.
      */
     public void reviews(String review)
     {
@@ -273,7 +278,7 @@ public class Model extends Observable
     }
     
     /**
-     * @return the pet
+     * @return the pet.
      */
     public Pet getPet()
     {
@@ -281,7 +286,7 @@ public class Model extends Observable
     }
     
     /**
-     * @return the owner
+     * @return the owner.
      */
     public Owner getOwner()
     {
@@ -289,7 +294,7 @@ public class Model extends Observable
     }
     
     /**
-     * @param pet the pet to set
+     * @param pet the pet to set.
      */
     public void setPet(Pet pet)
     {
@@ -297,19 +302,25 @@ public class Model extends Observable
     }
     
     /**
-     * @param owner the owner to set
+     * @param owner the owner to set.
      */
     public void setOwner(Owner owner)
     {
         this.owner = owner;
     }
     
+    /**
+     * Notifies the observer to setup the game screen.
+     */
     public void setup()
     {
         setChanged();
         notifyObservers(1);
     }
     
+    /**
+     * Feeds the pet and notifies the observer to update.
+     */
     public void feedPet()
     {
         this.owner.feed(this.pet);
@@ -317,6 +328,9 @@ public class Model extends Observable
         notifyObservers(2);
     }
     
+    /**
+     * Enters the pet into a race and notifies the observer to update.
+     */
     public void racePet()
     {
         raceResult = this.pet.race(this.owner);
@@ -324,12 +338,19 @@ public class Model extends Observable
         notifyObservers(3);
     }
     
+    /**
+     * Increments the owner's food and notifies the observer to update.
+     */
     public void incrementFood()
     {
+        owner.setFood(owner.getFood() + 1);
         setChanged();
         notifyObservers(4);
     }
     
+    /**
+     * Uses the pet's unique power and notifies the observer to update. If the pet is fully evolved, a private method performing the same functionality on the evolved pet is performed.
+     */
     public void usePower()
     {
         if(owner.getMaxPet())
@@ -390,6 +411,10 @@ public class Model extends Observable
         }
     }
     
+    /**
+     * Uses the evolved pet's pet power if possible and notifies the observer to update.
+     * @param pet 
+     */
     private void evolvedPower(Pet pet)
     {
         if(pet.getPowerCounter() != 3)
@@ -445,6 +470,9 @@ public class Model extends Observable
         
     }
     
+    /**
+     * Checks if the owner is eligible to evolve their pet. If possible, the pet will become the evolved pet and the observer is notified.
+     */
     public void evolvePet()
     {
         if(owner.getRacesWon() >= 1 && owner.getMoney() >= 100)
@@ -473,26 +501,31 @@ public class Model extends Observable
     }
     
     /**
-     * @return the raceResult
+     * @return the raceResult.
      */
     public String getRaceResult() {
         return raceResult;
     }
     
     /**
-     * @return the dbManager
+     * @return the dbManager.
      */
     public DBManager getDbManager() {
         return dbManager;
     }
     
     /**
-     * @return the conn
+     * @return the conn.
      */
     public Connection getConn() {
         return conn;
     }
     
+    /**
+     * Checks if a table already exists.
+     * @param name represents the name of the table to be checked.
+     * @return true is returned if the table exists.
+     */
     public boolean checkExistedTable(String name)
     {
         try
@@ -508,9 +541,6 @@ public class Model extends Observable
                 if(table_name.equalsIgnoreCase(name))
                 {
                     return true;
-//                    statement.executeUpdate("Drop table " + name);
-//                    System.out.println("Table " + name + " has been deleted");
-//                    break;
                 }
             }
             rs.close();

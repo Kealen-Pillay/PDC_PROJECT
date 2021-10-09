@@ -1,7 +1,5 @@
 package softwareconstruction;
 
-import java.util.Scanner;
-
 
 /**
  *
@@ -28,27 +26,7 @@ public class TerraDragon extends EarthDragon
     }
     
     //------------------------------------ Methods ----------------------------------------------------------
-        
-     /**
-     * Causes the terra dragon to roar. The type of roar varies depending on the terra dragon's health, giving the owner and indication of the terra dragon's health.
-     */
-    @Override
-    public void roar()
-    {
-        if(this.getHealth() <= 50 && this.getHealth() > 25)
-        {
-            System.out.println(this.getPetName() + " let out a sighing roar...");
-        }
-        else if(this.getHealth() <= 25)
-        {
-            System.out.println(this.getPetName() + " let out a sad grumble...");
-        }
-        else
-        {
-           System.out.println(this.getPetName() + " let out a deep roar!..."); 
-        }  
-    }
-    
+           
     /**
      * Provides the user with a description of the terra dragon pet.
      */
@@ -59,7 +37,8 @@ public class TerraDragon extends EarthDragon
     }
     
     /**
-     * Allows the terra dragon pet to use it's special power. This will restore up to 50 health points to the terra dragon pet. This power has three uses.
+     * Describes the terra dragon's pet power and the remaining uses. A string is returned with the description.
+     * @return returns a string containing the pet's power.
      */
     @Override
     public String power()

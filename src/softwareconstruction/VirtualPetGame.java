@@ -9,6 +9,9 @@ import java.awt.Toolkit;
  */
 public class VirtualPetGame 
 {
+    /**
+     * Zero input parameter constructor.
+     */
     public VirtualPetGame()
     {
         Model model = new Model();
@@ -22,7 +25,10 @@ public class VirtualPetGame
         view.setVisible(true);
     }
     
-    
+    /**
+     * Main method.
+     * @param args 
+     */
     public static void main(String[] args) 
     {
         VirtualPetGame game = new VirtualPetGame(); 

@@ -1,7 +1,5 @@
 package softwareconstruction;
 
-import java.util.Scanner;
-
 /**
  *
  * @author kealenpillay
@@ -29,26 +27,6 @@ public class LavaDragon extends FireDragon
     //------------------------------------ Methods ----------------------------------------
     
     /**
-     * Causes the lava dragon to roar. The type of roar varies depending on the lava dragon's health, giving the owner and indication of the lava dragon's health.
-     */
-    @Override
-    public void roar()
-    {
-        if(this.getHealth() <= 50 && this.getHealth() > 25)
-        {
-            System.out.println(this.getPetName() + " let out a puff of smoke...");
-        }
-        else if(this.getHealth() <= 25)
-        {
-            System.out.println(this.getPetName() + " let out an ashy cough...");
-        }
-        else
-        {
-            System.out.println(this.getPetName() + " let out a bellowing roar!...");
-        }
-    }
-    
-    /**
      * Provides the user with a description of the lava dragon pet.
      */
     @Override
@@ -58,7 +36,7 @@ public class LavaDragon extends FireDragon
     }
     
     /**
-     * Allows the lava dragon pet to use it's special power. This will restore up to 8 energy points and 5 health points to the lava dragon pet. This power has three uses.
+     * Describes the lava dragon's pet power and its remaining uses.
      */
     @Override
     public String power()

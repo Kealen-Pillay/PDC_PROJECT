@@ -22,6 +22,9 @@ public class PetPanel extends JPanel
     
     //----------------------------------- Constructor ----------------------------------------
     
+    /**
+     * Zero input parameter constructor.
+     */
     public PetPanel()
     {
         this.setLayout(null);
@@ -65,6 +68,10 @@ public class PetPanel extends JPanel
     
     //----------------------------------- Methods ----------------------------------------
     
+    /**
+     * Paints the panel.
+     * @param g represents the graphics object.
+     */
     @Override
     public void paintComponent(Graphics g)
     {
@@ -74,7 +81,7 @@ public class PetPanel extends JPanel
     }
 
     /**
-     * @return the petPanelTitle
+     * @return the petPanelTitle.
      */
     public JLabel getPetPanelTitle() 
     {
@@ -82,7 +89,7 @@ public class PetPanel extends JPanel
     }
 
     /**
-     * @return the healthLabel
+     * @return the healthLabel.
      */
     public JLabel getHealthLabel() 
     {
@@ -90,7 +97,7 @@ public class PetPanel extends JPanel
     }
 
     /**
-     * @return the energyLabel
+     * @return the energyLabel.
      */
     public JLabel getEnergyLabel() 
     {
@@ -98,7 +105,7 @@ public class PetPanel extends JPanel
     }
 
     /**
-     * @return the swimmingLabel
+     * @return the swimmingLabel.
      */
     public JLabel getSwimmingLabel() 
     {
@@ -106,7 +113,7 @@ public class PetPanel extends JPanel
     }
 
     /**
-     * @return the speedLabel
+     * @return the speedLabel.
      */
     public JLabel getSpeedLabel() 
     {
@@ -114,7 +121,7 @@ public class PetPanel extends JPanel
     }
 
     /**
-     * @return the flightLabel
+     * @return the flightLabel.
      */
     public JLabel getFlightLabel() 
     {

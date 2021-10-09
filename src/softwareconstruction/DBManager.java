@@ -18,6 +18,9 @@ public class DBManager
     private Connection conn;
    
     //----------------------------------------------------- Constructor ---------------------------------------------------------
+    /**
+     * Zero parameter constructor.
+     */
     public DBManager()
     {
         this.establishConnection();
@@ -26,7 +29,7 @@ public class DBManager
     //----------------------------------------------------- Methods ---------------------------------------------------------
     
     /**
-     * @return the conn
+     * @return the conn.
      */
     public Connection getConn()
     {
@@ -34,7 +37,7 @@ public class DBManager
     }
     
     /**
-     * Establish a connection to the database
+     * Establish a connection to the database.
      */
     public void establishConnection()
     {
@@ -52,6 +55,9 @@ public class DBManager
         }
     }
     
+    /**
+     * Closes the connection to the database.
+     */
     public void closeConnections()
     {
         if(conn != null)

@@ -17,6 +17,11 @@ public class Controller implements ActionListener
     
     //----------------------------------------------- Constructor ------------------------------------------
     
+    /**
+     * Multi-parameter constructor.
+     * @param m represents the model.
+     * @param v represents the view.
+     */
     public Controller(Model m, View v)
     {
         model = m;
@@ -44,6 +49,10 @@ public class Controller implements ActionListener
     
     //------------------------------------------------- Methods --------------------------------------------------
     
+    /**
+     * Holds the different actions that will be performed depending on the button that was clicked.
+     * @param e represents the actionEventt that was generated from an event.
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {

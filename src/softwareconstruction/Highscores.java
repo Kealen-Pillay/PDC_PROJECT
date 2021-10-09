@@ -30,6 +30,14 @@ public class Highscores
     private Model m;
     
     //--------------------------------------------- Constructor ----------------------------------------------------
+    
+    /**
+     * Multiple input parameter constructor.
+     * @param playerName represents the player's name.
+     * @param racesWon represents the number of races won by the player.
+     * @param conn represents the connection.
+     * @param m represents the model.
+     */
     public Highscores(String playerName, int racesWon, Connection conn, Model m)
     {
         this.playerName = playerName;
@@ -101,7 +109,7 @@ public class Highscores
     }
     
     /**
-     * Writes the sorted scores to the embedded database.
+     * Writes the sorted high scores to the embedded database.
      */
     public void writeScore()
     {

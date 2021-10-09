@@ -13,6 +13,10 @@ public class GamePanel extends JPanel
 {
     
     //--------------------------------------------------- Constructor --------------------------------------------------------
+    
+    /**
+     * Zero input parameter constructor.
+     */
     public GamePanel()
     {
         this.setLayout(null);
@@ -23,6 +27,11 @@ public class GamePanel extends JPanel
     }
     
     //----------------------------------------------------- Methods ----------------------------------------------------------------
+    
+    /**
+     * Paints the panel.
+     * @param g 
+     */
     @Override
     public void paintComponent(Graphics g)
     {

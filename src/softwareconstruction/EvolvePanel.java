@@ -16,6 +16,10 @@ public class EvolvePanel extends JPanel
     private JButton goBackButton;
     
     //--------------------------------------------------- Constructor -------------------------------------
+    
+    /**
+     * Zero input parameter constructor.
+     */
     public EvolvePanel()
     {
         this.setLayout(null);
@@ -61,28 +65,28 @@ public class EvolvePanel extends JPanel
     //--------------------------------------------------- Methods -------------------------------------
 
     /**
-     * @return the evolveLabel
+     * @return the evolveLabel.
      */
     public JLabel getEvolveLabel() {
         return evolveLabel;
     }
 
     /**
-     * @return the evolveDescription
+     * @return the evolveDescription.
      */
     public JTextArea getEvolveDescription() {
         return evolveDescription;
     }
 
     /**
-     * @return the evolveButton
+     * @return the evolveButton.
      */
     public JButton getEvolveButton() {
         return evolveButton;
     }
 
     /**
-     * @return the goBackButton
+     * @return the goBackButton.
      */
     public JButton getGoBackButton() {
         return goBackButton;

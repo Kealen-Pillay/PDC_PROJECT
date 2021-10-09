@@ -5,20 +5,16 @@ package softwareconstruction;
  * @author kealenpillay
  */
 public interface PetBehaviour 
-{   
+{       
     /**
-     * Method which outputs the pet's unique roar depending on how much health the pet has, giving the owner and indication of the pet's condition.
-     */
-    public void roar();
-    
-    /**
-     * Method which enters the pet into a random race. The owner receives $100 if the pet wins the race. The type of race is randomly decided. After a race is decided, a random number is generated between 1-10, and if the pet's skill in the current race is equal/less than the random number the pet wins the race.
-     * @param owner 
+     * Method which enters the pet into a random race. The owner receives $100 if the pet wins the race. The type of race is randomly decided. After a race is decided, a random number is generated between 1-10, and if the pet's skill in the current race is equal/less than the random number the pet wins the race.A string is returned containing the result of the race.
+     * @param owner represents the owner of the pet.
+     * @return returns a string containing the result of the race.
      */
     public String race(Owner owner);
     
     /**
-     * Method which uses the pet's unique power. The power varies depending on the type of pet.
+     * Describes the pet's unique power and its remaining uses. The power varies depending on the type of pet.
      */
     public String power();
     

@@ -16,6 +16,11 @@ public class PowerPanel extends JPanel
     private JButton goBackButton;
     
     //--------------------------------------------------- Instance Variables -------------------------------------
+    
+    /**
+     * 1-input parameter constructor.
+     * @param pet represents the owner's pet.
+     */
     public PowerPanel(Pet pet)
     {
         this.setLayout(null);
@@ -53,13 +58,17 @@ public class PowerPanel extends JPanel
     
     //--------------------------------------------------- Methods -------------------------------------
     
+    /**
+     * Sets the text on the power panel with the pet's power description.
+     * @param pet 
+     */
     public void setPowerDescription(Pet pet)
     {
         getPowerDescription().setText(pet.power());
     }
 
     /**
-     * @return the powerLabel
+     * @return the powerLabel.
      */
     public JLabel getPowerLabel() 
     {
@@ -67,7 +76,7 @@ public class PowerPanel extends JPanel
     }
 
     /**
-     * @return the powerDescription
+     * @return the powerDescription.
      */
     public JTextArea getPowerDescription() 
     {
@@ -75,7 +84,7 @@ public class PowerPanel extends JPanel
     }
 
     /**
-     * @return the yesButton
+     * @return the yesButton.
      */
     public JButton getYesButton() 
     {
@@ -83,7 +92,7 @@ public class PowerPanel extends JPanel
     }
 
     /**
-     * @return the goBackButton
+     * @return the goBackButton.
      */
     public JButton getGoBackButton() 
     {
