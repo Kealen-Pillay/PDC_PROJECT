@@ -211,22 +211,17 @@ public abstract class Pet implements PetBehaviour
     //----------------------------------------------- Methods --------------------------------------------------------
     
     /**
-     * Abstract method which is implemented by subclasses of Pet Class. Method which causes the pet to roar. The type of roar varies depending on the pet's health, giving the owner and indication of the pet's health.
-     */
-    public abstract void roar();
-    
-    /**
      * Abstract method which is implemented by subclasses of Pet Class. Method which provides the user with a description of the pet.
      */
     public abstract String description();
     
     /**
-     * Method which uses the pet's unique power. The power varies depending on the type of pet.
+     * Method which describes the pet's unique power and its remaining uses. The power varies depending on the type of pet.
      */
     public abstract String power();
     
     /**
-     * Checks if the pet is alive.
+     * Checks if the pet is alive and returns a Boolean value.
      * @return returns the state of whether the pet is dead or alive. (true is returned if the the pet is dead.)
      */
     public boolean isDead()
@@ -242,8 +237,9 @@ public abstract class Pet implements PetBehaviour
     }
     
     /**
-     * Enters the pet into a race. A random race is chosen. Winning a race results in the owner receiving $100. If the random number generated between 1-10 is less than/equal to the pet's skill, the pet wins.
+     * Enters the pet into a race. A random race is chosen. Winning a race results in the owner receiving $100. If the random number generated between 1-10 is less than/equal to the pet's skill, the pet wins. A string is returned with the result.
      * @param owner represents the owner of the pet.
+     * @return returns a string of the result of the race.
      */
     public String race(Owner owner)
     {

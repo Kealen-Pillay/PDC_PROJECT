@@ -1,3 +1,0 @@
-EarthDragon,16
-WaterDragon,18
-FireDragon,25

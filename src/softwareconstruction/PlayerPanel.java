@@ -20,6 +20,10 @@ public class PlayerPanel extends JPanel
     private JScrollPane scrollpane;
     
     //----------------------------------- Constructor ----------------------------------------
+    
+    /**
+     * Zero input parameter constructor.
+     */
     public PlayerPanel()
     {
         this.setLayout(null);
@@ -66,6 +70,10 @@ public class PlayerPanel extends JPanel
     
     //----------------------------------- Methods ----------------------------------------
     
+    /**
+     * Paints the panel
+     * @param g represents the graphics object.
+     */
     @Override
     public void paintComponent(Graphics g)
     {
@@ -75,7 +83,7 @@ public class PlayerPanel extends JPanel
     }
 
     /**
-     * @return the playerPanelTitle
+     * @return the playerPanelTitle.
      */
     public JLabel getPlayerPanelTitle() 
     {
@@ -83,7 +91,7 @@ public class PlayerPanel extends JPanel
     }
 
     /**
-     * @return the moneyLabel
+     * @return the moneyLabel.
      */
     public JLabel getMoneyLabel() 
     {
@@ -91,7 +99,7 @@ public class PlayerPanel extends JPanel
     }
 
     /**
-     * @return the foodLabel
+     * @return the foodLabel.
      */
     public JLabel getFoodLabel() 
     {
@@ -99,7 +107,7 @@ public class PlayerPanel extends JPanel
     }
 
     /**
-     * @return the racesLabel
+     * @return the racesLabel.
      */
     public JLabel getRacesLabel() 
     {
@@ -107,7 +115,7 @@ public class PlayerPanel extends JPanel
     }
 
     /**
-     * @return the eventLog
+     * @return the eventLog.
      */
     public JTextArea getEventLog() 
     {
@@ -115,7 +123,7 @@ public class PlayerPanel extends JPanel
     }
 
     /**
-     * @return the scroll pane
+     * @return the scroll pane.
      */
     public JScrollPane getScrollpane() 
     {

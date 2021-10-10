@@ -26,6 +26,10 @@ public class FoodPanel extends JPanel
     
     //------------------------------------------- Constructor ----------------------------------------
     
+    /**
+     * 1- input parameter constructor.
+     * @param questions represents the HashMap containing the math questions and answers.
+     */
     public FoodPanel(HashMap<String, Integer> questions)
     {
         this.setLayout(null);
@@ -59,6 +63,11 @@ public class FoodPanel extends JPanel
     }
     
     //----------------------------------------------- Methods ----------------------------------------
+    
+    /**
+     * Paints the panel.
+     * @param g 
+     */
     @Override
     public void paintComponent(Graphics g)
     {
@@ -69,6 +78,9 @@ public class FoodPanel extends JPanel
         g.fillRect(0, 140, 190, 40);
     }
         
+    /**
+     * Generates a new random math question to display to the user.
+     */
     public void newQuestion()
     {
         List<String> keys = new ArrayList<>(this.questions.keySet());
@@ -79,7 +91,7 @@ public class FoodPanel extends JPanel
     }
 
     /**
-     * @return the enterButton
+     * @return the enterButton.
      */
     public JButton getEnterButton() 
     {
@@ -87,21 +99,21 @@ public class FoodPanel extends JPanel
     }
 
     /**
-     * @return the answerBox
+     * @return the answerBox.
      */
     public JTextField getAnswerBox() {
         return answerBox;
     }
 
     /**
-     * @return the question
+     * @return the question.
      */
     public String getQuestion() {
         return question;
     }
 
     /**
-     * @return the answer
+     * @return the answer.
      */
     public int getAnswer() {
         return answer;

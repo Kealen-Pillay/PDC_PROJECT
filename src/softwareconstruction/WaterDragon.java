@@ -27,26 +27,6 @@ public class WaterDragon extends Pet
     //------------------------------------- Methods ----------------------------------
     
     /**
-     * Causes the water dragon to roar. The type of roar varies depending on the water dragon's health, giving the owner and indication of the water dragon's health.
-     */
-    @Override
-    public void roar()
-    {
-        if(this.getHealth() <= 50 && this.getHealth() > 25)
-        {
-            System.out.println(this.getPetName() + " let out a stubborn roar...");
-        }
-        else if(this.getHealth() <= 25)
-        {
-            System.out.println(this.getPetName() + " let out a tearful roar...");
-        }
-        else
-        {
-            System.out.println(this.getPetName() + " let out a chirp!...");
-        }
-    }
-    
-    /**
      * Provides the user with a description of the water dragon pet.
      */
     @Override
@@ -56,7 +36,8 @@ public class WaterDragon extends Pet
     }
     
     /**
-     * Allows the water dragon pet to use it's special power. This will restore up to 10 health points and up to 2 energy points to the water dragon pet. This power has three uses.
+     * Describes the water dragon's pet power and its remaining uses. Returns a string with the pet's power and remaining uses.
+     * @return returns a string containing the pet's power and its remaining uses.
      */
     @Override
     public String power()

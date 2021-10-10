@@ -1,7 +1,5 @@
 package softwareconstruction;
 
-import java.util.Scanner;
-
 /**
  *
  * @author kealenpillay
@@ -13,12 +11,12 @@ public class IceDragon extends WaterDragon
     
     /**
      * Multiple input parameter constructor for Ice Dragon.
-     * @param petName
-     * @param health
-     * @param energy
-     * @param swimming
-     * @param speed
-     * @param flight 
+     * @param petName represents the pet's name.
+     * @param health represents the pet's health.
+     * @param energy represents the pet's energy.
+     * @param swimming represents the pet's swimming skill.
+     * @param speed represents the pet's speed skill.
+     * @param flight represents the pet's flight skill.
      */
     public IceDragon(String petName, int health, int energy, int swimming, int speed, int flight) 
     {
@@ -27,26 +25,6 @@ public class IceDragon extends WaterDragon
     }
     
     //--------------------------------------- Methods ---------------------------------------------------
-    
-     /**
-     * Causes the ice dragon to roar. The type of roar varies depending on the ice dragon's health, giving the owner and indication of the ice dragon's health.
-     */
-    @Override
-    public void roar()
-    {
-        if(this.getHealth() <= 50 && this.getHealth() > 25)
-        {
-            System.out.println(this.getPetName() + " let out a sneeze and a roar...");
-        }
-        else if(this.getHealth() <= 25)
-        {
-            System.out.println(this.getPetName() + " let out a painful roar...");
-        }
-        else
-        {
-            System.out.println(this.getPetName() + " let out a frosty roar!...");
-        }
-    }
     
     /**
      * Provides the user with a description of the ice dragon pet.
@@ -58,7 +36,7 @@ public class IceDragon extends WaterDragon
     }
     
     /**
-     * Allows the ice dragon pet to use it's special power. This will restore up to 30 health points and up to 4 energy points to the ice dragon pet. This power has three uses.
+     * Describes the ice dragon's pet power and its remaining uses.
      */
     @Override
     public String power()

@@ -1,18 +1,12 @@
 package softwareconstruction;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,93 +25,26 @@ public class Model extends Observable
     private Statement statement;
     
     //---------------------------- Constructor -----------------------------------------------------
+    
+    /**
+     * Zero input parameter constructor.
+     */
     public Model()
     {
         this.dbManager = new DBManager();
         this.conn = this.dbManager.getConn();
-        
         try
         {
             statement = conn.createStatement();
-            if(!this.checkExistedTable("INSTRUCTIONS"))
-            {
-                String instructionsTable = "CREATE TABLE INSTRUCTIONS (RULES VARCHAR(130))";
-                String instructions = "INSERT INTO INSTRUCTIONS VALUES" +
-                        "('- Welcome to the virtual pet game, We hope you take care of your little buddy.'),\n" +
-                        "('- Once you have adopted your virtual pet, it will be your responsibility to take care of your new friend.'),\n" +
-                        "('- Your new pet will have various skills such as swimming, speed, and flight.'),\n" +
-                        "('- Depending on the pet you adopt, some pets have better skills or worse skills than others.'),\n" +
-                        "('- You may choose to enter your pet into races such as swimming, speed or flight.'),\n" +
-                        "('- If your pet wins the race, you will be rewarded with money which you may save to evolve your pet and make it more skilled.'),\n" +
-                        "('- Entering your pet into a race will cause it too lose health and energy.'),\n" +
-                        "('- It will be your responsibility to ensure your pet is full of energy and healthy by feeding them pellets.'),\n" +
-                        "('- Feeding your pet a pellet will restore 1 energy bar.'),\n" +
-                        "('- Once your pet is at full energy, its health will begin to increase when fed.'),\n" +
-                        "('- You can earn pellets by answering basic math questions.'),\n" +
-                        "('- Each pet has a unique power that can be used, but be conservative as each power only has 3 uses.')," +
-                        "('- Be sure to keep your pet well fed to keep it from dying. (Death of pet will end game)'),\n" +
-                        "('- Have Fun!')";
-                statement.executeUpdate(instructionsTable);
-                statement.executeUpdate(instructions);
-            }
-            if(!this.checkExistedTable("REVIEWS"))
-            {
-                String reviewsTable = "CREATE TABLE REVIEWS (REVIEW VARCHAR(255))";
-                statement.executeUpdate(reviewsTable);
-            }
-            if(!this.checkExistedTable("USAGESTATS"))
-            {
-                String usageTable = "CREATE TABLE USAGESTATS (FIRE_DRAGON INT, WATER_DRAGON INT, EARTH_DRAGON INT)";
-                String petStats = "INSERT INTO USAGESTATS VALUES (" + 0 + "," + 0 + "," + 0 + ")";
-                statement.executeUpdate(usageTable);
-                statement.executeUpdate(petStats);
-            }
-            if(!this.checkExistedTable("USERNAMES"))
-            {
-                String usernameTable = "CREATE TABLE USERNAMES (NAMES VARCHAR(10))";
-                statement.executeUpdate(usernameTable);
-            }            
-            if(!this.checkExistedTable("FOOD"))
-            {
-                String foodTable = "CREATE TABLE FOOD (QUESTIONS VARCHAR(10),ANSWERS INT)";
-                statement.executeUpdate(foodTable);
-                BufferedReader input = new BufferedReader(new FileReader("MathQuestions.txt"));
-                String line = null;
-                while((line = input.readLine()) != null)
-                {
-                    StringTokenizer st = new StringTokenizer(line, ",");
-                    while(st.hasMoreTokens())
-                    {
-                        String insertion = "INSERT INTO FOOD VALUES ('" + st.nextToken() + "'," + Integer.parseInt(st.nextToken()) + ")";
-                        statement.executeUpdate(insertion);
-                    }
-                }
-                input.close();
-            }
-            if(!this.checkExistedTable("PETS"))
-            {
-                String petTable = "CREATE TABLE PETS (NAME VARCHAR(1), HEALTH INT, ENERGY INT, SWIMMING INT, SPEED INT, FLIGHT INT)";
-                String petInsertion = "INSERT INTO PETS VALUES"
-                        + "('w'," + 100 + "," + 10 + "," + 6 + "," + 2 + "," + 4 + "),\n"
-                        + "('e '," + 100 + "," + 10 + "," + 4 + "," + 6 + "," + 2 + "),\n"
-                        + "('f'," + 100 + "," + 10 + "," + 2 + "," + 4 + "," + 6 + ")";
-                statement.executeUpdate(petTable);
-                statement.executeUpdate(petInsertion);
-            }
-        }
-        catch (SQLException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     //-------------------------- Methods ------------------------------------------------------------
+    
     /**
-     * Presents the player with instructions of how the game works.
+     * Presents the player with instructions of how the game works. Instructions are read from the embedded database.
      */
     public String instructions()
     {
@@ -139,7 +66,7 @@ public class Model extends Observable
     }
     
     /**
-     * Start screen which allows the user to pick the type of pet they want and the name of the pet.
+     * Reads in each type of dragon's stats from the embedded database, and stores it in an ArrayList which is returned.
      * @return returns either a WaterDragon, EarthDragon or FireDragon pet object.
      */
     public ArrayList<Pet> petList()
@@ -165,7 +92,7 @@ public class Model extends Observable
     }
     
     /**
-     * Reads all the math questions and corresponding answers from embedded database and store it as a key-value pair in a HashMap<String, Integer> that is returned.
+     * Reads math questions and corresponding answers from embedded database and stores them as a key-value pair in a HashMap<String, Integer> that is returned.
      */
     public HashMap<String, Integer> loadFood()
     {
@@ -187,7 +114,7 @@ public class Model extends Observable
     };
     
     /**
-     * Checks if the username the player has entered already exists. True is returned if the username already exists, otherwise the new username is added to list of existing usernames in the embedded database and false is returned.
+     * Checks if the username the player username already exists within the embedded database. True is returned if the username already exists, otherwise the new username is added to list of existing usernames in the embedded database and false is returned.
      * @param username represents the username to check.
      * @return returns a Boolean value. True is returned if the username already exists, otherwise false is returned.
      */
@@ -216,8 +143,8 @@ public class Model extends Observable
     }
     
     /**
-     * Pet stats are stored in embedded database.This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
-     * @param p represents the current player's selected pet. This is used to check the type of pet in order to update usage statistics.
+     * Pet stats are read from the embedded database and updated, then stored in embedded database.This can be used to implement balance changes in the future, if a type of pet is being selected by users more than others. Allows the developer to track the pet usage for each type in the game.
+     * @param p represents the current player's selected pet. This is used to check the type of pet in order to update usage statistics stored in the embedded database.
      */
     public void usageStats(Pet p)
     {
@@ -255,7 +182,7 @@ public class Model extends Observable
     }
     
     /**
-     * Allows the player to write a review after playing the game. All reviews are stored in the embedded database.
+     * Allows the player to write a review after playing the game. All reviews are written to and stored in the embedded database.
      */
     public void reviews(String review)
     {
@@ -273,7 +200,7 @@ public class Model extends Observable
     }
     
     /**
-     * @return the pet
+     * @return the pet.
      */
     public Pet getPet()
     {
@@ -281,7 +208,7 @@ public class Model extends Observable
     }
     
     /**
-     * @return the owner
+     * @return the owner.
      */
     public Owner getOwner()
     {
@@ -289,7 +216,7 @@ public class Model extends Observable
     }
     
     /**
-     * @param pet the pet to set
+     * @param pet the pet to set.
      */
     public void setPet(Pet pet)
     {
@@ -297,19 +224,25 @@ public class Model extends Observable
     }
     
     /**
-     * @param owner the owner to set
+     * @param owner the owner to set.
      */
     public void setOwner(Owner owner)
     {
         this.owner = owner;
     }
     
+    /**
+     * Notifies the observer to setup the game screen.
+     */
     public void setup()
     {
         setChanged();
         notifyObservers(1);
     }
     
+    /**
+     * Feeds the pet and notifies the observer to update.
+     */
     public void feedPet()
     {
         this.owner.feed(this.pet);
@@ -317,6 +250,9 @@ public class Model extends Observable
         notifyObservers(2);
     }
     
+    /**
+     * Enters the pet into a race and notifies the observer to update.
+     */
     public void racePet()
     {
         raceResult = this.pet.race(this.owner);
@@ -324,12 +260,19 @@ public class Model extends Observable
         notifyObservers(3);
     }
     
+    /**
+     * Increments the owner's food and notifies the observer to update.
+     */
     public void incrementFood()
     {
+        owner.setFood(owner.getFood() + 1);
         setChanged();
         notifyObservers(4);
     }
     
+    /**
+     * Uses the pet's unique power and notifies the observer to update. If the pet is fully evolved, a private method performing the same functionality on the evolved pet is performed.
+     */
     public void usePower()
     {
         if(owner.getMaxPet())
@@ -390,6 +333,10 @@ public class Model extends Observable
         }
     }
     
+    /**
+     * Uses the evolved pet's pet power if possible and notifies the observer to update.
+     * @param pet 
+     */
     private void evolvedPower(Pet pet)
     {
         if(pet.getPowerCounter() != 3)
@@ -445,7 +392,10 @@ public class Model extends Observable
         
     }
     
-    public void evolvePet()
+    /**
+     * Checks if the owner is eligible to evolve their pet. If possible, the pet will become the evolved pet and the observer is notified.
+     */
+    public boolean evolvePet()
     {
         if(owner.getRacesWon() >= 1 && owner.getMoney() >= 100)
         {
@@ -463,63 +413,35 @@ public class Model extends Observable
             }
             setChanged();
             notifyObservers(7);
+            return true;
         }
         else
         {
             setChanged();
             notifyObservers(8);
+            return false;
         }
         
     }
     
     /**
-     * @return the raceResult
+     * @return the raceResult.
      */
     public String getRaceResult() {
         return raceResult;
     }
     
     /**
-     * @return the dbManager
+     * @return the dbManager.
      */
     public DBManager getDbManager() {
         return dbManager;
     }
     
     /**
-     * @return the conn
+     * @return the conn.
      */
     public Connection getConn() {
         return conn;
-    }
-    
-    public boolean checkExistedTable(String name)
-    {
-        try
-        {
-            DatabaseMetaData dbmd = this.conn.getMetaData();
-            String[] types = {"TABLE"};
-            statement = this.conn.createStatement();
-            ResultSet rs = dbmd.getTables(null, null, null, types);
-            
-            while(rs.next())
-            {
-                String table_name = rs.getString("TABLE_NAME");
-                if(table_name.equalsIgnoreCase(name))
-                {
-                    return true;
-//                    statement.executeUpdate("Drop table " + name);
-//                    System.out.println("Table " + name + " has been deleted");
-//                    break;
-                }
-            }
-            rs.close();
-            
-        }
-        catch (SQLException ex)
-        {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
     }
 }
