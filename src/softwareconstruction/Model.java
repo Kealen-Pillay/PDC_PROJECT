@@ -395,7 +395,7 @@ public class Model extends Observable
     /**
      * Checks if the owner is eligible to evolve their pet. If possible, the pet will become the evolved pet and the observer is notified.
      */
-    public void evolvePet()
+    public boolean evolvePet()
     {
         if(owner.getRacesWon() >= 1 && owner.getMoney() >= 100)
         {
@@ -413,11 +413,13 @@ public class Model extends Observable
             }
             setChanged();
             notifyObservers(7);
+            return true;
         }
         else
         {
             setChanged();
             notifyObservers(8);
+            return false;
         }
         
     }
