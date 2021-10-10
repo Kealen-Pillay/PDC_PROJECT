@@ -49,7 +49,7 @@ public class Highscores
         try
         {
             statement = conn.createStatement();
-            if(!m.checkExistedTable("HIGHSCORES"))
+            if(!m.getDbManager().checkExistedTable("HIGHSCORES"))
             {
                 String highscoresTable = "CREATE TABLE HIGHSCORES (PLAYER VARCHAR(10), SCORE INT)";
                 statement.executeUpdate(highscoresTable);
