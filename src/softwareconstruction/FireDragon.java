@@ -41,12 +41,32 @@ public class FireDragon extends Pet
     @Override
     public String power()
     {
-        String powerDescription = 
-                  "--------------------\n"
+        String powerDescription =
+                "--------------------\n"
                 + "Power: Inferno\n"
                 + "--------------------\n\n"
                 + "> Uses Remaining: " + (3 - this.getPowerCounter())
                 + "\n\n> Description: Instantly restore up to 5 energy points.";
         return powerDescription;
+    }
+    
+    /**
+     * Uses the fire dragon's unique power.
+     * @return returns true if the power was successfully used.
+     */
+    @Override
+    public boolean usePower()
+    {
+        if(this.getPowerCounter() != 3)
+        {
+            if(this.getEnergy() != 10)
+            {
+                this.setEnergy(this.getEnergy() + 5);
+                this.setPowerCounter(this.getPowerCounter() + 1);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }
