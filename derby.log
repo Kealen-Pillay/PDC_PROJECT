@@ -1,13 +1,20 @@
+Sat Oct 16 18:45:46 NZDT 2021 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sat Oct 16 18:35:39 NZDT 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017c-8799-3c2e-000006bfa588 
-on database directory /Users/kealenpillay/Documents/GitHub/PDC_Project2/VirtualPetGameDB with class loader sun.misc.Launcher$AppClassLoader@1540e19d 
-Loaded from file:/Users/kealenpillay/Documents/GitHub/PDC_Project2/lib/derby.jar
+Sat Oct 16 18:45:46 NZDT 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017c-87a2-80ac-00001be35044 
+on database directory /Users/kealenpillay/Documents/GitHub/PDC_Project2/VirtualPetGameDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4b85612c 
+Loaded from file:/Users/kealenpillay/Documents/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_291-b10
-user.dir=/Users/kealenpillay/Documents/GitHub/PDC_Project2
+java.runtime.version=11.0.10+8-LTS-162
+user.dir=/Users/kealenpillay/Documents/db-derby-10.14.2.0-bin
 os.name=Mac OS X
 os.arch=x86_64
 os.version=10.16
-derby.system.home=null
+derby.system.home=/Users/kealenpillay/Documents/GitHub/PDC_Project2
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Sat Oct 16 18:46:43 NZDT 2021: Shutting down Derby engine
+----------------------------------------------------------------
+Sat Oct 16 18:46:43 NZDT 2021:
+Shutting down instance a816c00e-017c-87a2-80ac-00001be35044 on database directory /Users/kealenpillay/Documents/GitHub/PDC_Project2/VirtualPetGameDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4b85612c 
+----------------------------------------------------------------
