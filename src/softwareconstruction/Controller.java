@@ -239,7 +239,7 @@ public class Controller implements ActionListener
         }
         else if(source == view.getPowerPanel().getYesButton())
         {
-            model.usePower();
+            model.usePetPower();
             view.getPowerPanel().setVisible(false);
             view.getGamePanel().setVisible(true);
         }
