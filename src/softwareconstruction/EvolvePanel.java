@@ -27,23 +27,27 @@ public class EvolvePanel extends JPanel
         this.setSize(853, 600);
         
         evolveLabel = new JLabel("EVOLUTION");
-        Font f = new Font("Arial", Font.BOLD, 50);
+        Font f = new Font("Arial", Font.BOLD, 55);
         evolveLabel.setFont(f);
         evolveLabel.setSize(450, 100);
-        evolveLabel.setLocation(280, 40);
+        evolveLabel.setLocation(285, 35);
         
-        evolveDescription = new JTextArea("TO EVOLVE YOUR PET YOU MUST HAVE:\n\n"
-                + "1) $100\n\n2) 1 RACE WON\n\n"
-                + "--------------------------------\n"
-                + "EVOLUTION TABLE\n"
-                + "--------------------------------\n"
-                + "> Water Dragon -------------> Ice Dragon\n\n"
-                + "> Earth Dragon -------------> Terra Dragon\n\n"
-                + "> Fire Dragon  -------------> Lava Dragon");
+        evolveDescription = new JTextArea
+        (
+                  "                                                                  TO EVOLVE YOUR PET YOU MUST HAVE:\n\n"
+                + "                                                                  1) $100\n\n"
+                + "                                                                  2) 1 RACE WON\n\n"
+                + "                                             ----------------------------------------------------------------------------------------------------------------------\n"
+                + "                                                                                     EVOLUTION TABLE\n"                                                                                          
+                + "                                             ----------------------------------------------------------------------------------------------------------------------\n"
+                + "                                                                         Water Dragon -------------> Ice Dragon\n\n"
+                + "                                                                         Earth Dragon -------------> Terra Dragon\n\n"
+                + "                                                                         Fire Dragon  -------------> Lava Dragon"
+        );
         Font f1 = new Font("Arial", Font.PLAIN, 15);
         evolveDescription.setBackground(new Color(3, 252, 158));
         evolveDescription.setFont(f1);
-        evolveDescription.setSize(600, 250);
+        evolveDescription.setSize(600, 260);
         evolveDescription.setLocation(30, 150);
         
         
