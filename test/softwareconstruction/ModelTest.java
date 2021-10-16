@@ -5,9 +5,6 @@
  */
 package softwareconstruction;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
