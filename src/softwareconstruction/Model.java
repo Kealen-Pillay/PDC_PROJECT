@@ -136,123 +136,18 @@ public class Model extends Observable
     /**
      * Uses the pet's unique power and notifies the observer to update. If the pet is fully evolved, a private method performing the same functionality on the evolved pet is performed.
      */
-    public void usePower()
+    public void usePetPower()
     {
-        if(owner.getMaxPet())
+        if(this.pet.usePower())
         {
-            this.evolvedPower(pet);
+            setChanged();
+            notifyObservers(5);
         }
         else
         {
-            if(this.pet.getPowerCounter() != 3)
-            {
-                if(this.pet instanceof WaterDragon)
-                {
-                    if(pet.getHealth() != 100 || pet.getEnergy() != 10)
-                    {
-                        this.pet.setHealth(this.pet.getHealth() + 10);
-                        this.pet.setEnergy(this.pet.getEnergy() + 2);
-                        this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                        setChanged();
-                        notifyObservers(5);
-                    }
-                    else
-                    {
-                        setChanged();
-                        notifyObservers(6);
-                    }
-                }
-                else if(this.pet instanceof EarthDragon)
-                {
-                    if(pet.getHealth() != 100)
-                    {
-                        this.pet.setHealth(this.pet.getHealth() + 20);
-                        this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                        setChanged();
-                        notifyObservers(5);
-                    }
-                    else
-                    {
-                        setChanged();
-                        notifyObservers(6);
-                    }
-                }
-                else if(this.pet instanceof FireDragon)
-                {
-                    if(pet.getEnergy() != 10)
-                    {
-                        this.pet.setEnergy(this.pet.getEnergy() + 5);
-                        this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                        setChanged();
-                        notifyObservers(5);
-                    }
-                    else
-                    {
-                        setChanged();
-                        notifyObservers(6);
-                    }
-                }
-            }
+            setChanged();
+            notifyObservers(6);
         }
-    }
-    
-    /**
-     * Uses the evolved pet's pet power if possible and notifies the observer to update.
-     * @param pet 
-     */
-    private void evolvedPower(Pet pet)
-    {
-        if(pet.getPowerCounter() != 3)
-        {
-            if(this.pet instanceof IceDragon)
-            {
-                if(pet.getHealth() != 100 || pet.getEnergy() != 10)
-                {
-                    this.pet.setHealth(this.pet.getHealth() + 30);
-                    this.pet.setEnergy(this.pet.getEnergy() + 4);
-                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                    setChanged();
-                    notifyObservers(5);
-                }
-                else
-                {
-                    setChanged();
-                    notifyObservers(6);
-                }
-            }
-            else if(this.pet instanceof TerraDragon)
-            {
-                if(pet.getHealth() != 100)
-                {
-                    this.pet.setHealth(this.pet.getHealth() + 50);
-                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                    setChanged();
-                    notifyObservers(5);
-                }
-                else
-                {
-                    setChanged();
-                    notifyObservers(6);
-                }
-            }
-            else
-            {
-                if(pet.getHealth() != 100 || pet.getEnergy() != 10)
-                {
-                    this.pet.setHealth(this.pet.getHealth() + 5);
-                    this.pet.setEnergy(this.pet.getEnergy() + 8);
-                    this.pet.setPowerCounter(this.pet.getPowerCounter() + 1);
-                    setChanged();
-                    notifyObservers(5);
-                }
-                else
-                {
-                    setChanged();
-                    notifyObservers(6);
-                }
-            }
-        }
-        
     }
     
     /**
