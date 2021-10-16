@@ -41,7 +41,7 @@ public class ModelTest {
 
 
     /**
-     * Test of usePower method, of class Model.
+     * Test of usePetPower method, of class Model.
      */
     @Test
     public void testUsePowerWhenHealthAndEnergyFull() {
@@ -49,7 +49,7 @@ public class ModelTest {
         Model instance = new Model();
         instance.setPet(new WaterDragon("Test", 100, 10, 6, 4, 2));
         instance.setOwner(new Owner("Test", 0, 0, 0, false));
-        instance.usePower();
+        instance.usePetPower();
         int expectedHealth = 100;
         int expectedEnergy = 10;
         int expectedPowerCounter = 0;
@@ -64,7 +64,7 @@ public class ModelTest {
     }
     
     /**
-     * Test of usePower method, of class Model.
+     * Test of usePetPower method, of class Model.
      */
     @Test
     public void testUsePowerWhenAllPowerUsesAreUsed() {
@@ -73,7 +73,7 @@ public class ModelTest {
         instance.setPet(new WaterDragon("Test", 90, 8, 6, 4, 2));
         instance.getPet().setPowerCounter(3);
         instance.setOwner(new Owner("Test", 0, 0, 0, false));
-        instance.usePower();
+        instance.usePetPower();
         int expectedHealth = 90;
         int expectedEnergy = 8;
         int actualHealth = instance.getPet().getHealth();
