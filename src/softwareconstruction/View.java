@@ -116,7 +116,7 @@ public class View extends JFrame implements Observer
         instructionTitleLabel.setSize(600, 60);
         instructionTitleLabel.setLocation(275, 5);
         
-        instructionText = new JTextArea(model.instructions());
+        instructionText = new JTextArea(model.getDbManager().instructions());
         instructionText.setBackground(new Color(255, 134, 97));
         instructionText.setEditable(false);
         instructionText.setSize(800, 480);
@@ -144,7 +144,7 @@ public class View extends JFrame implements Observer
         selectionLabel.setSize(600, 60);
         selectionLabel.setLocation(230, 50);
         
-        ArrayList<Pet> pets = model.petList();
+        ArrayList<Pet> pets = model.getDbManager().petList();
         
         option1 = new JRadioButton();
         option1.setText(pets.get(0).description());
@@ -201,7 +201,7 @@ public class View extends JFrame implements Observer
         
         
         //----- Food Panel -----
-        foodPanel = new FoodPanel(model.loadFood());
+        foodPanel = new FoodPanel(model.getDbManager().loadFood());
         foodPanel.setLocation(630, 380);
         
         feedButton = new JButton("Feed Pet");

@@ -17,13 +17,13 @@ public class EarthDragon extends Pet
      * @param speed represents the earth dragon's speed skill.
      * @param flight represents the earth dragon's flight skill.
      */
-    public EarthDragon(String petName, int health, int energy, int swimming, int speed, int flight) 
+    public EarthDragon(String petName, int health, int energy, int swimming, int speed, int flight)
     {
         super(petName, health, energy, swimming, speed, flight);
         this.setPowerCounter(0);
     }
     
-    //------------------------------------- Methods --------------------------------------    
+    //------------------------------------- Methods --------------------------------------
     /**
      * Provides the user with a description of the earth dragon pet.
      */
@@ -38,13 +38,33 @@ public class EarthDragon extends Pet
      */
     @Override
     public String power()
-    {  
-        String powerDescription = 
-                  "------------------\n"
-                + "Power: Quake\n"
-                + "------------------\n\n"
-                + "> Uses Remaining: " + (3 - this.getPowerCounter())
-                + "\n\n> Description: Instantly restore up to 20 health points.";
+    {
+        String powerDescription =
+                  "====================================================================================================================================================================================================\n"
+                + "                                                                     Power: Quake\n"
+                + "====================================================================================================================================================================================================\n\n"
+                + "             > Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n             > Description: Instantly restore up to 20 health points.";
         return powerDescription;
+    }
+    
+    /**
+     * Uses the earth dragon's unique power.
+     * @return returns true if the power was successfully used.
+     */
+    @Override
+    public boolean usePower()
+    {
+        if(this.getPowerCounter() != 3)
+        {
+            if(this.getHealth() != 100)
+            {
+                this.setHealth(this.getHealth() + 20);
+                this.setPowerCounter(this.getPowerCounter() + 1);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }

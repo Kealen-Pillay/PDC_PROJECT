@@ -18,4 +18,9 @@ public interface PetBehaviour
      */
     public String power();
     
+    /**
+     * Uses the pet's unique power.
+     */
+    public boolean usePower();
+    
 }

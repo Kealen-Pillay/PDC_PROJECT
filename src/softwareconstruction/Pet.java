@@ -221,6 +221,11 @@ public abstract class Pet implements PetBehaviour
     public abstract String power();
     
     /**
+     * Uses the pet's unique power.
+     */
+    public abstract boolean usePower();
+    
+    /**
      * Checks if the pet is alive and returns a Boolean value.
      * @return returns the state of whether the pet is dead or alive. (true is returned if the the pet is dead.)
      */

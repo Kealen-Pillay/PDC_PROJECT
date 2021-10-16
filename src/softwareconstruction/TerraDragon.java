@@ -7,7 +7,7 @@ package softwareconstruction;
  */
 public class TerraDragon extends EarthDragon
 {
- 
+    
     //-------------------------------------- Constructor ----------------------------------------------------
     
     /**
@@ -19,14 +19,14 @@ public class TerraDragon extends EarthDragon
      * @param speed represents the terra dragon's speed skill.
      * @param flight represents the terra dragon's flight skill.
      */
-    public TerraDragon(String petName, int health, int energy, int swimming, int speed, int flight) 
+    public TerraDragon(String petName, int health, int energy, int swimming, int speed, int flight)
     {
         super(petName, health, energy, swimming, speed, flight);
         this.setPowerCounter(0);
     }
     
     //------------------------------------ Methods ----------------------------------------------------------
-           
+    
     /**
      * Provides the user with a description of the terra dragon pet.
      */
@@ -42,13 +42,33 @@ public class TerraDragon extends EarthDragon
      */
     @Override
     public String power()
-    {  
-        String powerDescription = 
-                "-----------------------------------\n"
-                + "Power: Healing Nature\n"
-                + "---------------------------------\n\n"
-                + "> Uses Remaining: " + (3 - this.getPowerCounter())
-                + "\n\n> Description: Instantly restore up to 50 health points.";
-        return powerDescription;  
+    {
+        String powerDescription =
+                  "====================================================================================================================================================================================================\n"
+                + "                                                              Power: Healing Nature\n"
+                + "====================================================================================================================================================================================================\n\n"
+                + "             > Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n             > Description: Instantly restore up to 50 health points.";
+        return powerDescription;
+    }
+    
+    /**
+     * Uses the terra dragon's unique power.
+     * @return returns true if the power is successfully used.
+     */
+    @Override
+    public boolean usePower()
+    {
+        if(this.getPowerCounter() != 3)
+        {
+            if(this.getHealth() != 100)
+            {
+                this.setHealth(this.getHealth() + 50);
+                this.setPowerCounter(this.getPowerCounter() + 1);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }

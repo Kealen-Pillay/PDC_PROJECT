@@ -6,7 +6,7 @@ package softwareconstruction;
  */
 public class WaterDragon extends Pet
 {
-   
+    
     //------------------------------------- Constructor ----------------------------------
     
     /**
@@ -43,11 +43,32 @@ public class WaterDragon extends Pet
     public String power()
     {
         String powerDescription =
-                  "        ------------------------\n"
-                + "        Power: Deluge\n"
-                + "        ------------------------\n"
-                + "        > Uses Remaining: " + (3 - this.getPowerCounter()) + "\n\n"
-                + "        > Description: Instantly restores up to 10 health points and 2 energy points.";
-        return powerDescription; 
+                  "====================================================================================================================================================================================================\n"
+                + "                                                                     Power: Deluge\n"
+                + "====================================================================================================================================================================================================\n"
+                + "              > Uses Remaining: " + (3 - this.getPowerCounter()) + "\n\n"
+                + "              > Description: Instantly restores up to 10 health points and 2 energy points.";
+        return powerDescription;
+    }
+    
+    /**
+     * Uses the water dragon's unique power.
+     * @return returns true if the power was successfully used.
+     */
+    @Override
+    public boolean usePower()
+    {
+        if(this.getPowerCounter() != 3)
+        {
+            if(this.getHealth() != 100 || this.getEnergy() != 10)
+            {
+                this.setHealth(this.getHealth() + 10);
+                this.setEnergy(this.getEnergy() + 2);
+                this.setPowerCounter(this.getPowerCounter() + 1);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }
