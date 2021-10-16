@@ -71,7 +71,7 @@ public class Controller implements ActionListener
             }
             else
             {
-                if(model.exists(username))
+                if(model.getDbManager().exists(username))
                 {
                     view.getErrorLabel().setText("Username Taken! Try Again.");
                 }
@@ -130,7 +130,7 @@ public class Controller implements ActionListener
                 }
                 if(acceptable)
                 {
-                    ArrayList<Pet> pets = model.petList();
+                    ArrayList<Pet> pets = model.getDbManager().petList();
                     String selectedPet = view.getOptionGroup().getSelection().getActionCommand();
                     if(selectedPet.equals("water"))
                     {
@@ -153,7 +153,7 @@ public class Controller implements ActionListener
                     view.getSelectionPanel().setVisible(false);
                     view.getGamePanel().setVisible(true);
                     model.setup();
-                    model.usageStats(model.getPet());
+                    model.getDbManager().usageStats(model.getPet());
                 }
                 
             }
@@ -207,7 +207,7 @@ public class Controller implements ActionListener
         }
         else if(source == view.getInstructionsButton())
         {
-            String instructions = model.instructions();
+            String instructions = model.getDbManager().instructions();
             JOptionPane.showMessageDialog(null, instructions, "Instructions", JOptionPane.INFORMATION_MESSAGE);
         }
         else if(source == view.getFoodPanel().getEnterButton())
