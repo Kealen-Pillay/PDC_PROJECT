@@ -42,11 +42,11 @@ public class IceDragon extends WaterDragon
     public String power()
     {
         String powerDescription =
-                "-------------------------------\n"
-                + "Power: Permafrost\n"
-                + "-------------------------------\n\n"
-                + "> Uses Remaining: " + (3 - this.getPowerCounter())
-                + "\n\n> Description: Heal up to 30 health points and restore up to 4 energy points.";
+                  "====================================================================================================================================================================================================\n"
+                + "                                                                     Power: Permafrost\n"
+                + "====================================================================================================================================================================================================\n\n"
+                + "             > Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n             > Description: Heal up to 30 health points and restore up to 4 energy points.";
         return powerDescription;
     }
     

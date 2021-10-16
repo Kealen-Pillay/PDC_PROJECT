@@ -42,11 +42,11 @@ public class LavaDragon extends FireDragon
     public String power()
     {
         String powerDescription =
-                "----------------------------------------\n"
-                + "Power: Solar Power\n"
-                + "--------------------------------------\n\n"
-                + "> Uses Remaining: " + (3 - this.getPowerCounter())
-                + "\n\n> Description: Recharge up to 8 energy points and restore up to 5 health points.";
+                  "====================================================================================================================================================================================================\n"
+                + "                                                              Power: Solar Power\n"
+                + "====================================================================================================================================================================================================\n\n"
+                + "             > Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n             > Description: Recharge up to 8 energy points and restore up to 5 health points.";
         return powerDescription;
     }
     

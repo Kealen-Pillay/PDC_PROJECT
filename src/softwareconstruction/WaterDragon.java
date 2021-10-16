@@ -43,11 +43,11 @@ public class WaterDragon extends Pet
     public String power()
     {
         String powerDescription =
-                "        ------------------------\n"
-                + "        Power: Deluge\n"
-                + "        ------------------------\n"
-                + "        > Uses Remaining: " + (3 - this.getPowerCounter()) + "\n\n"
-                + "        > Description: Instantly restores up to 10 health points and 2 energy points.";
+                  "====================================================================================================================================================================================================\n"
+                + "                                                                     Power: Deluge\n"
+                + "====================================================================================================================================================================================================\n"
+                + "              > Uses Remaining: " + (3 - this.getPowerCounter()) + "\n\n"
+                + "              > Description: Instantly restores up to 10 health points and 2 energy points.";
         return powerDescription;
     }
     

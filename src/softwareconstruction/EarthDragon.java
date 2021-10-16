@@ -40,11 +40,11 @@ public class EarthDragon extends Pet
     public String power()
     {
         String powerDescription =
-                "------------------\n"
-                + "Power: Quake\n"
-                + "------------------\n\n"
-                + "> Uses Remaining: " + (3 - this.getPowerCounter())
-                + "\n\n> Description: Instantly restore up to 20 health points.";
+                  "====================================================================================================================================================================================================\n"
+                + "                                                                     Power: Quake\n"
+                + "====================================================================================================================================================================================================\n\n"
+                + "             > Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n             > Description: Instantly restore up to 20 health points.";
         return powerDescription;
     }
     

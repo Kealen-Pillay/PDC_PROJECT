@@ -44,11 +44,11 @@ public class TerraDragon extends EarthDragon
     public String power()
     {
         String powerDescription =
-                "-----------------------------------\n"
-                + "Power: Healing Nature\n"
-                + "---------------------------------\n\n"
-                + "> Uses Remaining: " + (3 - this.getPowerCounter())
-                + "\n\n> Description: Instantly restore up to 50 health points.";
+                  "====================================================================================================================================================================================================\n"
+                + "                                                              Power: Healing Nature\n"
+                + "====================================================================================================================================================================================================\n\n"
+                + "             > Uses Remaining: " + (3 - this.getPowerCounter())
+                + "\n\n             > Description: Instantly restore up to 50 health points.";
         return powerDescription;
     }
     
